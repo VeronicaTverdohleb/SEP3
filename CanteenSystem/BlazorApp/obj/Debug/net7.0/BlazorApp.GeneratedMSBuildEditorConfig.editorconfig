@@ -32,12 +32,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSXRlbXNcTWFuYWdlSXRlbXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Items/OrderItem.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSXRlbXNcT3JkZXJJdGVtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Menu/ManageMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVudVxNYW5hZ2VNZW51LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Menu/SeeMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVudVxTZWVNZW51LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Orders/EditOrder.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JkZXJzXEVkaXRPcmRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Orders/ManageOrders.razor]
