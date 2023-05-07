@@ -9,22 +9,11 @@ public class AuthorizationPolicies
     {
         services.AddAuthorizationCore(options =>
         {
+            options.AddPolicy("MustBeCanteenEmployee", a =>
+                a.RequireAuthenticatedUser().RequireClaim("Role", "CanteenEmployee"));
+    
             options.AddPolicy("MustBeVia", a =>
-                a.RequireAuthenticatedUser().RequireClaim("Domain", "via"));
-    
-            options.AddPolicy("SecurityLevel4", a =>
-                a.RequireAuthenticatedUser().RequireClaim("SecurityLevel", "4", "5"));
-    
-            options.AddPolicy("MustBeTeacher", a =>
-                a.RequireAuthenticatedUser().RequireClaim("Role", "Teacher"));
-    
-            options.AddPolicy("SecurityLevel2OrAbove", a =>
-                a.RequireAuthenticatedUser().RequireAssertion(context =>
-                {
-                    Claim? levelClaim = context.User.FindFirst(claim => claim.Type.Equals("SecurityLevel"));
-                    if (levelClaim == null) return false;
-                    return int.Parse(levelClaim.Value) >= 2;
-                }));
+                a.RequireAuthenticatedUser().RequireClaim("Role", "VIAStudent", "VIAEmployee"));
         });
     }
 }

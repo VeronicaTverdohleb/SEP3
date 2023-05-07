@@ -23,25 +23,24 @@ public class AuthController : ControllerBase
     }
 
 
-    private List<Claim> GenerateClaims(Employee user)
+    private List<Claim> GenerateClaims(User user)
     {
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, config["Jwt:Subject"]),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-            new Claim(ClaimTypes.Name, user.UserName),
-            new Claim(ClaimTypes.Role, user.Role),
-            new Claim("DisplayName", user.FirstName),
+            new Claim("Username", user.UserName),
+            new Claim("Role", user.Role),
+            new Claim("Firstname", user.FirstName),
+            new Claim("Lastname", user.LastName),
+            new Claim("Password", user.Password),
             new Claim("Email", user.Email),
-            new Claim("Age", user.Age.ToString()),
-            new Claim("Domain", user.Domain),
-            new Claim("SecurityLevel", user.SecurityLevel.ToString())
         };
         return claims.ToList();
     }
 
-    private string GenerateJwt(Employee user)
+    private string GenerateJwt(User user)
     {
         List<Claim> claims = GenerateClaims(user);
 
@@ -64,11 +63,11 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost, Route("login")]
-    public async Task<ActionResult> Login([FromBody] EmployeeLoginDto userLoginDto)
+    public async Task<ActionResult> Login([FromBody] UserLoginDto userLoginDto)
     {
         try
         {
-            Employee user = await authService.ValidateEmployee(userLoginDto.Username, userLoginDto.Password);
+            User user = await authService.ValidateUser(userLoginDto.Username, userLoginDto.Password);
             string token = GenerateJwt(user);
     
             return Ok(token);

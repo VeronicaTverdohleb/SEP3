@@ -777,6 +777,9 @@
       "Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Shared": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Application.dll": {}
         },
@@ -784,19 +787,20 @@
           "bin/placeholder/Application.dll": {}
         }
       },
-      "EfcDataAccess/1.0.0": {
+      "DataAccess/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Application": "1.0.0",
           "Microsoft.EntityFrameworkCore": "7.0.5",
-          "Microsoft.EntityFrameworkCore.Sqlite": "7.0.5"
+          "Microsoft.EntityFrameworkCore.Sqlite": "7.0.5",
+          "Shared": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/EfcDataAccess.dll": {}
+          "bin/placeholder/DataAccess.dll": {}
         },
         "runtime": {
-          "bin/placeholder/EfcDataAccess.dll": {}
+          "bin/placeholder/DataAccess.dll": {}
         }
       },
       "Shared/1.0.0": {
@@ -2094,10 +2098,10 @@
       "path": "../Application/Application.csproj",
       "msbuildProject": "../Application/Application.csproj"
     },
-    "EfcDataAccess/1.0.0": {
+    "DataAccess/1.0.0": {
       "type": "project",
-      "path": "../EfcDataAccess/EfcDataAccess.csproj",
-      "msbuildProject": "../EfcDataAccess/EfcDataAccess.csproj"
+      "path": "../DataAccess/DataAccess.csproj",
+      "msbuildProject": "../DataAccess/DataAccess.csproj"
     },
     "Shared/1.0.0": {
       "type": "project",
@@ -2107,7 +2111,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "EfcDataAccess >= 1.0.0",
+      "DataAccess >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 7.0.5",
       "Microsoft.AspNetCore.OpenApi >= 7.0.3",
       "Shared >= 1.0.0",
@@ -2115,19 +2119,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Bruger\\.nuget\\packages\\": {}
+    "C:\\Users\\Petra\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\WebAPI\\WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\WebAPI\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\WebAPI\\WebAPI.csproj",
-      "packagesPath": "C:\\Users\\Bruger\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\WebAPI\\obj\\",
+      "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\WebAPI\\WebAPI.csproj",
+      "packagesPath": "C:\\Users\\Petra\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Bruger\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Petra\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -2139,11 +2143,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\EfcDataAccess\\EfcDataAccess.csproj": {
-              "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\EfcDataAccess\\EfcDataAccess.csproj"
+            "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\DataAccess\\DataAccess.csproj"
             },
-            "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
-              "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
+            "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
+              "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
             }
           }
         }
@@ -2190,7 +2194,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

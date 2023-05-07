@@ -1,0 +1,74 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">VIA Canteen</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <AuthorizeView Policy="MustBeVia">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="SeeMenu" Match="NavLinkMatch.All">
+                    <span class="oi oi-list" aria-hidden="true"></span> See Menu
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="OrderItem">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Order Item
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="EditOrder">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Edit Order
+                </NavLink>
+            </div>
+        </AuthorizeView>
+        <AuthorizeView Policy="MustBeCanteenEmployee">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="SeeMenu">
+                    <span class="oi oi-list" aria-hidden="true"></span> See Menu
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="ManageMenu">
+                    <span class="oi oi-pencil" aria-hidden="true"></span> Manage Menu
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="ManageOrders">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> See/Manage Orders
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="ManageStorage">
+                    <span class="oi oi-list" aria-hidden="true"></span> See/Manage Storage
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="OrderIngredients">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Order Ingredients
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="ManageItems">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> See/Manage Items
+                </NavLink>
+            </div>
+        </AuthorizeView>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+}

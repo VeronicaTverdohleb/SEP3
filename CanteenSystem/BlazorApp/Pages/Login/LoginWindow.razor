@@ -1,0 +1,54 @@
+﻿@using BlazorApp.Services
+@namespace Login
+@inject IAuthService authService
+@inject NavigationManager navMgr
+
+
+<div class="card">
+    <h3>Please login</h3>
+    <div class="field">
+        <label>Username:</label>
+        <input type="text" @bind="userName"/>
+    </div>
+    <div class="field">
+        <label style="text-align: center">Password:</label>
+        <input type="password" @bind="password"/>
+    </div>
+    @if (!string.IsNullOrEmpty(errorLabel))
+    {
+        <div class="field">
+            <label style="color: red">
+                @errorLabel
+            </label>
+        </div>
+    }
+
+    <div class="field">
+        <button class="loginbtn" @onclick="LoginAsync">Log in</button>
+    </div>
+</div>
+
+
+<!-- Code -->
+
+@code {
+    private string userName;
+    private string password;
+    private string errorLabel;
+
+    private async Task LoginAsync()
+    {
+        errorLabel = "";
+        try
+        {
+            await authService.LoginAsync(userName, password);
+            navMgr.NavigateTo("/SeeMenu");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            errorLabel = $"Error: {e.Message}";
+        }
+    }
+
+}

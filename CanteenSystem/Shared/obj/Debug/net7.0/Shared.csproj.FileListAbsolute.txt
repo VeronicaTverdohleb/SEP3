@@ -10,3 +10,15 @@ C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\Shared\obj\Debug\net7.0\Shared.
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\Shared\obj\Debug\net7.0\refint\Shared.dll
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\Shared\obj\Debug\net7.0\Shared.pdb
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\Shared\obj\Debug\net7.0\ref\Shared.dll
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\Shared\bin\Debug\net7.0\Shared.deps.json
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\Shared\bin\Debug\net7.0\Shared.dll
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\Shared\bin\Debug\net7.0\Shared.pdb
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\Shared\obj\Debug\net7.0\Shared.csproj.AssemblyReference.cache
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\Shared\obj\Debug\net7.0\Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\Shared\obj\Debug\net7.0\Shared.AssemblyInfoInputs.cache
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\Shared\obj\Debug\net7.0\Shared.AssemblyInfo.cs
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\Shared\obj\Debug\net7.0\Shared.csproj.CoreCompileInputs.cache
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\Shared\obj\Debug\net7.0\Shared.dll
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\Shared\obj\Debug\net7.0\refint\Shared.dll
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\Shared\obj\Debug\net7.0\Shared.pdb
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\Shared\obj\Debug\net7.0\ref\Shared.dll
