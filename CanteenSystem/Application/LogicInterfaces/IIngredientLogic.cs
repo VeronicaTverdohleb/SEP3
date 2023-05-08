@@ -6,10 +6,9 @@ namespace Application.LogicInterfaces;
 public interface IIngredientLogic
 {
     Task<Ingredient> CreateAsync(IngredientCreationDto dto);
-    Task AddIngredient(IngredientUpdateDto dto);
+    Task UpdateIngredientAmount(IngredientUpdateDto dto);
     Task<IEnumerable<Ingredient>> GetAsync();
-    Task<Ingredient?> GetByIdAsync(int id);
-    Task<Ingredient?> GetByNameAsync(string name);
-    Task RemoveIngredientAmount(int value);
+    Task<IngredientBasicDto?> GetByIdAsync(int id);
+    Task<IngredientBasicDto?> GetByNameAsync(string name);
     Task DeleteIngredient(int id);
 }

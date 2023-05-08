@@ -1,4 +1,5 @@
 ﻿using Application.DaoInterfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Shared.Model;
 
@@ -20,34 +21,46 @@ public class IngredientDao : IIngredientDao
         return added.Entity;
     }
 
-    public async Task AddIngredient(Ingredient ingredient)
+    public async Task UpdateAsync(Ingredient ingredient)
     {
         context.Ingredients.Update(ingredient);
         await context.SaveChangesAsync();
     }
 
-    public Task<IEnumerable<Ingredient>> GetAsync()
+    public async Task<IEnumerable<Ingredient>> GetAsync()
     {
-        throw new NotImplementedException();
+        IEnumerable<Ingredient> list = context.Ingredients.ToList();
+        return list;
     }
 
-    public Task<Ingredient> GetByIdAsync(int id)
+    public async Task<Ingredient?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        Ingredient? found = await context.Ingredients
+            .AsNoTracking()
+            .Include(i => i.Allergens)
+            .SingleOrDefaultAsync(post => post.Id == id);
+        return found;
     }
 
-    public Task RemoveIngredientAmount(int value)
+    public async Task DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        Ingredient? existing = await GetByIdAsync(id);
+        if (existing == null)
+        {
+            throw new Exception($"Ingredient with id {id} not found");
+        }
+
+        context.Ingredients.Remove(existing);
+        await context.SaveChangesAsync();
+
     }
 
-    public Task DeleteAsync(int id)
+    public async Task<Ingredient?> GetByNameAsync(string name)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<Ingredient?> GetByNameAsync(string name)
-    {
-        throw new NotImplementedException();
+        Ingredient? found = await context.Ingredients
+            .AsNoTracking()
+            .Include(i => i.Allergens)
+            .SingleOrDefaultAsync(post => post.Name == name);
+        return found;
     }
 }

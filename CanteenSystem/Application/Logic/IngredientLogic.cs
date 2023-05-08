@@ -17,9 +17,9 @@ public class IngredientLogic : IIngredientLogic
     public async Task<Ingredient> CreateAsync(IngredientCreationDto dto)
     {
         Ingredient? ingredient = await ingredientDao.GetByNameAsync(dto.Name);
-        if (ingredient.Name == null)
+        if (ingredient != null)
         {
-            throw new Exception("Ingredient requires a name!");
+            throw new Exception("Ingredient already exists!");
         }
 
         Ingredient todo = new Ingredient(dto.Name, dto.Amount, dto.Allergens);
@@ -27,7 +27,7 @@ public class IngredientLogic : IIngredientLogic
         return created;
     }
 
-    public async Task AddIngredient(IngredientUpdateDto dto)
+    public async Task UpdateIngredientAmount(IngredientUpdateDto dto)
     {
         Ingredient? ingredient = await ingredientDao.GetByIdAsync(dto.Id);
         if (ingredient == null)
@@ -41,31 +41,48 @@ public class IngredientLogic : IIngredientLogic
             Id = ingredient.Id
         };
 
-        await ingredientDao.AddIngredient(updated);
+        await ingredientDao.UpdateAsync(updated);
     }
 
     public Task<IEnumerable<Ingredient>> GetAsync()
     {
-        throw new NotImplementedException();
+        return ingredientDao.GetAsync();
     }
 
-    public Task<Ingredient> GetByIdAsync(int id)
+    public async Task<IngredientBasicDto?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        Ingredient? todoIngredient = await ingredientDao.GetByIdAsync(id);
+        if (todoIngredient == null)
+        {
+            throw new Exception($"Post with id {id} not found");
+        }
+
+        return new IngredientBasicDto(todoIngredient.Id ,todoIngredient.Name, todoIngredient.Amount, todoIngredient.Allergens);
+
     }
 
-    public Task RemoveIngredientAmount(int value)
+    public async Task DeleteIngredient(int id)
     {
-        throw new NotImplementedException();
+        Ingredient? todo = await ingredientDao.GetByIdAsync(id);
+        if (todo == null)
+        {
+            throw new Exception($"Post with ID {id} was not found!");
+        }
+
+       
+
+        await ingredientDao.DeleteAsync(id);
     }
 
-    public Task DeleteIngredient(int id)
+    public async Task<IngredientBasicDto?> GetByNameAsync(string name)
     {
-        throw new NotImplementedException();
-    }
+        Ingredient? todoIngredient = await ingredientDao.GetByNameAsync(name);
+        if (todoIngredient == null)
+        {
+            throw new Exception($"Ingredient with name {name} not found");
+        }
 
-    public Task<Ingredient?> GetByNameAsync(string name)
-    {
-        throw new NotImplementedException();
+        return new IngredientBasicDto(todoIngredient.Id ,todoIngredient.Name, todoIngredient.Amount, todoIngredient.Allergens);
+
     }
 }
