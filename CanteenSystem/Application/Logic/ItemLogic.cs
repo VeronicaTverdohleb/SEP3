@@ -19,7 +19,7 @@ public class ItemLogic : IItemLogic
     
 
 
-    public async Task<Item> CreateAsync(ManageItemDto dto)
+   /* public async Task<Item> CreateAsync(ManageItemDto dto)
     {
         List<Ingredient?> ingredient = await ingredientDao(dto.ingredientId);
         if (ingredient == null)
@@ -32,11 +32,15 @@ public class ItemLogic : IItemLogic
         return itemCreated;
         
 
-    }
+    }*/
 
-   
 
-    public Task<IEnumerable<Item>> GetAsync(ManageItemDto searchParameters)
+   public Task<Item> CreateAsync(ManageItemDto dto)
+   {
+       throw new NotImplementedException();
+   }
+
+   public Task<IEnumerable<Item>> GetAsync(ManageItemDto searchParameters)
     {
         return itemDao.GetAsync(searchParameters);
     }
