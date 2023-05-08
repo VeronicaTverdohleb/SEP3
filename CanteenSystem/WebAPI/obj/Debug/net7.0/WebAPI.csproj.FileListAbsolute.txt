@@ -74,9 +74,7 @@ C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\WebAPI\bin\Debug\net7.0\runtime
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\WebAPI\bin\Debug\net7.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\WebAPI\bin\Debug\net7.0\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\WebAPI\bin\Debug\net7.0\Application.dll
-C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\WebAPI\bin\Debug\net7.0\EfcDataAccess.dll
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\WebAPI\bin\Debug\net7.0\Shared.dll
-C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\WebAPI\bin\Debug\net7.0\EfcDataAccess.pdb
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\WebAPI\bin\Debug\net7.0\Shared.pdb
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\WebAPI\bin\Debug\net7.0\Application.pdb
 C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\WebAPI\bin\Debug\net7.0\appsettings.Development.json
@@ -160,3 +158,5 @@ C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenS
 C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\WebAPI\obj\Debug\net7.0\WebAPI.pdb
 C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\WebAPI\obj\Debug\net7.0\WebAPI.genruntimeconfig.cache
 C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\WebAPI\obj\Debug\net7.0\ref\WebAPI.dll
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\WebAPI\bin\Debug\net7.0\DataAccess.dll
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\WebAPI\bin\Debug\net7.0\DataAccess.pdb

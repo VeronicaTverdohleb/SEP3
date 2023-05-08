@@ -1,0 +1,69 @@
+﻿@page "/ViewOrders"
+@using global::Shared.Model
+@using System.Security.Claims
+@using HttpClients.ClientInterfaces
+@inject IOrderService orderService
+@inject NavigationManager navMgr;
+<h3>ViewOrders</h3>
+
+<div>
+    <button @onclick="LoadOrders">Load</button>
+</div>
+
+@if (orders == null)
+{
+}
+else if (!orders.Any())
+{
+    <p>No Orders to display</p>
+}
+else
+{
+    @foreach (var order in orders)
+        {
+            <div class="order">
+                <a @onclick=@(() => SeeOrder(@order.Id))><h3 class="clickable">@order.Id</h3></a>
+                <p class="legal">order by: @order.Customer.FirstName</p>
+            </div>
+            <br/>
+        }
+}
+@if (!string.IsNullOrEmpty(msg))
+{
+    <label style="color: red">@msg</label>
+}
+
+@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+    
+    private IEnumerable<Order>? orders;
+    private string msg = "";
+    private IEnumerable<Claim>? userClaims;
+    private bool isLoggedIn;
+
+    private async Task LoadOrders()
+    {
+        try
+        {
+            orders = await orderService.getAllOrdersAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+    
+    private async void SeeOrder(int id)
+    {
+        AuthenticationState authState = await AuthState;
+        ClaimsPrincipal user = authState.User;
+        isLoggedIn = user.Identity != null;
+        
+        if (!isLoggedIn)
+            msg = $"Please login to see the orders";
+        else 
+            navMgr.NavigateTo($"/ManageOrders/{id}");
+    }
+}

@@ -8,4 +8,8 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = HttpClients
+<<<<<<< HEAD
 build_property.ProjectDir = C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\HttpClients\
+=======
+build_property.ProjectDir = C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\HttpClients\
+>>>>>>> ea65c6a269201a11acd9d2403382357343f0654c

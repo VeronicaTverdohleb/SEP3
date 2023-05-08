@@ -29,6 +29,8 @@ builder.Services.AddScoped<IItemDao, ItemDao>();
 builder.Services.AddScoped<IOrderDao, OrderDao>();
 builder.Services.AddScoped<IIngredientDao, IngredientDao>();
 builder.Services.AddScoped<ISupplyOrderDao, SupplyOrderDao>();
+builder.Services.AddScoped<IOrderLogic, OrderLogic>();
+//builder.Services.AddScoped<IMenuLogic, MenuLogic>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {}
+    "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
+    "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
+        "projectUniqueName": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
         "projectName": "Shared",
-        "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
-        "packagesPath": "C:\\Users\\Petra\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\obj\\",
+        "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
+        "packagesPath": "C:\\Users\\Bruger\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Petra\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Bruger\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -59,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
