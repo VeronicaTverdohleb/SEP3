@@ -52,6 +52,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JkZXJzXE1hbmFnZU9yZGVycy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Cedric/RiderProjects/SEP3/CanteenSystem/BlazorApp/Pages/Orders/ViewOrders.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JkZXJzXFZpZXdPcmRlcnMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Cedric/RiderProjects/SEP3/CanteenSystem/BlazorApp/Pages/Storage/ManageStorage.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3RvcmFnZVxNYW5hZ2VTdG9yYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
