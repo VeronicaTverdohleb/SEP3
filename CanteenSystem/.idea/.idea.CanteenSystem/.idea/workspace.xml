@@ -10,6 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96243a96-992e-4561-b1d0-241a149a0ab1" name="Changes" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/Shared/Dtos/OrderBasicDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CanteenSystem/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CanteenSystem/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CanteenSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CanteenSystem/.idea/workspace.xml" afterDir="false" />
@@ -59,6 +60,16 @@
       <change beforePath="$PROJECT_DIR$/WebAPI/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/project.nuget.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAPI/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/project.packagespec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAPI/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/rider.project.restore.info" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CanteenSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CanteenSystem/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/Shared/NavMenu.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/Shared/NavMenu.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/bin/Debug/net7.0/BlazorApp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/bin/Debug/net7.0/BlazorApp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/bin/Debug/net7.0/BlazorApp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/bin/Debug/net7.0/BlazorApp.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/VIACanteen.db-shm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/VIACanteen.db-wal" beforeDir="false" />
+>>>>>>> aec8fe397e6dafbf12377bc577c3a64c7cd6140f
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +80,7 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -92,6 +104,12 @@
       "C:\\Users\\Cedric\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache",
       "C:\\Users\\Cedric\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache",
       "C:\\Users\\Cedric\\AppData\\Local\\Symbols\\src"
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
+>>>>>>> aec8fe397e6dafbf12377bc577c3a64c7cd6140f
     ]
   }
 }]]></component>
