@@ -1,5 +1,6 @@
 ﻿using Application.DaoInterfaces;
 using Application.LogicInterfaces;
+using Shared.Model;
 
 namespace Application.Logic;
 
@@ -12,4 +13,8 @@ public class OrderLogic : IOrderLogic
         this.orderDao = orderDao;
     }
 
+    public Task<IEnumerable<Order>> GetAllPostsAsync()
+    {
+        return orderDao.GetAllPostsAsync();
+    }
 }

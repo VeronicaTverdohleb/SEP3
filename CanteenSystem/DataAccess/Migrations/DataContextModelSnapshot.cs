@@ -93,15 +93,16 @@ namespace EfcDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
                 });
@@ -183,6 +184,17 @@ namespace EfcDataAccess.Migrations
                     b.HasOne("Shared.Model.Order", null)
                         .WithMany("Items")
                         .HasForeignKey("OrderId");
+                });
+
+            modelBuilder.Entity("Shared.Model.Order", b =>
+                {
+                    b.HasOne("Shared.Model.User", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Shared.Model.SupplyOrder", b =>
