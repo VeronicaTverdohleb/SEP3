@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared.Model;
-using SupplyOrder = Application.Logic.SupplyOrder;
 
 namespace EfcDataAccess;
 
 public class DataContext : DbContext
 {
     public DbSet<User> Users { get; set; }
-    //public DbSet<Item> Items { get; set; }
-    public DbSet<Ingredient> Ingredients { get; set; }
+    public DbSet<Item> Items { get; set; }
+    //public DbSet<Ingredient> Ingredients { get; set; }
     //public DbSet<SupplyOrder> SupplyOrders { get; set; }
     //public DbSet<Order> Orders { get; set; }
     
@@ -23,8 +22,8 @@ public class DataContext : DbContext
     // This method configures property constraints in the database
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().HasKey(user => user.Id);    // Setting Id to be the primary key
-        modelBuilder.Entity<Ingredient>().HasKey(ingredient => ingredient.Id); //Setting Id to be primary key for ingredient
+        modelBuilder.Entity<User>().HasKey(user => user.Id); // Setting Id to be the primary key
+        modelBuilder.Entity<Item>().HasKey(item => item.Id);
     }
     
 }

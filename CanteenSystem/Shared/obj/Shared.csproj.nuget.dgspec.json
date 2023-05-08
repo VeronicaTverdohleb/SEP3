@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\Shared\\Shared.csproj": {}
+    "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {}
   },
   "projects": {
-    "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\Shared\\Shared.csproj": {
+    "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\Shared\\Shared.csproj",
+        "projectUniqueName": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
         "projectName": "Shared",
-        "projectPath": "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\Shared\\Shared.csproj",
-        "packagesPath": "C:\\Users\\popca\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\Shared\\obj\\",
+        "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
+        "packagesPath": "C:\\Users\\Cedric\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\popca\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Cedric\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -59,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.105\\RuntimeIdentifierGraph.json"
         }
       }
     }

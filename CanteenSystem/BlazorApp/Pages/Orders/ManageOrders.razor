@@ -1,6 +1,35 @@
-﻿@page "/ManageOrders"
+﻿@page "/ManageOrders/{id:int}"
+@using global::Shared.Model
+@using global::Shared.Dtos
+@using HttpClients.ClientInterfaces
+@inject IOrderService orderService
 <h3>Manage Order feature coming soon</h3>
 
 @code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private OrderUpdateDto dto = null!;
+    private string msg = "";
+    private User user;
     
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        
+        try
+        {
+            OrderBasicDto orderData = await orderService.GetByIdAsync(Id);
+
+            dto = new(Id)
+            {
+                 
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
 }
