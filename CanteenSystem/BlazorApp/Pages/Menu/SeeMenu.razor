@@ -1,6 +1,20 @@
 ﻿@page "/SeeMenu"
+
 <h3>Menu coming soon</h3>
 
 @code {
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            posts = await postService.GetPosts(usernameForSearch);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
     
 }
