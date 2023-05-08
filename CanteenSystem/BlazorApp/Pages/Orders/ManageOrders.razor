@@ -1,6 +1,36 @@
-﻿@page "/ManageOrders"
+﻿@page "/ManageOrders/{id:int}"
+@using global::Shared.Model
+@using global::Shared.Dtos
 <h3>Manage Order feature coming soon</h3>
 
 @code {
+    /*[Parameter]
+    public int Id { get; set; }
+
+    private OrderUpdateDto dto = null!;
+    private string msg = "";
+    private User user;
     
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        
+        try
+        {
+            users = await userService.GetUsers();
+            OrderBasicDto orderData = await orderService.GetByIdAsync(Id);
+            User currentlyAssigned = users.First(user => user.UserName.Equals(orderData.CustomerName));
+
+            dto = new(Id)
+            {
+                Title = todoData.Title,
+                OwnerId = currentlyAssigned.Id
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }*/
 }

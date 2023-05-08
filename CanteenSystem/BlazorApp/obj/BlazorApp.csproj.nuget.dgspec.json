@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj": {}
+    "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj": {
+    "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
+        "projectUniqueName": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
         "projectName": "BlazorApp",
-        "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
-        "packagesPath": "C:\\Users\\Petra\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\BlazorApp\\obj\\",
+        "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
+        "packagesPath": "C:\\Users\\Cedric\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Petra\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Cedric\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -26,8 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
-                "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
+              "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
+                "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
               }
             }
           }
@@ -60,21 +60,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.105\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
+    "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
+        "projectUniqueName": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
         "projectName": "Shared",
-        "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
-        "packagesPath": "C:\\Users\\Petra\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\obj\\",
+        "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
+        "packagesPath": "C:\\Users\\Cedric\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Petra\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Cedric\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -119,7 +119,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.105\\RuntimeIdentifierGraph.json"
         }
       }
     }
