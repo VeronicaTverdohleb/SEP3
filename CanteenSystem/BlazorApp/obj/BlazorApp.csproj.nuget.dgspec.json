@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj": {}
+    "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj": {
+    "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
+        "projectUniqueName": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
         "projectName": "BlazorApp",
-        "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
-        "packagesPath": "C:\\Users\\Cedric\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\obj\\",
+        "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
+        "packagesPath": "C:\\Users\\Bruger\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Cedric\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Bruger\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -26,11 +26,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj": {
-                "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj"
+              "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj": {
+                "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj"
               },
-              "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
-                "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
+              "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
+                "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
               }
             }
           }
@@ -63,21 +63,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.105\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj": {
+    "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj",
+        "projectUniqueName": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj",
         "projectName": "HttpClients",
-        "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj",
-        "packagesPath": "C:\\Users\\Cedric\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\obj\\",
+        "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj",
+        "packagesPath": "C:\\Users\\Bruger\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Cedric\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Bruger\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -89,8 +89,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
-                "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
+              "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
+                "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
               }
             }
           }
@@ -120,21 +120,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.105\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
+    "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
+        "projectUniqueName": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
         "projectName": "Shared",
-        "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
-        "packagesPath": "C:\\Users\\Cedric\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\obj\\",
+        "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
+        "packagesPath": "C:\\Users\\Bruger\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Cedric\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Bruger\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -179,7 +179,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.105\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

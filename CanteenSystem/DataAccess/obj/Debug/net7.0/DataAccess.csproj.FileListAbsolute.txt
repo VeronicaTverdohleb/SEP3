@@ -17,22 +17,22 @@ C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenS
 C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\ref\DataAccess.dll
 C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\Shared.dll
 C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\Shared.pdb
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\DataAccess.deps.json
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\DataAccess.runtimeconfig.json
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\DataAccess.dll
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\DataAccess.pdb
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\Application.dll
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\Shared.dll
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\Application.pdb
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\Shared.pdb
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.csproj.AssemblyReference.cache
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.AssemblyInfoInputs.cache
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.AssemblyInfo.cs
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.csproj.CoreCompileInputs.cache
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.csproj.CopyComplete
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.dll
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\refint\DataAccess.dll
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.pdb
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.genruntimeconfig.cache
-C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\ref\DataAccess.dll
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\DataAccess.deps.json
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\DataAccess.runtimeconfig.json
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\DataAccess.dll
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\DataAccess.pdb
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\Application.dll
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\Shared.dll
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\Application.pdb
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\bin\Debug\net7.0\Shared.pdb
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.csproj.AssemblyReference.cache
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.AssemblyInfoInputs.cache
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.AssemblyInfo.cs
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.csproj.CopyComplete
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.dll
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\refint\DataAccess.dll
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.pdb
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\DataAccess.genruntimeconfig.cache
+C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\DataAccess\obj\Debug\net7.0\ref\DataAccess.dll
