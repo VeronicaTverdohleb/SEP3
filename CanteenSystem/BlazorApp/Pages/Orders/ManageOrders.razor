@@ -3,6 +3,7 @@
 @using global::Shared.Dtos
 @using HttpClients.ClientInterfaces
 @inject IUserService userService
+@inject IOrderService orderService
 <h3>Manage Order feature coming soon</h3>
 
 @code {
@@ -19,14 +20,11 @@
         
         try
         {
-            user = await userService.GetUserAsync();
             OrderBasicDto orderData = await orderService.GetByIdAsync(Id);
-            User currentlyAssigned = users.First(user => user.UserName.Equals(orderData.CustomerName));
 
             dto = new(Id)
             {
-                Title = todoData.Title,
-                OwnerId = currentlyAssigned.Id
+                 
             };
         }
         catch (Exception e)
