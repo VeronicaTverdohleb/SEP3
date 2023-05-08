@@ -10,7 +10,7 @@ public class DataContext : DbContext
     public DbSet<Ingredient> Ingredients { get; set; }
     public DbSet<SupplyOrder> SupplyOrders { get; set; }
     public DbSet<Order> Orders { get; set; }
-    public DbSet<DailyMenu> Menus { get; set; }
+    public DbSet<Menu> Menus { get; set; }
     public DbSet<Allergen> Allergens { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -27,7 +27,7 @@ public class DataContext : DbContext
         modelBuilder.Entity<Ingredient>().HasKey(ingredient => ingredient.Id);
         modelBuilder.Entity<SupplyOrder>().HasKey(supplyOrder => supplyOrder.Id);
         modelBuilder.Entity<Order>().HasKey(order => order.Id);
-        modelBuilder.Entity<DailyMenu>().HasKey(dailyMenu => dailyMenu.Date);
+        modelBuilder.Entity<Menu>().HasKey(dailyMenu => dailyMenu.Date);
         modelBuilder.Entity<Allergen>().HasKey(allergen => allergen.Code);
     }
     
