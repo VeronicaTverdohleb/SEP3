@@ -10,14 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96243a96-992e-4561-b1d0-241a149a0ab1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CanteenSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CanteenSystem/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorApp/Shared/NavMenu.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/Shared/NavMenu.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorApp/bin/Debug/net7.0/BlazorApp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/bin/Debug/net7.0/BlazorApp.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorApp/bin/Debug/net7.0/BlazorApp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/bin/Debug/net7.0/BlazorApp.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/VIACanteen.db-shm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/VIACanteen.db-wal" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/DaoInterfaces/IMenuDao.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/Logic/MenuLogic.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/LogicInterfaces/IMenuLogic.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataAccess/DAOs/MenuDao.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebAPI/Controllers/MenuController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Logic/SupplyOrder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Logic/SupplyOrderLogic.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/DataContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/DataContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HttpClients/ClientInterfaces/IMenuService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HttpClients/ClientInterfaces/IMenuService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HttpClients/Implementations/MenuHttpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HttpClients/Implementations/MenuHttpClient.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

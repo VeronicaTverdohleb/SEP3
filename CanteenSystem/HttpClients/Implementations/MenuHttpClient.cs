@@ -14,7 +14,7 @@ public class MenuHttpClient : IMenuService
         this.client = client;
     }
 
-    public async Task<IEnumerable<Item>> GetItemsByDate(DateTime? date)
+    public async Task<IEnumerable<Item>> GetItemsByDateAsync(DateTime? date)
     {
         string query = ConstructQuery(date);
         HttpResponseMessage response = await client.GetAsync("/GetItems" + query);

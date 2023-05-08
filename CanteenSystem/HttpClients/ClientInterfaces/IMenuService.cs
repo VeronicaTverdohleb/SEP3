@@ -4,6 +4,6 @@ namespace HttpClients.ClientInterfaces;
 
 public interface IMenuService
 {
-    public Task<IEnumerable<Item>> GetItemsByDate(DateTime? date);
+    public Task<IEnumerable<Item>> GetItemsByDateAsync(DateTime? date);
 
 }
