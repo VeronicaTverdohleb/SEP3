@@ -24,7 +24,7 @@ public class ItemDao : IItemDao
 
     public async Task<IEnumerable<Item>> GetAsync(ManageItemDto searchParameters)
     {
-        IQueryable<Item> query = context.Items.Include(item => item.ingredientId).AsQueryable();
+        IQueryable<Item> query = context.Items.Include(item => item.Id).AsQueryable();
         
 
         if (!string.IsNullOrEmpty(searchParameters.TitleContains))

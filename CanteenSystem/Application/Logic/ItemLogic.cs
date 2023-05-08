@@ -8,7 +8,7 @@ namespace Application.Logic;
 public class ItemLogic : IItemLogic
 {
     private readonly IItemDao itemDao;
-    private  int value=0;
+   // private  int value=0;
     private readonly IIngredientDao ingredientDao;
 
     public ItemLogic(IItemDao itemDao, IIngredientDao ingredientDao)
@@ -19,26 +19,30 @@ public class ItemLogic : IItemLogic
     
 
 
-   /* public async Task<Item> CreateAsync(ManageItemDto dto)
-    {
-        List<Ingredient?> ingredient = await ingredientDao(dto.ingredientId);
-        if (ingredient == null)
-        {
-            throw new Exception($"Ingredient was not found.");
+   public async Task<Item> CreateAsync(ManageItemDto dto)
+   {
+       List<Ingredient> ingredients = new List<Ingredient>();
+        for (int i = 0; i < ingredients.Count; i++)
+       { 
+           Ingredient? ingredient = await ingredientDao.GetByIdAsync(dto.ingredientId);
+            
+          if (ingredient == null)
+          {
+              throw new Exception($"Ingredient was not found.");
 
-        }
-        Item item = new Item(dto.name, ingredient);
+          }
+          ingredients.Add(ingredient);
+       }
+        
+        Item item = new Item(dto.name, ingredients);
         Item itemCreated = await itemDao.CreateAsync(item);
         return itemCreated;
         
 
-    }*/
+    }
 
 
-   public Task<Item> CreateAsync(ManageItemDto dto)
-   {
-       throw new NotImplementedException();
-   }
+   
 
    public Task<IEnumerable<Item>> GetAsync(ManageItemDto searchParameters)
     {
@@ -53,16 +57,23 @@ public class ItemLogic : IItemLogic
             throw new Exception($"Item with ID {dto.Id} not found!");
         }
 
-        List<Ingredient>? ingredients = null;
-        if (dto.Ingredients!= null)
+        List<Ingredient?> ingredients = new List<Ingredient?>();
+        if (dto.Ingredients != null)
         {
-            ingredients = null;//await ingredientDao.GetByIdAsync((int)dto.ingredientId);
-            if (ingredients == null)
+            for (int i = 0; i < ingredients.Count; i++)
+            {
+                Ingredient? ingredient = await ingredientDao.GetByIdAsync(dto.ingredientId);
+                ingredients.Add(ingredient);
+
+            }
+        }
+
+        if (ingredients == null)
             {
                 throw new Exception($"Ingredient was not found.");
 
             }
-        }
+        
 
         List<Ingredient> ingredientToUse = ingredients ?? existing.Ingredients;
         string titleToUse = dto.name ?? existing.name;

@@ -1,5 +1,7 @@
 using System.Text;
 using Application.DaoInterfaces;
+using Application.Logic;
+using Application.LogicInterfaces;
 using EfcDataAccess;
 using EfcDataAccess.DAOs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -40,6 +42,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 AuthorizationPolicies.AddPolicies(builder.Services);
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IItemLogic, ItemLogic>();
 
 var app = builder.Build();
 
