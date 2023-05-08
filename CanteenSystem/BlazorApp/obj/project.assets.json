@@ -101,6 +101,19 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "HttpClients/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/HttpClients.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HttpClients.dll": {}
+        }
+      },
       "Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -310,6 +323,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "HttpClients/1.0.0": {
+      "type": "project",
+      "path": "../HttpClients/HttpClients.csproj",
+      "msbuildProject": "../HttpClients/HttpClients.csproj"
+    },
     "Shared/1.0.0": {
       "type": "project",
       "path": "../Shared/Shared.csproj",
@@ -318,6 +336,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "HttpClients >= 1.0.0",
       "Shared >= 1.0.0"
     ]
   },
@@ -346,6 +365,9 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
+            "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj": {
+              "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj"
+            },
             "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
               "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
             }

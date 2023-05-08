@@ -1,10 +1,12 @@
 ﻿@page "/ManageOrders/{id:int}"
 @using global::Shared.Model
 @using global::Shared.Dtos
+@using HttpClients.ClientInterfaces
+@inject IUserService userService
 <h3>Manage Order feature coming soon</h3>
 
 @code {
-    /*[Parameter]
+    [Parameter]
     public int Id { get; set; }
 
     private OrderUpdateDto dto = null!;
@@ -17,7 +19,7 @@
         
         try
         {
-            users = await userService.GetUsers();
+            user = await userService.GetUserAsync();
             OrderBasicDto orderData = await orderService.GetByIdAsync(Id);
             User currentlyAssigned = users.First(user => user.UserName.Equals(orderData.CustomerName));
 
@@ -32,5 +34,5 @@
             Console.WriteLine(e);
             msg = e.Message;
         }
-    }*/
+    }
 }
