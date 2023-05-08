@@ -68,6 +68,10 @@ namespace EfcDataAccess.Migrations
                     b.Property<int?>("OrderId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MenuDate");

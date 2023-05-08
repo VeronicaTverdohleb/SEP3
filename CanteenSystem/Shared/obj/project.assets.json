@@ -304,19 +304,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Bruger\\.nuget\\packages\\": {}
+    "C:\\Users\\Cedric\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
+      "projectUniqueName": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
       "projectName": "Shared",
-      "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
-      "packagesPath": "C:\\Users\\Bruger\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\obj\\",
+      "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
+      "packagesPath": "C:\\Users\\Cedric\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Bruger\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Cedric\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -361,7 +361,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.105\\RuntimeIdentifierGraph.json"
       }
     }
   }

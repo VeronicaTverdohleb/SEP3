@@ -64,7 +64,7 @@ public class ItemLogic : IItemLogic
             }
         }
 
-        List<Ingredient> ingredientToUse = ingredients ?? existing.Ingredients;
+        ICollection<Ingredient> ingredientToUse = ingredients ?? existing.Ingredients;
         string titleToUse = dto.name ?? existing.name;
         Item updated = new(titleToUse, ingredientToUse)
         {

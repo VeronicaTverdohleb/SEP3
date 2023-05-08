@@ -9,10 +9,10 @@ public class ManageItemDto
     public string name { get; }
     public int Id { get; }
     public int? ingredientId { get; set; }
-    public List<Ingredient> Ingredients { get; }
+    public ICollection<Ingredient> Ingredients { get; }
     public string? TitleContains { get;}
     
-    public ManageItemDto(string name, int id, List<Ingredient> ingridients)
+    public ManageItemDto(string name, int id, ICollection<Ingredient> ingridients)
     {
         this.name = name;
         Id = id;
