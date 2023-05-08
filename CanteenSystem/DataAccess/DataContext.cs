@@ -7,12 +7,12 @@ public class DataContext : DbContext
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Item> Items { get; set; }
-    //public DbSet<Ingredient> Ingredients { get; set; }
-    //public DbSet<SupplyOrder> SupplyOrders { get; set; }
-    //public DbSet<Order> Orders { get; set; }
-    
-    
-    
+    public DbSet<Ingredient> Ingredients { get; set; }
+    public DbSet<SupplyOrder> SupplyOrders { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<Menu> Menus { get; set; }
+    public DbSet<Allergen> Allergens { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite("Data Source = ../DataAccess/VIACanteen.db")
@@ -24,6 +24,11 @@ public class DataContext : DbContext
     {
         modelBuilder.Entity<User>().HasKey(user => user.Id); // Setting Id to be the primary key
         modelBuilder.Entity<Item>().HasKey(item => item.Id);
+        modelBuilder.Entity<Ingredient>().HasKey(ingredient => ingredient.Id);
+        modelBuilder.Entity<SupplyOrder>().HasKey(supplyOrder => supplyOrder.Id);
+        modelBuilder.Entity<Order>().HasKey(order => order.Id);
+        modelBuilder.Entity<Menu>().HasKey(dailyMenu => dailyMenu.Date);
+        modelBuilder.Entity<Allergen>().HasKey(allergen => allergen.Code);
     }
     
 }

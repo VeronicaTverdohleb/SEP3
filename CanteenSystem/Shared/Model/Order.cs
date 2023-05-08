@@ -7,4 +7,6 @@ public class Order
     public string CustomerName { get; set; }
     public string Status { get; set; }
     
+    private Order() {}
+    
 }
