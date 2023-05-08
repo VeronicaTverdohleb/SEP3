@@ -13,9 +13,16 @@ public class MenuDao : IMenuDao
         this.context = context;
     }
     
-    public async Task<IEnumerable<Item>> GetItemsByDateAsync(DateTime date)
+    public async Task<Menu> GetMenuByDateAsync(DateTime date)
     {
-        //return context.Items.Include(item => item.Date);
+        String newDate = date.Year + "-" + date.Month + "-" + date.Day;
+
         return null;
+        /***
+        Menu? found = await context.Menus
+            .AsNoTracking()
+            .SingleOrDefaultAsync(menu => menu.Date.Equals(newDate));
+        return found;
+        ***/
     }
 }

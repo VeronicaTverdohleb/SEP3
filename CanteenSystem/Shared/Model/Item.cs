@@ -17,7 +17,7 @@ public class Item
 
     
     //public List<DateTime> Date { get; set; }
-    
+
     private Item() {}
 
 }

@@ -38,6 +38,10 @@ C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenS
 C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\BlazorApp\obj\Debug\net7.0\BlazorApp.csproj.CopyComplete
 C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\BlazorApp\obj\Debug\net7.0\scopedcss\Pages\Login\LoginButtons.razor.rz.scp.css
 C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\BlazorApp\obj\Debug\net7.0\scopedcss\Pages\Login\LoginWindow.razor.rz.scp.css
+<<<<<<< HEAD
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\BlazorApp\bin\Debug\net7.0\HttpClients.dll
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\BlazorApp\bin\Debug\net7.0\HttpClients.pdb
+=======
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\BlazorApp\bin\Debug\net7.0\appsettings.Development.json
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\BlazorApp\bin\Debug\net7.0\appsettings.json
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\BlazorApp\bin\Debug\net7.0\BlazorApp.staticwebassets.runtime.json
@@ -80,3 +84,4 @@ C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\BlazorApp\obj\Debug\net7.0\refi
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\BlazorApp\obj\Debug\net7.0\BlazorApp.pdb
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\BlazorApp\obj\Debug\net7.0\BlazorApp.genruntimeconfig.cache
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\BlazorApp\obj\Debug\net7.0\ref\BlazorApp.dll
+>>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
