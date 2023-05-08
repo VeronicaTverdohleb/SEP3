@@ -9,26 +9,26 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BlazorApp
 build_property.RootNamespace = BlazorApp
-build_property.ProjectDir = C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\BlazorApp\
+build_property.ProjectDir = C:\Users\popca\RiderProjects\SEP3-Canteen\CanteenSystem\BlazorApp\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\BlazorApp
+build_property.MSBuildProjectDirectory = C:\Users\popca\RiderProjects\SEP3-Canteen\CanteenSystem\BlazorApp
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/App.razor]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Index.razor]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Ingredients/OrderIngredients.razor]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/Pages/Ingredients/OrderIngredients.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5ncmVkaWVudHNcT3JkZXJJbmdyZWRpZW50cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Items/ManageItems.razor]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/Pages/Items/ManageItems.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSXRlbXNcTWFuYWdlSXRlbXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
@@ -36,11 +36,11 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSXRlbXNcT3JkZXJJdGVtLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Menu/ManageMenu.razor]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/Pages/Menu/ManageMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVudVxNYW5hZ2VNZW51LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Menu/SeeMenu.razor]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/Pages/Menu/SeeMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVudVxTZWVNZW51LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
@@ -48,38 +48,38 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JkZXJzXEVkaXRPcmRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Orders/ManageOrders.razor]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/Pages/Orders/ManageOrders.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JkZXJzXE1hbmFnZU9yZGVycy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Storage/ManageStorage.razor]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/Pages/Storage/ManageStorage.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3RvcmFnZVxNYW5hZ2VTdG9yYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/_Imports.razor]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Login/LoginButtons.razor]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/Pages/Login/LoginButtons.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5cTG9naW5CdXR0b25zLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-uhjp9wmfax
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Login/LoginWindow.razor]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/Pages/Login/LoginWindow.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5cTG9naW5XaW5kb3cucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-a8c2joy6o1
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Shared/MainLayout.razor]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-3dsd3z3yec
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Shared/NavMenu.razor]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-7cxxmz0cwl
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/Error.cshtml]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Petra/OneDrive/Desktop/School/VIA/3rd semester/Code repos/SEP3/CanteenSystem/BlazorApp/Pages/_Host.cshtml]
+[C:/Users/popca/RiderProjects/SEP3-Canteen/CanteenSystem/BlazorApp/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

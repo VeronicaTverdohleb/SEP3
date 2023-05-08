@@ -2119,19 +2119,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Petra\\.nuget\\packages\\": {}
+    "C:\\Users\\popca\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\WebAPI\\WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\WebAPI\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\WebAPI\\WebAPI.csproj",
-      "packagesPath": "C:\\Users\\Petra\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\WebAPI\\obj\\",
+      "projectPath": "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\WebAPI\\WebAPI.csproj",
+      "packagesPath": "C:\\Users\\popca\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Petra\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\popca\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -2143,11 +2143,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\DataAccess\\DataAccess.csproj"
+            "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\DataAccess\\DataAccess.csproj"
             },
-            "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
-              "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
+            "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\Shared\\Shared.csproj": {
+              "projectPath": "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\Shared\\Shared.csproj"
             }
           }
         }

@@ -8,7 +8,7 @@ public class DataContext : DbContext
 {
     public DbSet<User> Users { get; set; }
     //public DbSet<Item> Items { get; set; }
-    //public DbSet<Ingredient> Ingredients { get; set; }
+    public DbSet<Ingredient> Ingredients { get; set; }
     //public DbSet<SupplyOrder> SupplyOrders { get; set; }
     //public DbSet<Order> Orders { get; set; }
     
@@ -24,6 +24,7 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>().HasKey(user => user.Id);    // Setting Id to be the primary key
+        modelBuilder.Entity<Ingredient>().HasKey(ingredient => ingredient.Id); //Setting Id to be primary key for ingredient
     }
     
 }

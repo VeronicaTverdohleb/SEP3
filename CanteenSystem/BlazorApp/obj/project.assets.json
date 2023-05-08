@@ -322,19 +322,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Petra\\.nuget\\packages\\": {}
+    "C:\\Users\\popca\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
+      "projectUniqueName": "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
       "projectName": "BlazorApp",
-      "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
-      "packagesPath": "C:\\Users\\Petra\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\BlazorApp\\obj\\",
+      "projectPath": "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
+      "packagesPath": "C:\\Users\\popca\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\BlazorApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Petra\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\popca\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -346,8 +346,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
-              "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
+            "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\Shared\\Shared.csproj": {
+              "projectPath": "C:\\Users\\popca\\RiderProjects\\SEP3-Canteen\\CanteenSystem\\Shared\\Shared.csproj"
             }
           }
         }
