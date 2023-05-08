@@ -1,6 +1,33 @@
 ﻿@page "/SeeMenu"
+@using global::Shared.Model
+@using HttpClients.ClientInterfaces
+@inject IMenuService menuService
+
 <h3>Menu coming soon</h3>
+@if (!string.IsNullOrEmpty(msg))
+{
+    <div>
+        <span>@msg</span>
+    </div>
+}
 
 @code {
+    private string msg;
+    private IEnumerable<Item> items;
+    
+    
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            items = await menuService.GetItemsByDateAsync(DateTime.Today);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
     
 }
