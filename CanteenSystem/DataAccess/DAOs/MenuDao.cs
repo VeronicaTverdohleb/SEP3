@@ -15,6 +15,7 @@ public class MenuDao : IMenuDao
     
     public async Task<IEnumerable<Item>> GetItemsByDateAsync(DateTime date)
     {
-        return context.Items.Include(item => item.date);
+        //return context.Items.Include(item => item.Date);
+        return null;
     }
 }
