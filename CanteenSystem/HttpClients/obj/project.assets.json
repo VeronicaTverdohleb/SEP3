@@ -322,11 +322,25 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
+    "C:\\Users\\Petra\\.nuget\\packages\\": {}
+=======
     "C:\\Users\\Bruger\\.nuget\\packages\\": {}
+>>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
+      "projectUniqueName": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj",
+      "projectName": "HttpClients",
+      "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj",
+      "packagesPath": "C:\\Users\\Petra\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\HttpClients\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Petra\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
       "projectUniqueName": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj",
       "projectName": "HttpClients",
       "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj",
@@ -335,6 +349,7 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Bruger\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -346,8 +361,13 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
+<<<<<<< HEAD
+            "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
+              "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
+=======
             "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
               "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
+>>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
             }
           }
         }
@@ -377,7 +397,11 @@
             "privateAssets": "all"
           }
         },
+<<<<<<< HEAD
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+=======
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+>>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
       }
     }
   }

@@ -1,5 +1,17 @@
 {
   "version": 2,
+<<<<<<< HEAD
+  "dgSpecHash": "SwyW7aLVHGJuKfpBA3VW8Valrucc9kSd4A22i4SgtJQnJP+IzNVcf66dYCg4uaRDqlLbMp8t/2VDV5WQfVR5cg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Petra\\.nuget\\packages\\microsoft.aspnetcore.authorization\\7.0.5\\microsoft.aspnetcore.authorization.7.0.5.nupkg.sha512",
+    "C:\\Users\\Petra\\.nuget\\packages\\microsoft.aspnetcore.metadata\\7.0.5\\microsoft.aspnetcore.metadata.7.0.5.nupkg.sha512",
+    "C:\\Users\\Petra\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\Petra\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\Petra\\.nuget\\packages\\microsoft.extensions.options\\7.0.1\\microsoft.extensions.options.7.0.1.nupkg.sha512",
+    "C:\\Users\\Petra\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512"
+=======
   "dgSpecHash": "U3VluORlzlaKBeds1f3D1mwfEkyn103sLjzC1YDVtBqbFARcuwKKGYE05fSrytkw4tAA9uHyUSGylWnNKG+lKg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj",
@@ -10,6 +22,7 @@
     "C:\\Users\\Bruger\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\Bruger\\.nuget\\packages\\microsoft.extensions.options\\7.0.1\\microsoft.extensions.options.7.0.1.nupkg.sha512",
     "C:\\Users\\Bruger\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512"
+>>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
   ],
   "logs": []
 }

@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using HttpClients.ClientInterfaces;
 using Shared.Dtos;
+using Shared.Model;
 
 namespace HttpClients.Implementations;
 
@@ -12,6 +13,23 @@ public class OrderHttpClient:IOrderService
     {
         this.client = client;
     }
+
+    public async Task<IEnumerable<Order>> getAllOrdersAsync()
+    {
+        HttpResponseMessage response = await client.GetAsync("/Order");
+        string content = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        ICollection<Order> orders = JsonSerializer.Deserialize<ICollection<Order>>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        return orders;
+    }
+
     public async Task<OrderBasicDto> GetByIdAsync(int id)
     {
         HttpResponseMessage response = await client.GetAsync($"/orders/{id}");

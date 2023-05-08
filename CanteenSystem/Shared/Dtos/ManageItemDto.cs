@@ -8,15 +8,15 @@ public class ManageItemDto
 
     public string name { get; }
     public int Id { get; }
-    public int ingredientId { get; set; }
-    public List<Ingredient?> Ingredients { get; }
+    public int? ingredientId { get; set; }
+    public ICollection<Ingredient> Ingredients { get; }
     public string? TitleContains { get;}
     
-    public ManageItemDto(string name, int id, List<Ingredient?> ingredients)
+    public ManageItemDto(string name, int id, ICollection<Ingredient> ingridients)
     {
         this.name = name;
         Id = id;
-        Ingredients = ingredients;
+        Ingredients = ingridients;
 
     }
     
@@ -34,6 +34,5 @@ public class ManageItemDto
         this.ingredientId = ingredientId;
     }
     
-   
    
 }

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EfcDataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230508093314_CreateNewEntities")]
-    partial class CreateNewEntities
+    [Migration("20230508130607_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,16 +34,6 @@ namespace EfcDataAccess.Migrations
                     b.HasIndex("IngredientId");
 
                     b.ToTable("Allergens");
-                });
-
-            modelBuilder.Entity("Shared.Model.DailyMenu", b =>
-                {
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Date");
-
-                    b.ToTable("Menus");
                 });
 
             modelBuilder.Entity("Shared.Model.Ingredient", b =>
@@ -75,19 +65,33 @@ namespace EfcDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("DailyMenuDate")
+                    b.Property<DateTime?>("MenuDate")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("OrderId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("DailyMenuDate");
+                    b.HasIndex("MenuDate");
 
                     b.HasIndex("OrderId");
 
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("Shared.Model.Menu", b =>
+                {
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Date");
+
+                    b.ToTable("Menus");
                 });
 
             modelBuilder.Entity("Shared.Model.Order", b =>
@@ -96,15 +100,16 @@ namespace EfcDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
                 });
@@ -179,13 +184,24 @@ namespace EfcDataAccess.Migrations
 
             modelBuilder.Entity("Shared.Model.Item", b =>
                 {
-                    b.HasOne("Shared.Model.DailyMenu", null)
+                    b.HasOne("Shared.Model.Menu", null)
                         .WithMany("Items")
-                        .HasForeignKey("DailyMenuDate");
+                        .HasForeignKey("MenuDate");
 
                     b.HasOne("Shared.Model.Order", null)
                         .WithMany("Items")
                         .HasForeignKey("OrderId");
+                });
+
+            modelBuilder.Entity("Shared.Model.Order", b =>
+                {
+                    b.HasOne("Shared.Model.User", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Shared.Model.SupplyOrder", b =>
@@ -199,11 +215,6 @@ namespace EfcDataAccess.Migrations
                     b.Navigation("Ingredient");
                 });
 
-            modelBuilder.Entity("Shared.Model.DailyMenu", b =>
-                {
-                    b.Navigation("Items");
-                });
-
             modelBuilder.Entity("Shared.Model.Ingredient", b =>
                 {
                     b.Navigation("Allergens");
@@ -212,6 +223,11 @@ namespace EfcDataAccess.Migrations
             modelBuilder.Entity("Shared.Model.Item", b =>
                 {
                     b.Navigation("Ingredients");
+                });
+
+            modelBuilder.Entity("Shared.Model.Menu", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Shared.Model.Order", b =>

@@ -1,8 +1,9 @@
-﻿using Shared.Model;
+﻿using Shared.Dtos;
+using Shared.Model;
 
 namespace Application.LogicInterfaces;
 
 public interface IMenuLogic
 {
-    public Task<IEnumerable<Item>> GetItemsByDateAsync(DateTime date);
+    public Task<Menu> GetMenuByDateAsync(DateTime date);
 }

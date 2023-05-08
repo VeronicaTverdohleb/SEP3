@@ -15,13 +15,13 @@ public class MenuController: ControllerBase
         this.menuLogic = menuLogic;
     }
     
-    [HttpGet, Route("/GetItems")]
-    public async Task<ActionResult<IEnumerable<Item>>> GetAsync([FromQuery] DateTime date)
+    [HttpGet, Route("/GetMenu")]
+    public async Task<ActionResult<Menu>> GetAsync([FromQuery] DateTime date)
     {
         try
         {
-            IEnumerable<Item> items = await menuLogic.GetItemsByDateAsync(date);
-            return Ok(items);
+            Menu menu = await menuLogic.GetMenuByDateAsync(date);
+            return Ok(menu);
         }
         catch (Exception e)
         {

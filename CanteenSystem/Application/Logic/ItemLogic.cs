@@ -57,7 +57,7 @@ public class ItemLogic : IItemLogic
             throw new Exception($"Item with ID {dto.Id} not found!");
         }
 
-        List<Ingredient?> ingredients = new List<Ingredient?>();
+        ICollection<Ingredient?> ingredients = new List<Ingredient?>();
         if (dto.Ingredients != null)
         {
             for (int i = 0; i < ingredients.Count; i++)
@@ -75,7 +75,7 @@ public class ItemLogic : IItemLogic
             }
         
 
-        List<Ingredient> ingredientToUse = ingredients ?? existing.Ingredients;
+        ICollection<Ingredient> ingredientToUse = ingredients ?? existing.Ingredients;
         string titleToUse = dto.name ?? existing.name;
         Item updated = new(titleToUse, ingredientToUse)
         {

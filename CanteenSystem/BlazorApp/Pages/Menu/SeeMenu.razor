@@ -1,9 +1,9 @@
 ﻿@page "/SeeMenu"
 @using global::Shared.Model
 @using HttpClients.ClientInterfaces
+@using global::Shared.Dtos
 @inject IMenuService menuService
 
-<h3>Menu coming soon</h3>
 @if (!string.IsNullOrEmpty(msg))
 {
     <div>
@@ -11,9 +11,25 @@
     </div>
 }
 
+@if (menu == null)
+{
+    <span>Loading..</span>
+}
+else if (!menu.Items.Any())
+{
+    <span>There are no items on this menu...</span>
+}
+else
+{
+    <div class="users-container">
+     
+    </div>
+}
+
+
 @code {
     private string msg;
-    private IEnumerable<Item> items;
+    private MenuBasicDto menu;
     
     
     protected override async Task OnInitializedAsync()
@@ -21,7 +37,7 @@
         msg = "";
         try
         {
-            items = await menuService.GetItemsByDateAsync(DateTime.Today);
+            menu = await menuService.GetMenuByDateAsync(new DateTime(2023, 05, 10));
         }
         catch (Exception e)
         {

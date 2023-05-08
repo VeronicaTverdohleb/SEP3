@@ -1,9 +1,10 @@
-﻿using Shared.Model;
+﻿using Shared.Dtos;
+using Shared.Model;
 
 namespace Application.DaoInterfaces;
 
 public interface IMenuDao
 {
-    public Task<IEnumerable<Item>> GetItemsByDateAsync(DateTime date);
+    public Task<Menu> GetMenuByDateAsync(DateTime date);
 
 }

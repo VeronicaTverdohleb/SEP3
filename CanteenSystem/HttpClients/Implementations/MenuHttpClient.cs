@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using HttpClients.ClientInterfaces;
+using Shared.Dtos;
 using Shared.Model;
 
 namespace HttpClients.Implementations;
@@ -14,32 +15,26 @@ public class MenuHttpClient : IMenuService
         this.client = client;
     }
 
-    public async Task<IEnumerable<Item>> GetItemsByDateAsync(DateTime? date)
+    public async Task<MenuBasicDto> GetMenuByDateAsync(DateTime date)
     {
         string query = ConstructQuery(date);
-        HttpResponseMessage response = await client.GetAsync("/GetItems" + query);
+        HttpResponseMessage response = await client.GetAsync("/GetMenu" + query);
         string result = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception(result);
         }
 
-        IEnumerable<Item> items = JsonSerializer.Deserialize<IEnumerable<Item>>(result, new JsonSerializerOptions
+        MenuBasicDto menu = JsonSerializer.Deserialize<MenuBasicDto>(result, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;
-        return items;
+        return menu;
     }
     
-    private static string ConstructQuery(DateTime? date)
+    private static string ConstructQuery(DateTime date)
     {
-        string query = "";
-        if (date != null)
-        {
-            query += $"?date={date}";
-        }
-
-        return query;
+        return $"?date={date}";
     }
     
     

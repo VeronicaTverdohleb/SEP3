@@ -5,26 +5,40 @@
 @inject IOrderService orderService
 <h3>Manage Order feature coming soon</h3>
 
+@if (order == null)
+{
+    <h3>Loading</h3>
+    <br/>
+    <span>fetching data..</span>
+}
+
+else
+{
+    <div class="post-card">
+        <h3>@order.Customer.FirstName</h3>
+        <br/>
+        <p>@order.Items</p>
+    </div>
+    <br/>
+    <p class="legal">ordered by: @order.Customer.FirstName</p>
+}
+
 @code {
-    [Parameter]
+    [Parameter] 
     public int Id { get; set; }
 
-    private OrderUpdateDto dto = null!;
+    private OrderCreationDto order;
     private string msg = "";
-    private User user;
-    
+    private string error = "";
+
     protected override async Task OnInitializedAsync()
     {
         msg = "";
-        
         try
         {
-            OrderBasicDto orderData = await orderService.GetByIdAsync(Id);
-
-            dto = new(Id)
-            {
-                 
-            };
+            /*Console.WriteLine("about to fetch");
+            order = await orderService.GetOrderByIdAsync(Id);
+            Console.WriteLine("fetched the order!");*/
         }
         catch (Exception e)
         {

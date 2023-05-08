@@ -1,8 +1,11 @@
-﻿namespace Shared.Model;
+﻿using System.Text.Json.Serialization;
+
+namespace Shared.Model;
 
 public class Menu
 {
-    public List<Item> Items { get; set; }
+    [JsonIgnore]
+    public ICollection<Item> Items { get; set; }
     public DateTime Date { get; set; }
     
     private Menu() {}

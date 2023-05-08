@@ -1,13 +1,15 @@
-﻿namespace Shared.Model;
+﻿using System.Text.Json.Serialization;
+
+namespace Shared.Model;
 
 public class Item
 {
     public int Id { get; set; }
-    public List<Ingredient> Ingredients { get; set; }
     public string name { get; set; }
+    [JsonIgnore]
+    public ICollection<Ingredient> Ingredients { get; set; }
 
-
-    public Item(string name, List<Ingredient> ingredients)
+    public Item(string name, ICollection<Ingredient> ingredients)
     {
         this.name = name;
         Ingredients = ingredients;
@@ -15,7 +17,7 @@ public class Item
 
     
     //public List<DateTime> Date { get; set; }
-    
-    public Item() {}
+
+    private Item() {}
 
 }
