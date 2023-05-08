@@ -10,6 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96243a96-992e-4561-b1d0-241a149a0ab1" name="Changes" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/Application/DaoInterfaces/IMenuDao.cs" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Application/Logic/MenuLogic.cs" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Application/LogicInterfaces/IMenuLogic.cs" afterDir="false" />
@@ -19,19 +20,108 @@
       <change beforePath="$PROJECT_DIR$/DataAccess/DataContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/DataContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HttpClients/ClientInterfaces/IMenuService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HttpClients/ClientInterfaces/IMenuService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HttpClients/Implementations/MenuHttpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HttpClients/Implementations/MenuHttpClient.cs" afterDir="false" />
+=======
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/Shared/Dtos/OrderBasicDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CanteenSystem/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CanteenSystem/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CanteenSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CanteenSystem/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/obj/Application.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Application/obj/Application.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/obj/Application.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Application/obj/Application.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/obj/Debug/net7.0/Application.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Application/obj/Debug/net7.0/Application.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/obj/Debug/net7.0/Application.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Application/obj/Debug/net7.0/Application.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/obj/Debug/net7.0/Application.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Application/obj/Debug/net7.0/Application.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Application/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Application/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Application/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Application/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/Pages/Orders/ManageOrders.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/Pages/Orders/ManageOrders.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/BlazorApp.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/BlazorApp.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/BlazorApp.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/BlazorApp.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/obj/DataAccess.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/DataAccess.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/obj/DataAccess.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/DataAccess.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/obj/Debug/net7.0/Shared.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/obj/Debug/net7.0/Shared.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/obj/Debug/net7.0/Shared.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/obj/Debug/net7.0/Shared.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/obj/Debug/net7.0/Shared.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/obj/Debug/net7.0/Shared.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/obj/Shared.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/obj/Shared.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/obj/Shared.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/obj/Shared.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/WebAPI.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/WebAPI.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/WebAPI.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/WebAPI.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/rider.project.restore.info" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CanteenSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CanteenSystem/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/Shared/NavMenu.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/Shared/NavMenu.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/bin/Debug/net7.0/BlazorApp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/bin/Debug/net7.0/BlazorApp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/bin/Debug/net7.0/BlazorApp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/bin/Debug/net7.0/BlazorApp.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorApp/obj/Debug/net7.0/BlazorApp.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/VIACanteen.db-shm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/VIACanteen.db-wal" beforeDir="false" />
+>>>>>>> aec8fe397e6dafbf12377bc577c3a64c7cd6140f
+>>>>>>> 219e0ab70c96f1ab431a52f2a2ff4dd90c318212
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectId" id="2PV59XmU18S6oYYVQG7rwWlXAs2" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+<<<<<<< HEAD
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
+    ],
+    "rider.external.source.directories": [
+      "C:\\Users\\Cedric\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\Cedric\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\Cedric\\AppData\\Local\\Symbols\\src"
+=======
   <component name="PropertiesComponent"><![CDATA[{
   "keyToStringList": {
     "DatabaseDriversLRU": [
       "sqlite"
+>>>>>>> aec8fe397e6dafbf12377bc577c3a64c7cd6140f
     ]
   }
 }]]></component>
@@ -108,8 +198,23 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="96243a96-992e-4561-b1d0-241a149a0ab1" name="Changes" comment="" />
+      <created>1683529260375</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1683529260375</updated>
+      <workItem from="1683529261605" duration="4881000" />
+    </task>
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
 </project>

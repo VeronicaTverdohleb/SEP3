@@ -341,19 +341,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Petra\\.nuget\\packages\\": {}
+    "C:\\Users\\Cedric\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
+      "projectUniqueName": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
       "projectName": "BlazorApp",
-      "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
-      "packagesPath": "C:\\Users\\Petra\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\BlazorApp\\obj\\",
+      "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\BlazorApp.csproj",
+      "packagesPath": "C:\\Users\\Cedric\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\BlazorApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Petra\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Cedric\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -365,11 +365,19 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
+<<<<<<< HEAD
             "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj": {
               "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj"
             },
             "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
               "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
+=======
+            "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj": {
+              "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj"
+            },
+            "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
+              "projectPath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
+>>>>>>> 219e0ab70c96f1ab431a52f2a2ff4dd90c318212
             }
           }
         }
@@ -402,7 +410,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.105\\RuntimeIdentifierGraph.json"
       }
     }
   }
