@@ -8,11 +8,12 @@ public class DataContext : DbContext
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Item> Items { get; set; }
-    //public DbSet<Ingredient> Ingredients { get; set; }
-    //public DbSet<SupplyOrder> SupplyOrders { get; set; }
-    //public DbSet<Order> Orders { get; set; }
-    
-    
+    public DbSet<Ingredient> Ingredients { get; set; }
+    public DbSet<SupplyOrder> SupplyOrders { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<Menu> Menus { get; set; }
+    public DbSet<Allergen> Allergens { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite("Data Source = ../DataAccess/VIACanteen.db")

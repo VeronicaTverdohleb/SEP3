@@ -310,6 +310,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "HttpClients/1.0.0": {
+      "type": "project",
+      "path": "../HttpClients/HttpClients.csproj",
+      "msbuildProject": "../HttpClients/HttpClients.csproj"
+    },
     "Shared/1.0.0": {
       "type": "project",
       "path": "../Shared/Shared.csproj",
@@ -318,6 +323,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "HttpClients >= 1.0.0",
       "Shared >= 1.0.0"
     ]
   },
