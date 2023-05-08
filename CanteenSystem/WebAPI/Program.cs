@@ -1,5 +1,7 @@
 using System.Text;
 using Application.DaoInterfaces;
+using Application.Logic;
+using Application.LogicInterfaces;
 using EfcDataAccess;
 using EfcDataAccess.DAOs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,6 +21,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DataContext>();
 
+builder.Services.AddScoped<IMenuLogic, MenuLogic>();
+
+builder.Services.AddScoped<IMenuDao, MenuDao>();
 builder.Services.AddScoped<IUserDao, UserDao>();
 builder.Services.AddScoped<IItemDao, ItemDao>();
 builder.Services.AddScoped<IOrderDao, OrderDao>();

@@ -38,3 +38,5 @@ C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenS
 C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\BlazorApp\obj\Debug\net7.0\BlazorApp.csproj.CopyComplete
 C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\BlazorApp\obj\Debug\net7.0\scopedcss\Pages\Login\LoginButtons.razor.rz.scp.css
 C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\BlazorApp\obj\Debug\net7.0\scopedcss\Pages\Login\LoginWindow.razor.rz.scp.css
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\BlazorApp\bin\Debug\net7.0\HttpClients.dll
+C:\Users\Petra\OneDrive\Desktop\School\VIA\3rd semester\Code repos\SEP3\CanteenSystem\BlazorApp\bin\Debug\net7.0\HttpClients.pdb

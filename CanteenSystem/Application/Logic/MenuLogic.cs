@@ -1,5 +1,6 @@
 ﻿using Application.DaoInterfaces;
 using Application.LogicInterfaces;
+using Shared.Dtos;
 using Shared.Model;
 
 namespace Application.Logic;
@@ -13,8 +14,8 @@ public class MenuLogic: IMenuLogic
         this.menuDao = menuDao;
     }
 
-    public Task<IEnumerable<Item>> GetItemsByDateAsync(DateTime date)
+    public Task<Menu> GetMenuByDateAsync(DateTime date)
     {
-        return menuDao.GetItemsByDateAsync(date);
+        return menuDao.GetMenuByDateAsync(date);
     }
 }

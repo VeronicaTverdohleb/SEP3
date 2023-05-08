@@ -2,6 +2,8 @@
 using BlazorApp.Auth;
 using BlazorApp.Services;
 using BlazorApp.Services.Http;
+using HttpClients.ClientInterfaces;
+using HttpClients.Implementations;
 using Microsoft.AspNetCore.Components.Authorization;
 using Shared.Auth;
 
@@ -10,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
+builder.Services.AddScoped<IMenuService, MenuHttpClient>();
 builder.Services.AddScoped<IAuthService, JwtAuthService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
 

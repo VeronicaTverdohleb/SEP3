@@ -13,13 +13,5 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
-    <data-source name="identifier.sqlite" uuid="293e2009-737c-4dd8-a903-4c612b459767">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="SQLITE" exact-version="0" />
-      <schema-mapping />
-    </data-source>
-    <data-source name="identifier.sqlite [2]" uuid="1982ed85-aae1-44f9-a0d5-fff9482eab4f">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="SQLITE" exact-version="0" />
-      <schema-mapping />
-    </data-source>
   </component>
 </project>
