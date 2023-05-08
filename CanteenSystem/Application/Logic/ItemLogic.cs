@@ -30,8 +30,11 @@ public class ItemLogic : IItemLogic
         Item item = new Item(dto.name, ingredient);
         Item itemCreated = await itemDao.CreateAsync(item);
         return itemCreated;
+        
 
     }
+
+   
 
     public Task<IEnumerable<Item>> GetAsync(ManageItemDto searchParameters)
     {
@@ -49,7 +52,7 @@ public class ItemLogic : IItemLogic
         List<Ingredient>? ingredients = null;
         if (dto.Ingredients!= null)
         {
-            ingredients = await ingredientDao.GetByIdAsync((int)dto.ingredientId);
+            ingredients = null;//await ingredientDao.GetByIdAsync((int)dto.ingredientId);
             if (ingredients == null)
             {
                 throw new Exception($"Ingredient was not found.");

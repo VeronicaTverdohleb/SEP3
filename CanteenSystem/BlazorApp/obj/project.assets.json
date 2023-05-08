@@ -101,6 +101,19 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "HttpClients/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/HttpClients.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HttpClients.dll": {}
+        }
+      },
       "Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -352,6 +365,9 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
+            "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj": {
+              "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\HttpClients\\HttpClients.csproj"
+            },
             "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
               "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
             }
