@@ -4,5 +4,5 @@ public class Allergen
 {
     public int Code { get; set; }
     
-    private Allergen() {}
+    public Allergen() {}
 }
