@@ -22,8 +22,23 @@ public class OrderController : ControllerBase
         try
         {
 
-            var posts = await orderLogic.GetAllPostsAsync();
+            var posts = await orderLogic.GetAllOrdersAsync();
             return Ok(posts);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet, Route("/orders/{id:int}")]
+    public async Task<ActionResult<Order>> GetOrderByIdAsync([FromRoute] int id)
+    {
+        try
+        {
+            Order order = await orderLogic.GetOrderByIdAsync(id);
+            return Ok(order);
         }
         catch (Exception e)
         {

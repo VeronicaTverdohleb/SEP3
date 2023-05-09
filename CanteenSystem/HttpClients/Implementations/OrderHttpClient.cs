@@ -14,7 +14,7 @@ public class OrderHttpClient:IOrderService
         this.client = client;
     }
 
-    public async Task<IEnumerable<Order>> getAllOrdersAsync()
+    public async Task<ICollection<Order>> getAllOrdersAsync(string? userName, string? completedStatus)
     {
         HttpResponseMessage response = await client.GetAsync("/Order");
         string content = await response.Content.ReadAsStringAsync();
@@ -30,7 +30,7 @@ public class OrderHttpClient:IOrderService
         return orders;
     }
 
-    public async Task<OrderBasicDto> GetByIdAsync(int id)
+    public async Task<OrderCreationDto> GetOrderByIdAsync(int id)
     {
         HttpResponseMessage response = await client.GetAsync($"/orders/{id}");
         string content = await response.Content.ReadAsStringAsync();
@@ -39,7 +39,7 @@ public class OrderHttpClient:IOrderService
             throw new Exception(content);
         }
 
-        OrderBasicDto order = JsonSerializer.Deserialize<OrderBasicDto>(content, 
+        OrderCreationDto order = JsonSerializer.Deserialize<OrderCreationDto>(content, 
             new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
