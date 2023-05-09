@@ -11,29 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EfcDataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230509085941_anotherJoinTable")]
-    partial class anotherJoinTable
+    [Migration("20230509113133_InitialCommit")]
+    partial class InitialCommit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
-
-            modelBuilder.Entity("AllergenIngredient", b =>
-                {
-                    b.Property<int>("AllergensCode")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("IngredientsId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("AllergensCode", "IngredientsId");
-
-                    b.HasIndex("IngredientsId");
-
-                    b.ToTable("AllergenIngredient");
-                });
 
             modelBuilder.Entity("IngredientItem", b =>
                 {
@@ -50,21 +35,13 @@ namespace EfcDataAccess.Migrations
                     b.ToTable("IngredientItem");
                 });
 
-            modelBuilder.Entity("Shared.Model.Allergen", b =>
-                {
-                    b.Property<int>("Code")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Code");
-
-                    b.ToTable("Allergens");
-                });
-
             modelBuilder.Entity("Shared.Model.Ingredient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Allergen")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Amount")
@@ -186,21 +163,6 @@ namespace EfcDataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("AllergenIngredient", b =>
-                {
-                    b.HasOne("Shared.Model.Allergen", null)
-                        .WithMany()
-                        .HasForeignKey("AllergensCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Shared.Model.Ingredient", null)
-                        .WithMany()
-                        .HasForeignKey("IngredientsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("IngredientItem", b =>

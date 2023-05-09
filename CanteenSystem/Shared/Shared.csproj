@@ -11,7 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Dtos\AllergenDto\" />
       <Folder Include="Dtos\SupplyDto\" />
     </ItemGroup>
 

@@ -10,6 +10,7 @@ public class IngredientLogic : IIngredientLogic
 {
     private readonly IIngredientDao ingredientDao;
 
+
     public IngredientLogic(IIngredientDao ingredientDao)
     {
         this.ingredientDao = ingredientDao;
@@ -23,17 +24,9 @@ public class IngredientLogic : IIngredientLogic
             throw new Exception("Ingredient already exists!");
         }
 
-        ICollection<Allergen> allergens = new List<Allergen>();
-        foreach (Allergen allergenInAllergens in allergens)
-        {
-            if (allergenInAllergens.Code == 0)
-            {
-                allergenInAllergens.Code = 0;
-            }
-            allergens.Add(allergenInAllergens);
-        }
-        Ingredient todo = new Ingredient(dto.Name, dto.Amount, allergens); 
+        Ingredient todo = new Ingredient(dto.Name, dto.Amount, dto.Allergen); 
         Ingredient created = await ingredientDao.CreateAsync(todo); 
+        
         return created;
     }
 
@@ -46,7 +39,7 @@ public class IngredientLogic : IIngredientLogic
         }
 
         int amountToUse = dto.Amount;
-        Ingredient updated = new(ingredient.Name, amountToUse, ingredient.Allergens)
+        Ingredient updated = new(ingredient.Name, amountToUse, ingredient.Allergen)
         {
             Id = ingredient.Id
         };
@@ -67,7 +60,7 @@ public class IngredientLogic : IIngredientLogic
             throw new Exception($"Post with id {id} not found");
         }
 
-        return new IngredientBasicDto(todoIngredient.Id ,todoIngredient.Name, todoIngredient.Amount, todoIngredient.Allergens);
+        return new IngredientBasicDto(todoIngredient.Id ,todoIngredient.Name, todoIngredient.Amount, todoIngredient.Allergen);
 
     }
 
@@ -78,11 +71,11 @@ public class IngredientLogic : IIngredientLogic
         {
             throw new Exception($"Post with ID {id} was not found!");
         }
-
-       
-
+        
         await ingredientDao.DeleteAsync(id);
     }
+
+   
 
     public async Task<IngredientBasicDto?> GetByNameAsync(string name)
     {
@@ -92,7 +85,7 @@ public class IngredientLogic : IIngredientLogic
             throw new Exception($"Ingredient with name {name} not found");
         }
 
-        return new IngredientBasicDto(todoIngredient.Id ,todoIngredient.Name, todoIngredient.Amount, todoIngredient.Allergens);
+        return new IngredientBasicDto(todoIngredient.Id ,todoIngredient.Name, todoIngredient.Amount, todoIngredient.Allergen);
 
     }
 }

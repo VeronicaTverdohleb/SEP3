@@ -6,11 +6,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EfcDataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCommit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Ingredients",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Amount = table.Column<int>(type: "INTEGER", nullable: false),
+                    Allergen = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ingredients", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Menus",
                 columns: table => new
@@ -38,6 +53,26 @@ namespace EfcDataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SupplyOrders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IngredientId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Amount = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SupplyOrders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SupplyOrders_Ingredients_IngredientId",
+                        column: x => x.IngredientId,
+                        principalTable: "Ingredients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,72 +121,33 @@ namespace EfcDataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ingredients",
+                name: "IngredientItem",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Amount = table.Column<int>(type: "INTEGER", nullable: false),
-                    ItemId = table.Column<int>(type: "INTEGER", nullable: true)
+                    IngredientsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ItemsId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ingredients", x => x.Id);
+                    table.PrimaryKey("PK_IngredientItem", x => new { x.IngredientsId, x.ItemsId });
                     table.ForeignKey(
-                        name: "FK_Ingredients_Items_ItemId",
-                        column: x => x.ItemId,
+                        name: "FK_IngredientItem_Ingredients_IngredientsId",
+                        column: x => x.IngredientsId,
+                        principalTable: "Ingredients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_IngredientItem_Items_ItemsId",
+                        column: x => x.ItemsId,
                         principalTable: "Items",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Allergens",
-                columns: table => new
-                {
-                    Code = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    IngredientId = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Allergens", x => x.Code);
-                    table.ForeignKey(
-                        name: "FK_Allergens_Ingredients_IngredientId",
-                        column: x => x.IngredientId,
-                        principalTable: "Ingredients",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SupplyOrders",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    IngredientId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Amount = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SupplyOrders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SupplyOrders_Ingredients_IngredientId",
-                        column: x => x.IngredientId,
-                        principalTable: "Ingredients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Allergens_IngredientId",
-                table: "Allergens",
-                column: "IngredientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ingredients_ItemId",
-                table: "Ingredients",
-                column: "ItemId");
+                name: "IX_IngredientItem_ItemsId",
+                table: "IngredientItem",
+                column: "ItemsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_MenuDate",
@@ -178,16 +174,16 @@ namespace EfcDataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Allergens");
+                name: "IngredientItem");
 
             migrationBuilder.DropTable(
                 name: "SupplyOrders");
 
             migrationBuilder.DropTable(
-                name: "Ingredients");
+                name: "Items");
 
             migrationBuilder.DropTable(
-                name: "Items");
+                name: "Ingredients");
 
             migrationBuilder.DropTable(
                 name: "Menus");

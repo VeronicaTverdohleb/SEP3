@@ -1,4 +1,5 @@
-﻿using Shared.Model;
+﻿
+using Shared.Model;
 
 namespace Application.DaoInterfaces;
 
@@ -10,4 +11,5 @@ public interface IIngredientDao
     Task<Ingredient?> GetByIdAsync(int id);
     Task DeleteAsync(int id);
     Task<Ingredient?> GetByNameAsync(string name);
+    
 }

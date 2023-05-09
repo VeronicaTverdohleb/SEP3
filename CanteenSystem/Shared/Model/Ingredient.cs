@@ -7,14 +7,12 @@ public class Ingredient
     public int Id { get; set; }
     public string Name { get; set; }
     public int Amount { get; set; }
-    [JsonIgnore]
-    public ICollection<Allergen> Allergens { get; set; }
-    [JsonIgnore]
+    public int Allergen { get; set; }
     public ICollection<Item> Items { get; set; }
 
-    public Ingredient(string name, int amount, ICollection<Allergen> allergens)
+    public Ingredient(string name, int amount, int allergens)
     {
-        Allergens = allergens;
+        Allergen = allergens;
         Name = name;
         Amount = amount;
     }

@@ -5,7 +5,8 @@ using Shared.Model;
 
 namespace EfcDataAccess.DAOs;
 
-public class IngredientDao : IIngredientDao
+public class 
+    IngredientDao : IIngredientDao
 {
     private readonly DataContext context;
     
@@ -37,11 +38,11 @@ public class IngredientDao : IIngredientDao
     {
         Ingredient? found = await context.Ingredients
             .AsNoTracking()
-            .Include(i => i.Allergens)
+            .Include(i => i.Allergen)
             .SingleOrDefaultAsync(post => post.Id == id);
         return found;
     }
-
+    
     public async Task DeleteAsync(int id)
     {
         Ingredient? existing = await GetByIdAsync(id);
@@ -58,9 +59,7 @@ public class IngredientDao : IIngredientDao
     public async Task<Ingredient?> GetByNameAsync(string name)
     {
         Ingredient? found = await context.Ingredients
-            .AsNoTracking()
-            .Include(i => i.Allergens)
-            .SingleOrDefaultAsync(post => post.Name == name);
+            .AsNoTracking().SingleOrDefaultAsync(i => i.Name == name);
         return found;
     }
 }

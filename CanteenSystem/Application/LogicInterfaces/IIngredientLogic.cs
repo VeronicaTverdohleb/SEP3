@@ -12,4 +12,5 @@ public interface IIngredientLogic
     Task<IngredientBasicDto?> GetByIdAsync(int id);
     Task<IngredientBasicDto?> GetByNameAsync(string name);
     Task DeleteIngredient(int id);
+    
 }
