@@ -20,10 +20,10 @@ else if (!orders.Any())
 else
 {
     @foreach (var order in orders)
-        {
-            <div class="order">
-                <a @onclick=@(() => SeeOrder(@order.Id))><h3 class="clickable">@order.Id</h3></a>
-                <p class="legal">order by: @order.Customer.FirstName</p>
+    {
+        <div class="order">
+            <a @onclick=@(() => SeeOrder(@order.Id))><h3 class="clickable">Order number: @order.Id</h3></a>
+            <p class="legal">order by: @order.Customer.UserName</p>
             </div>
             <br/>
         }
@@ -46,7 +46,7 @@ else
     {
         try
         {
-            orders = await orderService.getAllOrdersAsync();
+            orders = await orderService.getAllOrdersAsync(null,null);
         }
         catch (Exception e)
         {

@@ -1,6 +1,6 @@
 ﻿using Shared.Model;
 
-namespace Shared.Dtos;
+namespace Shared.Dtos.IngredientDto;
 
 public class IngredientBasicDto
 {

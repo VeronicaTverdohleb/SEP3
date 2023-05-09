@@ -28,6 +28,7 @@ builder.Services.AddScoped<IUserDao, UserDao>();
 builder.Services.AddScoped<IItemDao, ItemDao>();
 builder.Services.AddScoped<IOrderDao, OrderDao>();
 builder.Services.AddScoped<IIngredientDao, IngredientDao>();
+builder.Services.AddScoped<IIngredientLogic, IngredientLogic>();
 builder.Services.AddScoped<ISupplyOrderDao, SupplyOrderDao>();
 builder.Services.AddScoped<IOrderLogic, OrderLogic>();
 //builder.Services.AddScoped<IMenuLogic, MenuLogic>();
@@ -47,6 +48,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 AuthorizationPolicies.AddPolicies(builder.Services);
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IItemLogic, ItemLogic>();
 
 var app = builder.Build();
 

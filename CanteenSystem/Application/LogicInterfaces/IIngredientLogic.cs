@@ -1,4 +1,5 @@
 ﻿using Shared.Dtos;
+using Shared.Dtos.IngredientDto;
 using Shared.Model;
 
 namespace Application.LogicInterfaces;
