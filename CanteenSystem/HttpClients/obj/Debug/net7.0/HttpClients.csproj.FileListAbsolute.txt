@@ -31,6 +31,21 @@ C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\HttpClients\obj\Debug\net7.0\re
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\HttpClients\obj\Debug\net7.0\HttpClients.pdb
 C:\Users\Bruger\RiderProjects\SEP3\CanteenSystem\HttpClients\obj\Debug\net7.0\ref\HttpClients.dll
 >>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\bin\Debug\net7.0\HttpClients.deps.json
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\bin\Debug\net7.0\HttpClients.dll
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\bin\Debug\net7.0\HttpClients.pdb
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\bin\Debug\net7.0\Shared.dll
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\bin\Debug\net7.0\Shared.pdb
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\obj\Debug\net7.0\HttpClients.csproj.AssemblyReference.cache
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\obj\Debug\net7.0\HttpClients.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\obj\Debug\net7.0\HttpClients.AssemblyInfoInputs.cache
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\obj\Debug\net7.0\HttpClients.AssemblyInfo.cs
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\obj\Debug\net7.0\HttpClients.csproj.CoreCompileInputs.cache
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\obj\Debug\net7.0\HttpClients.csproj.CopyComplete
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\obj\Debug\net7.0\HttpClients.dll
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\obj\Debug\net7.0\refint\HttpClients.dll
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\obj\Debug\net7.0\HttpClients.pdb
+C:\Users\Cedric\RiderProjects\SEP3\CanteenSystem\HttpClients\obj\Debug\net7.0\ref\HttpClients.dll
 C:\Users\popca\RiderProjects\SEP3-Ver4\CanteenSystem\HttpClients\bin\Debug\net7.0\HttpClients.deps.json
 C:\Users\popca\RiderProjects\SEP3-Ver4\CanteenSystem\HttpClients\bin\Debug\net7.0\HttpClients.dll
 C:\Users\popca\RiderProjects\SEP3-Ver4\CanteenSystem\HttpClients\bin\Debug\net7.0\HttpClients.pdb

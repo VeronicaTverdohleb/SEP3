@@ -4,5 +4,6 @@ namespace Application.LogicInterfaces;
 
 public interface IOrderLogic
 {
-    Task<IEnumerable<Order>> GetAllPostsAsync();
+    Task<IEnumerable<Order>> GetAllOrdersAsync();
+    Task<Order> GetOrderByIdAsync(int id);
 }

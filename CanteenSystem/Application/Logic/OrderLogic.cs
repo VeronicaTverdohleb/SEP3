@@ -13,8 +13,19 @@ public class OrderLogic : IOrderLogic
         this.orderDao = orderDao;
     }
 
-    public Task<IEnumerable<Order>> GetAllPostsAsync()
+    public Task<IEnumerable<Order>> GetAllOrdersAsync()
     {
-        return orderDao.GetAllPostsAsync();
+        return orderDao.GetAllOrdersAsync();
+    }
+
+    public async Task<Order> GetOrderByIdAsync(int id)
+    {
+        Order? order = await orderDao.GetByIdAsync(id);
+        if (order == null)
+        {
+            throw new Exception($"Post with id {id} not found");
+        }
+
+        return order;
     }
 }

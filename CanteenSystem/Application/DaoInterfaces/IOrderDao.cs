@@ -4,5 +4,6 @@ namespace Application.DaoInterfaces;
 
 public interface IOrderDao
 {
-    Task<IEnumerable<Order>> GetAllPostsAsync();
+    Task<IEnumerable<Order>> GetAllOrdersAsync();
+    Task<Order> GetByIdAsync(int id);
 }

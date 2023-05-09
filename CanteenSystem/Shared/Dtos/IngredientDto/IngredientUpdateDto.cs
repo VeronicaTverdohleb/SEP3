@@ -1,4 +1,4 @@
-﻿namespace Shared.Dtos;
+﻿namespace Shared.Dtos.IngredientDto;
 
 public class IngredientUpdateDto
 { 
