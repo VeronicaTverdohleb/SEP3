@@ -10,4 +10,9 @@
       <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.5" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Dtos\AllergenDto\" />
+      <Folder Include="Dtos\SupplyDto\" />
+    </ItemGroup>
+
 </Project>

@@ -1,6 +1,7 @@
 ﻿using Application.DaoInterfaces;
 using Application.LogicInterfaces;
 using Shared.Dtos;
+using Shared.Dtos.IngredientDto;
 using Shared.Model;
 
 namespace Application.Logic;
@@ -22,8 +23,17 @@ public class IngredientLogic : IIngredientLogic
             throw new Exception("Ingredient already exists!");
         }
 
-        Ingredient todo = new Ingredient(dto.Name, dto.Amount, dto.Allergens);
-        Ingredient created = await ingredientDao.CreateAsync(todo);
+        ICollection<Allergen> allergens = new List<Allergen>();
+        foreach (Allergen allergenInAllergens in allergens)
+        {
+            if (allergenInAllergens.Code == 0)
+            {
+                allergenInAllergens.Code = 0;
+            }
+            allergens.Add(allergenInAllergens);
+        }
+        Ingredient todo = new Ingredient(dto.Name, dto.Amount, allergens); 
+        Ingredient created = await ingredientDao.CreateAsync(todo); 
         return created;
     }
 

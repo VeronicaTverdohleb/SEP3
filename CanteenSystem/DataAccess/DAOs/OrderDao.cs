@@ -12,11 +12,20 @@ public class OrderDao : IOrderDao
     {
         this.context = context;
     }
-    public async Task<IEnumerable<Order>> GetAllPostsAsync()
+    public async Task<IEnumerable<Order>> GetAllOrdersAsync()
     {
-        IQueryable<Order> orderQuery = context.Orders.AsQueryable();
-
+        //IQueryable<Order> orderQuery = context.Orders.AsQueryable();
+        IQueryable<Order> orderQuery = context.Orders.Include(order => order.Customer).Include(order=>order.Items).AsQueryable();
+        
         List<Order> result = await orderQuery.ToListAsync();
         return result;
+    }
+
+    public Task<Order> GetByIdAsync(int id)
+    {
+        Order? existing = context.Orders.Include(order => order.Customer).Include(order => order.Items).FirstOrDefault(o =>
+            o.Id == id
+        );
+        return Task.FromResult(existing);
     }
 }

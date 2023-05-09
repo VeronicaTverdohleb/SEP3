@@ -3,6 +3,7 @@ using System;
 using EfcDataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,42 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EfcDataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230509074034_Migrations")]
+    partial class Migrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
-
-            modelBuilder.Entity("AllergenIngredient", b =>
-                {
-                    b.Property<int>("AllergensCode")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("IngredientsId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("AllergensCode", "IngredientsId");
-
-                    b.HasIndex("IngredientsId");
-
-                    b.ToTable("AllergenIngredient");
-                });
-
-            modelBuilder.Entity("IngredientItem", b =>
-                {
-                    b.Property<int>("IngredientsId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ItemsId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("IngredientsId", "ItemsId");
-
-                    b.HasIndex("ItemsId");
-
-                    b.ToTable("IngredientItem");
-                });
 
             modelBuilder.Entity("Shared.Model.Allergen", b =>
                 {
@@ -53,7 +26,12 @@ namespace EfcDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("IngredientId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Code");
+
+                    b.HasIndex("IngredientId");
 
                     b.ToTable("Allergens");
                 });
@@ -67,11 +45,16 @@ namespace EfcDataAccess.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("ItemId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
 
                     b.ToTable("Ingredients");
                 });
@@ -185,34 +168,18 @@ namespace EfcDataAccess.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("AllergenIngredient", b =>
+            modelBuilder.Entity("Shared.Model.Allergen", b =>
                 {
-                    b.HasOne("Shared.Model.Allergen", null)
-                        .WithMany()
-                        .HasForeignKey("AllergensCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Shared.Model.Ingredient", null)
-                        .WithMany()
-                        .HasForeignKey("IngredientsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Allergens")
+                        .HasForeignKey("IngredientId");
                 });
 
-            modelBuilder.Entity("IngredientItem", b =>
+            modelBuilder.Entity("Shared.Model.Ingredient", b =>
                 {
-                    b.HasOne("Shared.Model.Ingredient", null)
-                        .WithMany()
-                        .HasForeignKey("IngredientsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Shared.Model.Item", null)
-                        .WithMany()
-                        .HasForeignKey("ItemsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Ingredients")
+                        .HasForeignKey("ItemId");
                 });
 
             modelBuilder.Entity("Shared.Model.Item", b =>
@@ -246,6 +213,16 @@ namespace EfcDataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Ingredient");
+                });
+
+            modelBuilder.Entity("Shared.Model.Ingredient", b =>
+                {
+                    b.Navigation("Allergens");
+                });
+
+            modelBuilder.Entity("Shared.Model.Item", b =>
+                {
+                    b.Navigation("Ingredients");
                 });
 
             modelBuilder.Entity("Shared.Model.Menu", b =>

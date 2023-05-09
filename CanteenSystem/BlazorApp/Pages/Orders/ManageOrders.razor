@@ -3,7 +3,6 @@
 @using global::Shared.Dtos
 @using HttpClients.ClientInterfaces
 @inject IOrderService orderService
-<h3>Manage Order feature coming soon</h3>
 
 @if (order == null)
 {
@@ -15,12 +14,22 @@
 else
 {
     <div class="post-card">
-        <h3>@order.Customer.FirstName</h3>
+        <h3>Order: @Id</h3>
+        <p>This order has the following items:</p>
         <br/>
-        <p>@order.Items</p>
+        @foreach (var item in order.Items)
+        {
+            <li>@item.name</li>
+        }
     </div>
     <br/>
     <p class="legal">ordered by: @order.Customer.FirstName</p>
+    <br/>
+    <br/>
+    <br/>
+    <div>
+        <button @onclick="DeleteOrder">Delete order</button>
+    </div>
 }
 
 @code {
@@ -36,14 +45,19 @@ else
         msg = "";
         try
         {
-            /*Console.WriteLine("about to fetch");
+            Console.WriteLine("about to fetch");
             order = await orderService.GetOrderByIdAsync(Id);
-            Console.WriteLine("fetched the order!");*/
+            Console.WriteLine("fetched the order!");
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             msg = e.Message;
         }
+    }
+
+    private async void DeleteOrder()
+    {
+        
     }
 }
