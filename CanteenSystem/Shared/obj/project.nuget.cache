@@ -1,15 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "ydaTgmwi8Q7IaKqtH35+9on+zVpu2BYsgv/VyUQIJO8FLHJj1JCovkBZNv8+GtYD2MIGHDikd2b+rFaimEX0Cw==",
+  "dgSpecHash": "uuAhp3jJpKVpeXPstMMrkuOKgN1tzj58P27o0JmQPNYD9EeL5lk2Tkf5QwFoq1N7tX2Ge/BdYnNVNdjP6Vqtsw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Cedric\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
+  "projectFilePath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Cedric\\.nuget\\packages\\microsoft.aspnetcore.authorization\\7.0.5\\microsoft.aspnetcore.authorization.7.0.5.nupkg.sha512",
-    "C:\\Users\\Cedric\\.nuget\\packages\\microsoft.aspnetcore.metadata\\7.0.5\\microsoft.aspnetcore.metadata.7.0.5.nupkg.sha512",
-    "C:\\Users\\Cedric\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
-    "C:\\Users\\Cedric\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
-    "C:\\Users\\Cedric\\.nuget\\packages\\microsoft.extensions.options\\7.0.1\\microsoft.extensions.options.7.0.1.nupkg.sha512",
-    "C:\\Users\\Cedric\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512"
+    "C:\\Users\\Petra\\.nuget\\packages\\microsoft.aspnetcore.authorization\\7.0.5\\microsoft.aspnetcore.authorization.7.0.5.nupkg.sha512",
+    "C:\\Users\\Petra\\.nuget\\packages\\microsoft.aspnetcore.metadata\\7.0.5\\microsoft.aspnetcore.metadata.7.0.5.nupkg.sha512",
+    "C:\\Users\\Petra\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\Petra\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\Petra\\.nuget\\packages\\microsoft.extensions.options\\7.0.1\\microsoft.extensions.options.7.0.1.nupkg.sha512",
+    "C:\\Users\\Petra\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }
