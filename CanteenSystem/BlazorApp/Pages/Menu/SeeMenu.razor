@@ -4,6 +4,13 @@
 @using global::Shared.Dtos
 @inject IMenuService menuService
 
+<h3>Menu for the day</h3>
+<InputDate @bind-Value="pickedDate"></InputDate>
+
+<button class="datebtn" @onclick="LoadMenu">See Menu</button>
+
+
+
 @if (!string.IsNullOrEmpty(msg))
 {
     <div>
@@ -21,29 +28,46 @@ else if (!menu.Items.Any())
 }
 else
 {
-    <div class="users-container">
-     
-    </div>
+    foreach (Item item in menu.Items)
+    {
+        <h4>@item.name</h4>
+    }
 }
 
 
 @code {
     private string msg;
     private MenuBasicDto menu;
-    
-    
+    private DateTime pickedDate;
+
     protected override async Task OnInitializedAsync()
     {
+        pickedDate = DateTime.Now;
         msg = "";
         try
         {
-            menu = await menuService.GetMenuByDateAsync(new DateTime(2023, 05, 10));
+            menu = await menuService.GetMenuByDateAsync(DateTime.Now);
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             msg = e.Message;
         }
+    }
+
+    private async Task LoadMenu()
+    {
+        msg = "";
+        try
+        {
+            menu = await menuService.GetMenuByDateAsync(pickedDate);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+        
     }
     
 }
