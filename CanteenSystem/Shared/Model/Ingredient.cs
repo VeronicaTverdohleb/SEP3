@@ -9,6 +9,8 @@ public class Ingredient
     public int Amount { get; set; }
     [JsonIgnore]
     public ICollection<Allergen> Allergens { get; set; }
+    [JsonIgnore]
+    public ICollection<Item> Items { get; set; }
 
     public Ingredient(string name, int amount, ICollection<Allergen> allergens)
     {
