@@ -1,22 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\WebAPI\\WebAPI.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Application\\Application.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Application\\Application.csproj",
-        "projectName": "Application",
-        "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\Petra\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Application\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\Petra\\AppData\\Roaming\\NuGet\\NuGet.Config"
-=======
     "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\WebAPI\\WebAPI.csproj": {}
   },
   "projects": {
@@ -31,7 +15,6 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Bruger\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -43,13 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-<<<<<<< HEAD
-              "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
-                "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
-=======
               "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
                 "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
->>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
               }
             }
           }
@@ -79,23 +57,6 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\DataAccess\\DataAccess.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\DataAccess\\DataAccess.csproj",
-        "projectName": "DataAccess",
-        "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\DataAccess\\DataAccess.csproj",
-        "packagesPath": "C:\\Users\\Petra\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\DataAccess\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\Petra\\AppData\\Roaming\\NuGet\\NuGet.Config"
-=======
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
@@ -111,7 +72,6 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Bruger\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -123,19 +83,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-<<<<<<< HEAD
-              "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Application\\Application.csproj": {
-                "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Application\\Application.csproj"
-              },
-              "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
-                "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
-=======
               "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Application\\Application.csproj": {
                 "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Application\\Application.csproj"
               },
               "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
                 "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
->>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
               }
             }
           }
@@ -181,23 +133,6 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
-        "projectName": "Shared",
-        "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj",
-        "packagesPath": "C:\\Users\\Petra\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\Petra\\AppData\\Roaming\\NuGet\\NuGet.Config"
-=======
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
@@ -213,7 +148,6 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Bruger\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -258,23 +192,6 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\WebAPI\\WebAPI.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\WebAPI\\WebAPI.csproj",
-        "projectName": "WebAPI",
-        "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\WebAPI\\WebAPI.csproj",
-        "packagesPath": "C:\\Users\\Petra\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\WebAPI\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\Petra\\AppData\\Roaming\\NuGet\\NuGet.Config"
-=======
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
@@ -290,7 +207,6 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Bruger\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -302,19 +218,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-<<<<<<< HEAD
-              "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\DataAccess\\DataAccess.csproj"
-              },
-              "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
-                "projectPath": "C:\\Users\\Petra\\OneDrive\\Desktop\\School\\VIA\\3rd semester\\Code repos\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
-=======
               "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\DataAccess\\DataAccess.csproj": {
                 "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\DataAccess\\DataAccess.csproj"
               },
               "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj": {
                 "projectPath": "C:\\Users\\Bruger\\RiderProjects\\SEP3\\CanteenSystem\\Shared\\Shared.csproj"
->>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
               }
             }
           }
@@ -361,11 +269,7 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
-=======
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
->>>>>>> ea65c6a269201a11acd9d2403382357343f0654c
         }
       }
     }
