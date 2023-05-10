@@ -22,15 +22,15 @@ public class ItemDao : IItemDao
 
     }
 
-    public async Task<IEnumerable<Item>> GetAsync(ManageItemDto searchParameters)
+    public async Task<IEnumerable<Item>> GetAsync(SearchItemSto searchParameters)
     {
         IQueryable<Item> query = context.Items.Include(item => item.Id).AsQueryable();
         
 
-        if (!string.IsNullOrEmpty(searchParameters.TitleContains))
+        if (!string.IsNullOrEmpty(searchParameters.NameContains))
         {
             query = query.Where(item =>
-                item.name.ToLower().Contains(searchParameters.TitleContains.ToLower()));
+                item.name.ToLower().Contains(searchParameters.NameContains.ToLower()));
         }
 
         List<Item> result = await query.ToListAsync();

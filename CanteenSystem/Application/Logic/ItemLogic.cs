@@ -19,24 +19,29 @@ public class ItemLogic : IItemLogic
     
 
 
-   public async Task<Item> CreateAsync(ManageItemDto dto)
+   public async Task<Item> CreateAsync(ItemCreationDto dto)
    {
-       List<Ingredient> ingredients = new List<Ingredient>();
-        for (int i = 0; i < ingredients.Count; i++)
-       { 
+       ICollection<Ingredient> ingredients = dto.Ingredients;
+       for (int i = 0; i < ingredients.Count; i++)
+       {
            Ingredient? ingredient = await ingredientDao.GetByIdAsync(dto.ingredientId);
-            
-          if (ingredient == null)
-          {
-              throw new Exception($"Ingredient was not found.");
+           if (ingredient == null)
+           {
+               throw new Exception($"Ingredient was not found.");
 
-          }
-          ingredients.Add(ingredient);
+           }
+
+           if (ingredient.Id.Equals(dto.ingredientId))
+           {
+               //dto.Ingredients.Coun
+           }
        }
-        
-        Item item = new Item(dto.name, ingredients);
-        Item itemCreated = await itemDao.CreateAsync(item);
-        return itemCreated;
+       
+
+
+       Item item = new Item(dto.name, ingredients);
+       Item itemCreated = await itemDao.CreateAsync(item);
+       return itemCreated;
         
 
     }
@@ -44,7 +49,7 @@ public class ItemLogic : IItemLogic
 
    
 
-   public Task<IEnumerable<Item>> GetAsync(ManageItemDto searchParameters)
+   public Task<IEnumerable<Item>> GetAsync(SearchItemSto searchParameters)
     {
         return itemDao.GetAsync(searchParameters);
     }
@@ -107,7 +112,7 @@ public class ItemLogic : IItemLogic
             throw new Exception($"Item with ID {id} was not found!");
         }
 
-        return new ManageItemDto(item.name,item.Id, item.Ingredients);
+        return new ManageItemDto(item.name,item.Id, item.Ingredients.Count);
     }
 
     public async Task<ManageItemDto> GetByNameAsync(string name)
@@ -118,7 +123,7 @@ public class ItemLogic : IItemLogic
             throw new Exception($"Item with ID {name} was not found!");
         }
 
-        return new ManageItemDto(item.name, item.Id, item.Ingredients);
+        return new ManageItemDto(item.name, item.Id, item.Ingredients.Count);
 
     }
 }

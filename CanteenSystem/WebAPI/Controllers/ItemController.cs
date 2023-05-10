@@ -18,7 +18,7 @@ public class ItemController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Item>> CreateAsync(ManageItemDto dto)
+    public async Task<ActionResult<Item>> CreateAsync(ItemCreationDto dto)
     {
         try
         {
@@ -34,12 +34,11 @@ public class ItemController : ControllerBase
     }
    
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Item>>> GetAsync([FromQuery] string? name, [FromQuery] int? id
-        , [FromQuery] string? titleContains)
+    public async Task<ActionResult<IEnumerable<Item>>> GetAsync([FromQuery] string? name, [FromQuery] int? id)
     {
         try
         {
-            ManageItemDto parameters = new(name, (int)id, titleContains);
+            SearchItemSto parameters = new(name, (int)id);
             var items = await itemLogic.GetAsync(parameters);
             return Ok(items);
         }
