@@ -4,40 +4,73 @@
 @using global::Shared.Dtos
 @inject IMenuService menuService
 
-@if (!string.IsNullOrEmpty(msg))
-{
-    <div>
-        <span>@msg</span>
-    </div>
-}
+<div class="page">
+    <InputDate @bind-Value="pickedDate"></InputDate>
 
-@if (menu == null)
-{
-    <span>Loading..</span>
-}
-else if (!menu.Items.Any())
-{
-    <span>There are no items on this menu...</span>
-}
-else
-{
-    <div class="users-container">
-     
-    </div>
-}
+    <button class="datebtn" @onclick="LoadMenu">See Menu</button>
+
+    <h3>Menu for the day</h3>
+
+    @if (!string.IsNullOrEmpty(msg))
+    {
+        <div>
+            <span>@msg</span>
+        </div>
+    }
+
+    @if (menu == null)
+    {
+        <span>Loading..</span>
+    }
+    else if (menu.Items == null || !menu.Items.Any())
+    {
+        <span>There are no items on this menu...</span>
+    }
+    else
+    {
+        <div class="menu">
+            <table>
+                <tr>
+                    <th>
+                        <label>Item</label>
+                    </th>
+                    <th>
+                        <label>Ingredients</label>
+                    </th>
+                    <th>
+                        <label>Allergens</label>
+                    </th>
+                </tr>
+
+                @foreach (Item item in menu.Items)
+                {
+                    <tr>
+                        <th>@item.name</th>
+                        <th>@GetIngredients(item)</th>
+                        <th>@GetAllergens(item)</th>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+</div>
 
 
 @code {
     private string msg;
     private MenuBasicDto menu;
-    
-    
+    private DateTime pickedDate;
+    private string ingredients = "";
+    private string allergens = "";
+
+
     protected override async Task OnInitializedAsync()
     {
+        pickedDate = DateTime.Now;
         msg = "";
         try
         {
-            menu = await menuService.GetMenuByDateAsync(new DateTime(2023, 05, 10));
+            menu = await menuService.GetMenuByDateAsync(DateTime.Now);
         }
         catch (Exception e)
         {
@@ -45,5 +78,73 @@ else
             msg = e.Message;
         }
     }
-    
+
+    private async Task LoadMenu()
+    {
+        msg = "";
+        try
+        {
+            menu = await menuService.GetMenuByDateAsync(pickedDate);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+    private string GetIngredients(Item item)
+    {
+        /*
+        
+        if (item == null || item.Ingredients != null || !item.Ingredients.Any())
+        {
+            if (item.Ingredients == null || !item.Ingredients.Any())
+            {
+                ingredients = "";
+            }
+            else
+            {
+                foreach (Ingredient ingredient in item.Ingredients)
+                {
+                    if (!item.Ingredients.Last().Equals(ingredient))
+
+                        ingredients += ingredient.Name + ", ";
+                }
+            }
+        }
+        */
+        return ingredients;
+    }
+
+    private string GetAllergens(Item item)
+    {
+        /*
+        string allergens = "";
+        if (item.Ingredients == null || !item.Ingredients.Any())
+        {
+            return "";
+        }
+        foreach (Ingredient ingredient in item.Ingredients)
+        {
+            if (ingredient.Allergen == null)
+            {
+                return "";
+            }
+            
+            foreach (Allergen allergen in ingredient.Allergens)
+            {
+                if (!item.Ingredients.Last().Equals(ingredient))
+                {
+                    allergens += allergen.Code + ", ";
+                }
+            }
+            
+        }
+        Console.WriteLine(allergens);
+        return allergens;
+        */
+        return "";
+    }
+
 }
