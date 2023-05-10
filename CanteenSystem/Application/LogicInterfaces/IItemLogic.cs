@@ -5,8 +5,8 @@ namespace Application.LogicInterfaces;
 
 public interface IItemLogic
 {
-    Task<Item> CreateAsync(ManageItemDto dto);
-    Task<IEnumerable<Item>> GetAsync(ManageItemDto searchParameters);
+    Task<Item> CreateAsync(ItemCreationDto dto);
+    Task<IEnumerable<Item>> GetAsync(SearchItemSto searchParameters);
     Task UpdateAsync(ManageItemDto post);
     Task DeleteAsync(int id);
     Task<ManageItemDto> GetByIdAsync(int id);

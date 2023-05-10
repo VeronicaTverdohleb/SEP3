@@ -6,8 +6,9 @@ public class Item
 {
     public int Id { get; set; }
     public string name { get; set; }
-    [JsonIgnore]
-    public ICollection<Ingredient> Ingredients { get; set; }
+    public int price { get; set; }
+    
+    public ICollection<Ingredient> Ingredients { get; }
 
     public Item(string name, ICollection<Ingredient> ingredients)
     {

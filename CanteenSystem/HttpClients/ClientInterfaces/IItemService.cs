@@ -6,7 +6,7 @@ namespace HttpClients.ClientInterfaces;
 public interface IItemService
 {
     
-    Task CreateAsync(ManageItemDto dto);
+    Task CreateAsync(ItemCreationDto dto);
     Task<ICollection<Item>> GetAsync(
         string? name, 
         int? id, 
