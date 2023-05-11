@@ -3,6 +3,7 @@
 @using global::Shared.Dtos
 @using HttpClients.ClientInterfaces
 @inject IOrderService orderService
+@inject NavigationManager navMgr
 
 @if (order == null)
 {
@@ -19,7 +20,7 @@ else
         <br/>
         @foreach (var item in order.Items)
         {
-            <li>@item.name</li>
+            <li>@item.Name</li>
         }
     </div>
     <br/>
@@ -56,8 +57,19 @@ else
         }
     }
 
-    private async void DeleteOrder()
+    private async Task DeleteOrder()
     {
-        
+        msg = "";
+        try
+        {
+            await orderService.DeleteAsync(Id);
+            navMgr.NavigateTo($"/ViewOrders");
+            
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
     }
 }

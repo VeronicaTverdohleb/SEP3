@@ -1,6 +1,7 @@
 ﻿using Application.Logic;
 using Application.LogicInterfaces;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Dtos;
 using Shared.Model;
 
 namespace WebAPI.Controllers;
@@ -47,4 +48,18 @@ public class OrderController : ControllerBase
         }
     }
     
+    [HttpDelete("/Orders/{id:int}")]
+    public async Task<ActionResult> DeleteAsync([FromRoute] int id)
+    {
+        try
+        {
+            await orderLogic.DeleteOrderAsync(id);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
 }
