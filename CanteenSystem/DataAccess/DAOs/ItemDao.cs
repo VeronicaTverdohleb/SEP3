@@ -1,4 +1,5 @@
-﻿using Application.DaoInterfaces;
+﻿using System.Text.Json.Serialization.Metadata;
+using Application.DaoInterfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Shared.Dtos;
@@ -24,13 +25,13 @@ public class ItemDao : IItemDao
 
     public async Task<IEnumerable<Item>> GetAsync(SearchItemSto searchParameters)
     {
-        IQueryable<Item> query = context.Items.Include(item => item.Id).AsQueryable();
+        IQueryable<Item> query = context.Items.Include(item => item.Ingredients).AsQueryable();
         
 
         if (!string.IsNullOrEmpty(searchParameters.NameContains))
         {
             query = query.Where(item =>
-                item.name.ToLower().Contains(searchParameters.NameContains.ToLower()));
+                item.Name.ToLower().Contains(searchParameters.NameContains.ToLower()));
         }
 
         List<Item> result = await query.ToListAsync();
@@ -59,7 +60,7 @@ public class ItemDao : IItemDao
     {
         Item? found = await context.Items
             .AsNoTracking().Include(item => item.Ingredients)
-            .SingleOrDefaultAsync(item => item.name == name);
+            .SingleOrDefaultAsync(item => item.Name == name);
         return found;
     }
 

@@ -10,8 +10,7 @@ public interface IItemService
     Task<ICollection<Item>> GetAsync(
         string? name, 
         int? id, 
-        List<Ingredient?> ingredients, 
-        string? titleContains
+        int? price
     );
     Task UpdateAsync(ManageItemDto dto);
     Task<ManageItemDto> GetByIdAsync(int id);

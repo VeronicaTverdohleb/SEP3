@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 using HttpClients.ClientInterfaces;
 using Shared.Dtos;
 using Shared.Model;
@@ -48,13 +50,37 @@ public class OrderHttpClient:IOrderService
         return order;
     }
 
-    public Task UpdateAsync(OrderUpdateDto dto)
+    public async Task UpdateAsync(OrderUpdateDto dto)
     {
-        throw new NotImplementedException();
+        string dtoAsJson = JsonSerializer.Serialize(dto);
+        StringContent body = new StringContent(dtoAsJson, Encoding.UTF8, "application/json");
+
+        HttpResponseMessage response = await client.PatchAsync("/orders", body);
+        if (!response.IsSuccessStatusCode)
+        {
+            string content = await response.Content.ReadAsStringAsync();
+            throw new Exception(content);
+        }
+        
     }
 
-    public Task DeleteAsync(int id)
+    public async Task CreateAsync(OrderCreationDto dto)
     {
-        throw new NotImplementedException();
+        HttpResponseMessage response = await client.PostAsJsonAsync("/orders", dto);
+        if (!response.IsSuccessStatusCode)
+        {
+            string content = await response.Content.ReadAsStringAsync();
+            throw new Exception(content);
+        }
+    }
+
+    public async Task DeleteAsync(int id)
+    {
+        HttpResponseMessage response = await client.DeleteAsync($"orders/{id}");
+        if (!response.IsSuccessStatusCode)
+        {
+            string content = await response.Content.ReadAsStringAsync();
+            throw new Exception(content);
+        }
     }
 }

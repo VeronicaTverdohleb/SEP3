@@ -8,13 +8,16 @@ public class Ingredient
     public string Name { get; set; }
     public int Amount { get; set; }
     public int Allergen { get; set; }
+    
+     [JsonIgnore]
     public ICollection<Item> Items { get; set; }
 
-    public Ingredient(string name, int amount, int allergens)
+    public Ingredient(string name, int amount, int allergen)
     {
-        Allergen = allergens;
+        Allergen = allergen;
         Name = name;
         Amount = amount;
+        
     }
     
     private Ingredient() {}
