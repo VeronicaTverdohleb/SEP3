@@ -3,6 +3,7 @@
 @using global::Shared.Dtos
 @using HttpClients.ClientInterfaces
 @inject IOrderService orderService
+@inject NavigationManager navMgr
 
 @if (order == null)
 {
@@ -19,7 +20,7 @@ else
         <br/>
         @foreach (var item in order.Items)
         {
-            <li>@item.name</li>
+            <li>@item.Name</li>
         }
     </div>
     <br/>
@@ -28,14 +29,24 @@ else
     <br/>
     <br/>
     <div>
-        <button @onclick="DeleteOrder">Delete order</button>
+        <button @onclick="ConfirmButton">Delete order</button>
     </div>
+    if (confirmBool)
+    {
+        <div>
+            <p>Are you sure you want to delete the order?</p>
+            <button @onclick="DeleteOrder">Yes</button>
+            <button @onclick="ConfirmButton">No</button>
+        </div>
+    }
+    
 }
 
 @code {
     [Parameter] 
     public int Id { get; set; }
 
+    private bool confirmBool = false;
     private OrderCreationDto order;
     private string msg = "";
     private string error = "";
@@ -56,8 +67,32 @@ else
         }
     }
 
-    private async void DeleteOrder()
+    private void ConfirmButton()
+    {
+        if (confirmBool)
+        {
+            confirmBool = false;
+        }
+        else
+        {
+            confirmBool = true;
+        }
+    }
+    
+    private async Task DeleteOrder()
     {
         
+        msg = "";
+        try
+        {
+            await orderService.DeleteAsync(Id);
+            navMgr.NavigateTo($"/ViewOrders");
+            
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
     }
 }

@@ -9,7 +9,4 @@ public interface IOrderDao
     Task<Order> CreateOrderAsync(Order order);
     Task UpdateOrderAsync(Order order);
     Task DeleteOrderAsync(int id);
-    
-    
-    
 }

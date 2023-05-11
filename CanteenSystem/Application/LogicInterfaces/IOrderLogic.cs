@@ -10,4 +10,6 @@ public interface IOrderLogic
     Task<Order> CreateOrderAsync(OrderCreationDto dto);
     Task UpdateOrderAsync(OrderUpdateDto order);
     Task DeleteOrderAsync(int id);
-    }
+    
+}
+

@@ -28,10 +28,21 @@ public class OrderLogic : IOrderLogic
         Order? order = await orderDao.GetByIdAsync(id);
         if (order == null)
         {
-            throw new Exception($"Post with id {id} not found");
+            throw new Exception($"Order with id {id} not found");
         }
 
         return order;
+    }
+
+    public async Task DeleteOrderAsync(int id)
+    {
+        Order? order = await orderDao.GetByIdAsync(id);
+        if (order == null)
+        {
+            throw new Exception($"Order with ID {id} was not found!");
+        }
+
+        await orderDao.DeleteOrderAsync(id);
     }
 
     public async Task<Order> CreateOrderAsync(OrderCreationDto dto)
@@ -49,8 +60,6 @@ public class OrderLogic : IOrderLogic
         {
             Customer = user,
             Items = {items},
-            TotalPrice = item.Price.ToString(),
-            
 
         };
         Order created = await orderDao.CreateOrderAsync(order);
@@ -58,11 +67,6 @@ public class OrderLogic : IOrderLogic
     }
 
     public async Task UpdateOrderAsync(OrderUpdateDto order)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task DeleteOrderAsync(int id)
     {
         throw new NotImplementedException();
     }
