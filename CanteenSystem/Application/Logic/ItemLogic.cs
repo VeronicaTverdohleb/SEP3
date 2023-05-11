@@ -123,7 +123,7 @@ public class ItemLogic : IItemLogic
         
     }
 
-    public async Task<ManageItemDto> GetByIdAsync(int id)
+    public async Task<ItemBasicDto?> GetByIdAsync(int id)
     {
         Item? item = await itemDao.GetByIdAsync(id);
         if (item == null)
@@ -131,10 +131,10 @@ public class ItemLogic : IItemLogic
             throw new Exception($"Item with ID {id} was not found!");
         }
 
-        return new ManageItemDto(item.Name,item.Id, item.Ingredients.Count(),item.Price);
+        return new ItemBasicDto(item.Name,item.Price, item.Ingredients);
     }
 
-    public async Task<ManageItemDto> GetByNameAsync(string name)
+    public async Task<ItemBasicDto?> GetByNameAsync(string name)
     {
         Item? item = await itemDao.GetByNameAsync(name);
         if (item == null)
@@ -142,7 +142,7 @@ public class ItemLogic : IItemLogic
             throw new Exception($"Item with ID {name} was not found!");
         }
 
-        return new ManageItemDto(item.Name, item.Id, item.Ingredients.Count,item.Price);
+        return new ItemBasicDto(item.Name, item.Price, item.Ingredients);
 
     }
 }

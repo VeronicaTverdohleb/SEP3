@@ -1,6 +1,7 @@
 ﻿using Application.LogicInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Dtos;
+using Shared.Dtos.IngredientDto;
 using Shared.Model;
 
 namespace WebAPI.Controllers;
@@ -78,11 +79,11 @@ public class ItemController : ControllerBase
     }
    
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<ManageItemDto>> GetById([FromRoute] int id)
+    public async Task<ActionResult<ItemBasicDto>> GetById([FromRoute] int id)
     {
         try
         {
-            ManageItemDto result = await itemLogic.GetByIdAsync(id);
+            ItemBasicDto result = (await itemLogic.GetByIdAsync(id))!;
             return Ok(result);
         }
         catch (Exception e)
@@ -93,11 +94,11 @@ public class ItemController : ControllerBase
     }
     
     [HttpGet("{name:required}")]
-    public async Task<ActionResult<ManageItemDto>> GetByName([FromQuery] string name)
+    public async Task<ActionResult<ItemBasicDto>> GetByName([FromQuery] string name)
     {
         try
         {
-            ManageItemDto result = (await itemLogic.GetByNameAsync(name))!;
+            ItemBasicDto result = (await itemLogic.GetByNameAsync(name))!;
             return Ok(result);
         }
         catch (Exception e)

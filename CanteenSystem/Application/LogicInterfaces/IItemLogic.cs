@@ -9,8 +9,8 @@ public interface IItemLogic
     Task<IEnumerable<Item>> GetAsync(SearchItemSto searchParameters);
     Task UpdateAsync(ManageItemDto post);
     Task DeleteAsync(int id);
-    Task<ManageItemDto> GetByIdAsync(int id);
-    Task<ManageItemDto> GetByNameAsync(string name);
+    Task<ItemBasicDto?> GetByIdAsync(int id);
+    Task<ItemBasicDto?> GetByNameAsync(string name);
 
     
 }
