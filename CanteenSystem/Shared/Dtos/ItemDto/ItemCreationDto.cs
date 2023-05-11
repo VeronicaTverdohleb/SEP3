@@ -7,15 +7,16 @@ public class ItemCreationDto
    
 
     public string Name { get; set; }
-    public ICollection<Ingredient> Ingredients { get; }
+
+    public List<int> IngredientIds { get; set; }
     public int Id { get;  }
     public int Price { get; set; }
     
     
-    public ItemCreationDto(string name, int price, ICollection<Ingredient> Ingredients )
+    public ItemCreationDto(string name, int price, List<int> ingredientIds)
     {
         Name = name;
         Price = price;
-        this.Ingredients = Ingredients;
+        IngredientIds = ingredientIds;
     }
 }

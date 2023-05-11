@@ -53,6 +53,5 @@ public class OrderDao : IOrderDao
 
         context.Orders.Remove(existing);
         await context.SaveChangesAsync();
-
     }
 }

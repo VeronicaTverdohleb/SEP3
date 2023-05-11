@@ -64,19 +64,14 @@ public class OrderHttpClient:IOrderService
         
     }
 
+    public async Task DeleteAsync(int id)
+    {
+        HttpResponseMessage response = await client.DeleteAsync($"Orders/{id}");
+    }
+
     public async Task CreateAsync(OrderCreationDto dto)
     {
         HttpResponseMessage response = await client.PostAsJsonAsync("/orders", dto);
-        if (!response.IsSuccessStatusCode)
-        {
-            string content = await response.Content.ReadAsStringAsync();
-            throw new Exception(content);
-        }
-    }
-
-    public async Task DeleteAsync(int id)
-    {
-        HttpResponseMessage response = await client.DeleteAsync($"orders/{id}");
         if (!response.IsSuccessStatusCode)
         {
             string content = await response.Content.ReadAsStringAsync();

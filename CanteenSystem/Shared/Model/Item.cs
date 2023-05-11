@@ -8,13 +8,18 @@ public class Item
     public string Name { get; set; }
     public int Price { get; set; }
     
-    public ICollection<Ingredient> Ingredients { get; }
-
-   
+    public ICollection<Ingredient>? Ingredients { get; }
 
     
     //public List<DateTime> Date { get; set; }
 
     public Item() {}
+
+    public Item(string name, int price, ICollection<Ingredient>? ingredients)
+    {
+        Name = name;
+        Price = price;
+        Ingredients = ingredients;
+    }
 
 }

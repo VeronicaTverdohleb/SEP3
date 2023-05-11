@@ -15,12 +15,24 @@ public class ItemDao : IItemDao
     {
         this.context = context;
     }
-    public async Task<Item> CreateAsync(Item item)
+    public async Task<Item> CreateAsync(ItemCreationDto dto)
     {
-        EntityEntry<Item> added = await context.Items.AddAsync(item);
+        // Name, price
+        // Feel free to add the logic part again (not necessary)
+        
+
+        ICollection<Ingredient> ingredients = new List<Ingredient>();
+
+        foreach (int IngredientId in dto.IngredientIds)
+        {
+            Ingredient? ingredient = context.Ingredients.FirstOrDefault(ingredient => ingredient.Id == IngredientId);
+            ingredients.Add(ingredient);
+        }
+        
+        Item newItem = new Item(dto.Name, dto.Price, ingredients);
+        EntityEntry<Item> added = await context.Items.AddAsync(newItem);
         await context.SaveChangesAsync();
         return added.Entity;
-
     }
 
     public async Task<IEnumerable<Item>> GetAsync(SearchItemSto searchParameters)
