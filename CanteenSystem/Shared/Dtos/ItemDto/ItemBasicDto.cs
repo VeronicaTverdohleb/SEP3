@@ -5,14 +5,15 @@ namespace Shared.Dtos;
 public class ItemBasicDto
 {
 
-    public int Id { get; }
+   
     public string name { get; set; }
-    public ICollection<Ingredient> Ingredients { get; }
-    
-    public ItemBasicDto(int id, string name, ICollection<Ingredient> ingredients)
+    public int Price { get; set; }
+    public ICollection<Ingredient> Ingredients { get; set; }
+
+    public ItemBasicDto( string name, int price, ICollection<Ingredient> ingredients)
     {
-        Id = id;
         this.name = name;
+        Price = price;
         Ingredients = ingredients;
     }
 

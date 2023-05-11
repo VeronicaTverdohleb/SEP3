@@ -18,17 +18,20 @@ public class ItemHttpClient :IItemService
     
     public async Task CreateAsync(ItemCreationDto dto)
     {
-        HttpResponseMessage response = await client.PostAsJsonAsync("/items", dto);
+        String postAsJson = JsonSerializer.Serialize(dto);
+        StringContent content = new(postAsJson, Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await client.PostAsync("/items", content);
+        string responsecontent = await response.Content.ReadAsStringAsync();
+
         if (!response.IsSuccessStatusCode)
         {
-            string content = await response.Content.ReadAsStringAsync();
-            throw new Exception(content);
+            throw new Exception(responsecontent);
         }
     }
 
-    public async Task<ICollection<Item>> GetAsync(string? name, int? id, List<Ingredient?> ingredients, string? titleContains)
+    public async Task<ICollection<Item>> GetAsync(string? name, int? id,int? price)
     {
-        string query = ConstructQuery(name, id, ingredients, titleContains);
+        string query = ConstructQuery(name, id,price);
         HttpResponseMessage response = await client.GetAsync("/items"+query);
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
@@ -43,24 +46,29 @@ public class ItemHttpClient :IItemService
         return items;
     }
     
-    private static string ConstructQuery(string? name, int? id, List<Ingredient?> ingredients, string? titleContains)
+    private static string ConstructQuery(string? name, int? id, int? price)
     {
         string query = "";
         if (!string.IsNullOrEmpty(name))
         {
-            query += $"?name={name}";
+            query += $"?Name={name}";
         }
 
         if (id != null)
         {
             query += string.IsNullOrEmpty(query) ? "?" : "&";
-            query += $"id={id}";
+            query += $"Id={id}";
         }
-
-        if (!string.IsNullOrEmpty(titleContains))
+        if (price!= null)
         {
             query += string.IsNullOrEmpty(query) ? "?" : "&";
-            query += $"titlecontains={titleContains}";
+            query += $"Price={price}";
+        }
+
+        if (!string.IsNullOrEmpty(name))
+        {
+            query += string.IsNullOrEmpty(query) ? "?" : "&";
+            query += $"namecontains={name}";
         }
         
 
@@ -89,13 +97,13 @@ public class ItemHttpClient :IItemService
             throw new Exception(content);
         }
 
-        ManageItemDto itmes = JsonSerializer.Deserialize<ManageItemDto>(content, 
+        ManageItemDto items = JsonSerializer.Deserialize<ManageItemDto>(content, 
             new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             }
         )!;
-        return itmes;
+        return items;
     }
 
     public async Task<ManageItemDto> GetByNameAsync(string name)

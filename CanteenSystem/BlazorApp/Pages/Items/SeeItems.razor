@@ -1,6 +1,152 @@
 ﻿@page "/SeeItems"
-<h3>SeeItems</h3>
+@using global::Shared.Model
+@using HttpClients.ClientInterfaces
+@inject IItemService itemService;
+@inject NavigationManager navMgr
+
+<h3>See Items</h3>
+
+<div class="filter-bar">
+    <div class="filters-container">
+        <img src="icons/@(doShowFilters ? "clear_" : "")funnel.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel"/>
+        @if (doShowFilters)
+        {
+            <div class="filter">
+                <label>Name:</label>
+                <input type="text" @bind="nameFilter"/>
+            </div>
+            <div class="filter">
+                <label>Item Id:</label>
+                <input type="number" @bind="idFilter"/>
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    <button @onclick="LoadItems">Load</button>
+</div>
+
+
+@if (items == null)
+{
+}
+else if (!items.Any())
+{
+    <p>No Posts to display</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Item ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Ingredients</th>
+            <th>Edit</th>
+            <th>View</th>
+            <th>Delete?</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in items)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>
+                    <img src="icons/edit.gif" class="funnel" @onclick="@(() => navMgr.NavigateTo($"/ManageItems/{item.Id}"))"/>
+                </td>
+                <td>
+                    <img src="icons/view.png" class="funnel" @onclick="@(() => navMgr.NavigateTo($"/ViewSelectedPost/{item.Id}"))"/>
+                </td>
+                <td>
+                    <label @onclick="@(() => RemoveTodo(item.Id))" style="cursor:pointer; color: red; font-weight: bold">
+                        &#x2717;
+                    </label>
+                    </td>
+                
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+@if (!string.IsNullOrEmpty(msg))
+{
+    <label style="color: red">@msg</label>
+}
 
 @code {
+    private IEnumerable<Item>? items;
+    private ICollection<Ingredient> ing;
+    private int price;
+    private string msg = "";
+    private bool doShowFilters = false;
+
+    private string? nameFilter;
+    private int? idFilter;
+    
+
+    private async Task LoadItems()
+    {
+        try
+        {
+            items = await itemService.GetAsync(nameFilter,idFilter,price);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+    /*private async Task LoadTodos()
+    {
+        try
+        {
+            todos = await todoService.GetAsync(null, null, null, null);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+    private async Task CompleteTodo(Post item, bool status)
+    {
+        PostUpdateDto dto = new(item.Id)
+        {
+            IsCompleted = status
+        };
+    
+        try
+        {
+            await todoService.UpdateAsync(dto);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }*/ 
+    private async Task RemoveTodo(int id)
+    {
+        msg = "";
+        try
+        {
+            await itemService.DeleteAsync(id);
+        
+            var list = new List<Item>(items!);
+            list.RemoveAll(todo => todo.Id == id);
+            items = list.AsEnumerable();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
     
 }
+

@@ -1,5 +1,6 @@
 ﻿using Application.DaoInterfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Shared.Model;
 
 namespace EfcDataAccess.DAOs;
@@ -28,8 +29,21 @@ public class OrderDao : IOrderDao
         );
         return Task.FromResult(existing);
     }
-    
-    public async Task DeleteAsync(int id)
+
+    public async Task<Order> CreateOrderAsync(Order order)
+    {
+        EntityEntry<Order> added = await context.Orders.AddAsync(order);
+        await context.SaveChangesAsync();
+        return added.Entity;
+    }
+
+    public async Task UpdateOrderAsync(Order order)
+    {
+        context.Orders.Update(order);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task DeleteOrderAsync(int id)
     {
         Order? existing = await GetByIdAsync(id);
         if (existing == null)

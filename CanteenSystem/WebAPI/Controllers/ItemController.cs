@@ -92,6 +92,21 @@ public class ItemController : ControllerBase
         }
     }
     
+    [HttpGet("{name:required}")]
+    public async Task<ActionResult<ManageItemDto>> GetByName([FromQuery] string name)
+    {
+        try
+        {
+            ManageItemDto result = (await itemLogic.GetByNameAsync(name))!;
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
     
     
     

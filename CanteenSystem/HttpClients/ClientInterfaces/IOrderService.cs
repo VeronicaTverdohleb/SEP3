@@ -8,6 +8,7 @@ public interface IOrderService
     Task<ICollection<Order>> getAllOrdersAsync(string? userName, string? completedStatus);
     Task<OrderCreationDto> GetOrderByIdAsync(int id);
     Task UpdateAsync(OrderUpdateDto dto);
+    Task CreateAsync(OrderCreationDto dto);
     Task DeleteAsync(int id);
 
 }

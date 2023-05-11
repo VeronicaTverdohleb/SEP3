@@ -6,14 +6,16 @@ public class ItemCreationDto
 {
    
 
-    public string name { get; set; }
+    public string Name { get; set; }
     public ICollection<Ingredient> Ingredients { get; }
-    public int ingredientId { get; set; }
+    public int Id { get;  }
+    public int Price { get; set; }
     
     
-    public ItemCreationDto(string name, ICollection<Ingredient> Ingredients )
+    public ItemCreationDto(string name, int price, ICollection<Ingredient> Ingredients )
     {
-        this.name = name;
+        Name = name;
+        Price = price;
         this.Ingredients = Ingredients;
     }
 }
