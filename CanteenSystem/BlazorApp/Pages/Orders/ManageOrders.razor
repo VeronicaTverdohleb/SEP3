@@ -29,14 +29,24 @@ else
     <br/>
     <br/>
     <div>
-        <button @onclick="DeleteOrder">Delete order</button>
+        <button @onclick="ConfirmButton">Delete order</button>
     </div>
+    if (confirmBool)
+    {
+        <div>
+            <p>Are you sure you want to delete the order?</p>
+            <button @onclick="DeleteOrder">Yes</button>
+            <button @onclick="ConfirmButton">No</button>
+        </div>
+    }
+    
 }
 
 @code {
     [Parameter] 
     public int Id { get; set; }
 
+    private bool confirmBool = false;
     private OrderCreationDto order;
     private string msg = "";
     private string error = "";
@@ -57,8 +67,21 @@ else
         }
     }
 
+    private void ConfirmButton()
+    {
+        if (confirmBool)
+        {
+            confirmBool = false;
+        }
+        else
+        {
+            confirmBool = true;
+        }
+    }
+    
     private async Task DeleteOrder()
     {
+        
         msg = "";
         try
         {
