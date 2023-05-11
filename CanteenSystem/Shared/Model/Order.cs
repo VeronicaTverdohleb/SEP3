@@ -14,5 +14,11 @@ public class Order
     
     public ICollection<Item> Items { get; set; }
     public Order() {}
+
+    public Order(ICollection<Item> items, string status)
+    {
+        Items = items;
+        Status = status;
+    }
     
 }

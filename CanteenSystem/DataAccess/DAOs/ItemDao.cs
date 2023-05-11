@@ -52,7 +52,7 @@ public class ItemDao : IItemDao
 
     public async Task<IEnumerable<Item>> GetAllItemsAsync()
     {
-        IEnumerable<Item> list = context.Items.ToList();
+        IEnumerable<Item> list = context.Items.Include(item => item.Ingredients).ToList();
         return list;
     }
 
