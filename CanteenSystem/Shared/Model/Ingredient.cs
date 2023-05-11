@@ -10,7 +10,7 @@ public class Ingredient
     public int Allergen { get; set; }
     
      [JsonIgnore]
-    public ICollection<Item> Items { get; set; }
+    public ICollection<Item>? Items { get; set; }
 
     public Ingredient(string name, int amount, int allergen)
     {

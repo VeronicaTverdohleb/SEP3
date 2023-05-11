@@ -8,7 +8,8 @@ namespace Application.Logic;
 public class ItemLogic : IItemLogic
 {
     private readonly IItemDao itemDao;
-   // private  int value=0;
+
+    // private  int value=0;
     private readonly IIngredientDao ingredientDao;
 
     public ItemLogic(IItemDao itemDao, IIngredientDao ingredientDao)
@@ -16,55 +17,33 @@ public class ItemLogic : IItemLogic
         this.itemDao = itemDao;
         this.ingredientDao = ingredientDao;
     }
-    
 
 
-   public async Task<Item> CreateAsync(ItemCreationDto dto)
-   {
-       ICollection<Ingredient> ingredients = dto.Ingredients;
-       Ingredient? ingredient = await ingredientDao.GetByIdAsync(dto.Id);
+    public async Task<Item> CreateAsync(ItemCreationDto dto)
+    {
+        // Missing logic 
+        // Does the ingredient actually exist? And if yes, do we have enough to make the item?
+        // Can this ingredient go on this type of product (pineapple on pizza)
+        foreach (int ingredientId in dto.IngredientIds)
+        {
+            Ingredient? existing = await ingredientDao.GetByIdAsync(ingredientId);
+            if (existing == null)
+            {
+                throw new Exception($"This ingredients you try to use, does not exist!");
+            }
 
-       for (int i = 0; i < ingredients.Count; i++)
-       {
-           if (ingredient == null)
-           {
-               throw new Exception($"Ingredient was not found.");
-
-           }
-
-           if (ingredient.Id.Equals(dto.Id))
-           {
-               ingredients.GetEnumerator().Current.Allergen.GetType();
-               ingredients.Add(ingredient);
-           }
-           
-       }
-
-
-       Ingredient ing = new Ingredient(ingredient.Name, ingredient.Amount, ingredient.Allergen)
-       {
-           Name = ingredient.Name,
-           Amount = ingredient.Amount,
-           Allergen = ingredient.Allergen
-
-       };
-       Item item = new Item()
-       {
-           Name = dto.Name,
-           Price = dto.Price,
-           Ingredients = { ing }
-               
-       };
-       Item itemCreated = await itemDao.CreateAsync(item);
-       return itemCreated;
+            if (existing.Amount == 0)
+            {
+                throw new Exception($"There is not enough of this ingredient to make this item");
+            }
+        }
         
-
+        Item itemCreated = await itemDao.CreateAsync(dto);
+        return itemCreated;
     }
 
 
-   
-
-   public Task<IEnumerable<Item>> GetAsync(SearchItemSto searchParameters)
+    public Task<IEnumerable<Item>> GetAsync(SearchItemSto searchParameters)
     {
         return itemDao.GetAsync(searchParameters);
     }
@@ -84,16 +63,14 @@ public class ItemLogic : IItemLogic
             {
                 Ingredient? ingredient = await ingredientDao.GetByIdAsync(dto.ingredientId);
                 ingredients.Add(ingredient);
-
             }
         }
 
         if (ingredients == null)
-            {
-                throw new Exception($"Ingredient was not found.");
+        {
+            throw new Exception($"Ingredient was not found.");
+        }
 
-            }
-        
 
         ICollection<Ingredient> ingredientToUse = dto.Ingredients ?? existing.Ingredients;
         string titleToUse = dto.name ?? existing.Name;
@@ -103,12 +80,10 @@ public class ItemLogic : IItemLogic
             Name = titleToUse,
             Ingredients = { ingredientToUse.GetEnumerator().Current },
             Id = existing.Id,
-            Price=existing.Price
+            Price = existing.Price
         };
 
         await itemDao.UpdateAsync(updated);
-
-
     }
 
     public async Task DeleteAsync(int id)
@@ -120,7 +95,6 @@ public class ItemLogic : IItemLogic
         }
 
         await itemDao.DeleteAsync(id);
-        
     }
 
     public async Task<ManageItemDto> GetByIdAsync(int id)
@@ -131,7 +105,7 @@ public class ItemLogic : IItemLogic
             throw new Exception($"Item with ID {id} was not found!");
         }
 
-        return new ManageItemDto(item.Name,item.Id, item.Ingredients.Count(),item.Price);
+        return new ManageItemDto(item.Name, item.Id, item.Ingredients.Count(), item.Price);
     }
 
     public async Task<ManageItemDto> GetByNameAsync(string name)
@@ -142,7 +116,6 @@ public class ItemLogic : IItemLogic
             throw new Exception($"Item with ID {name} was not found!");
         }
 
-        return new ManageItemDto(item.Name, item.Id, item.Ingredients.Count,item.Price);
-
+        return new ManageItemDto(item.Name, item.Id, item.Ingredients.Count, item.Price);
     }
 }
