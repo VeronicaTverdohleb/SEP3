@@ -23,9 +23,20 @@ public class OrderLogic : IOrderLogic
         Order? order = await orderDao.GetByIdAsync(id);
         if (order == null)
         {
-            throw new Exception($"Post with id {id} not found");
+            throw new Exception($"Order with id {id} not found");
         }
 
         return order;
+    }
+    
+    public async Task DeleteAsync(int id)
+    {
+        Order? order = await orderDao.GetByIdAsync(id);
+        if (order == null)
+        {
+            throw new Exception($"Order with ID {id} was not found!");
+        }
+
+        await orderDao.DeleteAsync(id);
     }
 }

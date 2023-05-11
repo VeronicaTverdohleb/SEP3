@@ -6,4 +6,5 @@ public interface IOrderLogic
 {
     Task<IEnumerable<Order>> GetAllOrdersAsync();
     Task<Order> GetOrderByIdAsync(int id);
+    Task DeleteAsync(int id);
 }

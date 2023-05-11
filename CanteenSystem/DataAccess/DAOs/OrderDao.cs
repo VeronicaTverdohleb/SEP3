@@ -28,4 +28,16 @@ public class OrderDao : IOrderDao
         );
         return Task.FromResult(existing);
     }
+    
+    public async Task DeleteAsync(int id)
+    {
+        Order? existing = await GetByIdAsync(id);
+        if (existing == null)
+        {
+            throw new Exception($"Order with id {id} not found");
+        }
+
+        context.Orders.Remove(existing);
+        await context.SaveChangesAsync();
+    }
 }
