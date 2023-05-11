@@ -38,7 +38,6 @@ public class
     {
         Ingredient? found = await context.Ingredients
             .AsNoTracking()
-            .Include(i => i.Allergen)
             .SingleOrDefaultAsync(post => post.Id == id);
         return found;
     }

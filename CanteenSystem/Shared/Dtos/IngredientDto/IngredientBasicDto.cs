@@ -16,4 +16,6 @@ public class IngredientBasicDto
         Name = name;
         Amount = amount;
     }
+    
+    public IngredientBasicDto(){}
 }
