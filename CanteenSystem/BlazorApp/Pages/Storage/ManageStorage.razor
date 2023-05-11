@@ -1,6 +1,168 @@
 ﻿@page "/ManageStorage"
-<h3>This feature is coming in the next software update</h3>
+@using HttpClients.ClientInterfaces
+@using global::Shared.Model
+@using global::Shared.Dtos.IngredientDto
+@inject IIngredientService IngredientService;
+<h3>INGREDIENTS</h3>
+
+@if (ingredients == null)
+{
+    <p></p>
+}
+else if (!ingredients.Any())
+{
+    <p>No Ingredients to display</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Allergen</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in ingredients)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Amount</td>
+                <td>@item.Allergen</td>
+                <td>
+                    <img src="img/delete.png" class="funnel" @onclick="() => DeleteIngredient(item.Id)"/>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+<h2>Add</h2>
+<div class="filter-bar">
+    <div class="filters-container">
+        <img src="icons/@(doShowFilters1 ? "clear_" : "")add.png" class="funnel" @onclick="@(() => doShowFilters1 = !doShowFilters1)" alt="Funnel"/>
+        @if (doShowFilters1)
+        {
+            <div class="form-group field">
+                <label>Name:</label>
+                <textarea rows="1" cols="15" @bind="name"/>
+            </div>
+            <div class="form-group field">
+                <label>Amount:</label>
+                <textarea rows="1" cols="5" @bind="amount"/>
+            </div>
+            <div class="form-group field">
+                <label>Allergen:</label>
+                <textarea rows="1" cols="5" @bind="allergen"/>
+            </div>
+            <div class="button-row">
+                @if (!string.IsNullOrEmpty(msg))
+                {
+                    <label style="color: red">@msg</label>
+                }
+                <button @onclick="CreateIngredient" class="acceptbtn">Create</button>
+            </div>
+        }
+    </div>
+</div>
+<h2>Edit</h2>
+<div class="filter-bar">
+    <div class="filters-container">
+        <img src="icons/@(doShowFilters ? "clear_" : "")funnel.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel"/>
+        @if (doShowFilters)
+        {
+            <div>
+                <label>Id:</label>
+                <input type="text" @bind="id"/>
+            </div>
+            <div>
+                <label>Amount:</label>
+                <input type="text" @bind="amount"/>
+            </div>
+            <div class="button-row">
+                <button @onclick="EditIngredient" class="acceptbtn">Create</button>
+            </div>
+        }
+    </div>
+</div>
+
 
 @code {
+    private IEnumerable<Ingredient>? ingredients;
+
+    private bool doShowFilters = false;
+    private bool doShowFilters1 = false;
+    private string msg = "";
     
+    private string? name;
+    private int id;
+    private int amount;
+    private int allergen;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            ingredients = await IngredientService.getAllIngredientsAsync(name);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+    private async Task DeleteIngredient(int id)
+    {
+        msg = "";
+        try
+        {
+            await IngredientService.DeleteIngredient(id);
+        
+            var list = new List<Ingredient>(ingredients!);
+            list.RemoveAll(i => i.Id == id);
+            ingredients = list.AsEnumerable();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+    private async Task EditIngredient()
+    {
+        msg = "";
+        try
+        {
+            IngredientUpdateDto updateDto = new(id, amount);
+            await IngredientService.UpdateIngredientAmount(updateDto);
+            ingredients = await IngredientService.getAllIngredientsAsync(name);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+    
+    private async Task CreateIngredient()
+    {
+        msg = "";
+        try
+        {
+            IngredientCreationDto creationDto = new(name, amount, allergen);
+            await IngredientService.CreateAsync(creationDto);
+            ingredients = await IngredientService.getAllIngredientsAsync(name);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
 }
