@@ -29,10 +29,10 @@ public class ItemHttpClient :IItemService
         }
     }
 
-    public async Task<ICollection<Item>> GetAsync(string? name, int? id,int? price)
+    public async Task<ICollection<Item>> GetAsync(string? name)
     {
-        string query = ConstructQuery(name, id,price);
-        HttpResponseMessage response = await client.GetAsync("/items"+query);
+        
+        HttpResponseMessage response = await client.GetAsync("/Item");
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
@@ -88,7 +88,7 @@ public class ItemHttpClient :IItemService
         }
     }
 
-    public async Task<ManageItemDto> GetByIdAsync(int id)
+    public async Task<ItemBasicDto> GetByIdAsync(int id)
     {
         HttpResponseMessage response = await client.GetAsync($"/items/{id}");
         string content = await response.Content.ReadAsStringAsync();
@@ -97,7 +97,7 @@ public class ItemHttpClient :IItemService
             throw new Exception(content);
         }
 
-        ManageItemDto items = JsonSerializer.Deserialize<ManageItemDto>(content, 
+        ItemBasicDto items = JsonSerializer.Deserialize<ItemBasicDto>(content, 
             new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -106,27 +106,27 @@ public class ItemHttpClient :IItemService
         return items;
     }
 
-    public async Task<ManageItemDto> GetByNameAsync(string name)
+    public async Task<ItemBasicDto> GetByNameAsync(string name)
     {
-        HttpResponseMessage response = await client.GetAsync($"/items/{name}");
+        HttpResponseMessage response = await client.GetAsync($"/item/{name}");
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception(content);
         }
 
-        ManageItemDto itmes = JsonSerializer.Deserialize<ManageItemDto>(content, 
+        ItemBasicDto items = JsonSerializer.Deserialize<ItemBasicDto>(content, 
             new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             }
         )!;
-        return itmes;
+        return items;
     }
 
     public async Task DeleteAsync(int id)
     {
-        HttpResponseMessage response = await client.DeleteAsync($"items/{id}");
+        HttpResponseMessage response = await client.DeleteAsync($"item/{id}");
         if (!response.IsSuccessStatusCode)
         {
             string content = await response.Content.ReadAsStringAsync();

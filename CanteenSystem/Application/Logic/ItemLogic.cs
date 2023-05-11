@@ -114,9 +114,14 @@ public class ItemLogic : IItemLogic
         Item? item = await itemDao.GetByNameAsync(name);
         if (item == null)
         {
-            throw new Exception($"Item with ID {name} was not found!");
+            throw new Exception($"Item with Name {name} was not found!");
         }
 
         return new ItemBasicDto(item.Name, item.Price,item.Ingredients);
+    }
+
+    public Task<IEnumerable<Item>> GetAllItemsAsync()
+    {
+        return itemDao.GetAllItemsAsync();
     }
 }

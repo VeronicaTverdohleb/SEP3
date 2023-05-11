@@ -33,14 +33,14 @@ public class ItemController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-   
+
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Item>>> GetAsync([FromQuery] string? name, [FromQuery] int? id)
+    public async Task<ActionResult<IEnumerable<Item>>> GetAllItemsAsync()
     {
         try
         {
-            SearchItemSto parameters = new(name, (int)id);
-            var items = await itemLogic.GetAsync(parameters);
+
+            var items = await itemLogic.GetAllItemsAsync();
             return Ok(items);
         }
         catch (Exception e)
@@ -48,7 +48,24 @@ public class ItemController : ControllerBase
             Console.WriteLine(e);
             return StatusCode(500, e.Message);
         }
+
     }
+
+    /* [HttpGet]
+     public async Task<ActionResult<IEnumerable<Item>>> GetAsync([FromQuery] string? name, [FromQuery] int? id)
+     {
+         try
+         {
+             SearchItemSto parameters = new(name, (int)id);
+             var items = await itemLogic.GetAsync(parameters);
+             return Ok(items);
+         }
+         catch (Exception e)
+         {
+             Console.WriteLine(e);
+             return StatusCode(500, e.Message);
+         }
+     }*/
     [HttpPatch]
     public async Task<ActionResult> UpdateAsync([FromBody] ManageItemDto dto)
     {
@@ -93,7 +110,7 @@ public class ItemController : ControllerBase
         }
     }
     
-    [HttpGet("{name:required}")]
+    [HttpGet, Route("/item/{name}")]
     public async Task<ActionResult<ItemBasicDto>> GetByName([FromQuery] string name)
     {
         try

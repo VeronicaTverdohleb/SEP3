@@ -50,6 +50,12 @@ public class ItemDao : IItemDao
         return result;
     }
 
+    public async Task<IEnumerable<Item>> GetAllItemsAsync()
+    {
+        IEnumerable<Item> list = context.Items.ToList();
+        return list;
+    }
+
     public async Task UpdateAsync(Item item)
     {
         context.Items.Update(item);
@@ -72,7 +78,7 @@ public class ItemDao : IItemDao
     {
         Item? found = await context.Items
             .AsNoTracking().Include(item => item.Ingredients)
-            .SingleOrDefaultAsync(item => item.Name == name);
+            .SingleOrDefaultAsync(item => item.Name.Equals(name));
         return found;
     }
 

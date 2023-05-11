@@ -43,7 +43,6 @@ else
             <th>Item ID</th>
             <th>Name</th>
             <th>Price</th>
-            <th>Ingredients</th>
             <th>Edit</th>
             <th>View</th>
             <th>Delete?</th>
@@ -60,10 +59,11 @@ else
                     <img src="icons/edit.gif" class="funnel" @onclick="@(() => navMgr.NavigateTo($"/ManageItems/{item.Id}"))"/>
                 </td>
                 <td>
-                    <img src="icons/view.png" class="funnel" @onclick="@(() => navMgr.NavigateTo($"/ViewSelectedPost/{item.Id}"))"/>
-                </td>
+                    <img src="icons/view.png" class="funnel" @onclick="@(() => navMgr.NavigateTo($"/ViewItemDetails/{item.Id}"))"/>
+                    </td>
+                
                 <td>
-                    <label @onclick="@(() => RemoveTodo(item.Id))" style="cursor:pointer; color: red; font-weight: bold">
+                    <label @onclick="@(() => RemoveItem(item.Id))" style="cursor:pointer; color: red; font-weight: bold">
                         &#x2717;
                     </label>
                     </td>
@@ -88,12 +88,11 @@ else
     private string? nameFilter;
     private int? idFilter;
     
-
-    private async Task LoadItems()
+    protected override async Task OnInitializedAsync()
     {
         try
         {
-            items = await itemService.GetAsync(nameFilter,idFilter,price);
+            items = await itemService.GetAsync(nameFilter);
         }
         catch (Exception e)
         {
@@ -101,7 +100,27 @@ else
             msg = e.Message;
         }
     }
-    /*private async Task LoadTodos()
+
+    
+    
+     private async Task LoadItems()
+    {
+        try
+        {
+            items = await itemService.GetAsync(nameFilter);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+     
+     
+     
+    /*
+     
+     private async Task LoadTodos()
     {
         try
         {
@@ -130,7 +149,7 @@ else
             msg = e.Message;
         }
     }*/ 
-    private async Task RemoveTodo(int id)
+    private async Task RemoveItem(int id)
     {
         msg = "";
         try
