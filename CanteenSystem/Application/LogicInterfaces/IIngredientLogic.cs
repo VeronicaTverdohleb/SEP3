@@ -11,6 +11,8 @@ public interface IIngredientLogic
     Task<IEnumerable<Ingredient>> GetAsync();
     Task<IngredientBasicDto?> GetByIdAsync(int id);
     Task<IngredientBasicDto?> GetByNameAsync(string name);
+    Task<Ingredient?> GetByIdAsyncFromIng(int id);
+    Task<Ingredient?> GetByNameAsyncFromIng(string name);
     Task DeleteIngredient(int id);
     
 }

@@ -1,6 +1,103 @@
 ﻿@page "/OrderItem"
-<h3>Ordering will be enabled soon</h3>
+@using HttpClients.ClientInterfaces
+@using global::Shared.Model
+@using global::Shared.Dtos
+@inject IItemService itemService;
+@inject IIngredientService ingredientService;
+@inject IOrderService orderService;
+
+
+<h3>Make Order</h3>
+@if (items == null)
+{
+}
+else if (!items.Any())
+{
+    <p>No Posts to display</p>
+}
+else
+{
+    <div class="filter-bar">
+        <div class="filters-container">
+            <div class="form-group field">
+                <label>Date:</label>
+                <textarea rows="1" cols="15" @bind=""/>
+            </div>
+            <div class="form-group field">
+                <label>Items:</label>
+                <select @bind="">
+                    <option>Choose</option>
+                    @foreach (Item item in items)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+             <div class="form-group field">
+                            <label>TotalPrice:</label>
+                            <textarea rows="1" cols="5" @bind="" />
+                        </div>
+
+            <div class="button-row">
+                @if (!string.IsNullOrEmpty(msg))
+                {
+                    <label style="color: red">@msg</label>
+                }
+                <button @onclick="CreateItem" class="acceptbtn">Create</button>
+            </div>
+            }
+        </div>
+    </div>
+}
 
 @code {
+    private int Id { get; set; }
+    private ICollection<Item> items;
+    private IEnumerable<Order>? orders;
+    private User user;
+    private MakeOrderDto dto;
+    private int price;
+    private string msg = "";
+    private string status = "ordered";
     
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            orders = await orderService.getAllOrdersAsync(null,null);
+            items = await itemService.GetAsync(null);
+            
+
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+    
+    private async Task CreateItem()
+    {
+        msg = "";
+        if (items == null )
+        {
+            msg = "You must select an ingredient!";
+            return;
+        }
+
+        try
+        {
+            
+
+            await orderService.CreateAsync(new OrderCreationDto(user, status,items));
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
 }

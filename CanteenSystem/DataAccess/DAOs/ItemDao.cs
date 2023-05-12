@@ -52,15 +52,11 @@ public class ItemDao : IItemDao
 
     public async Task<IEnumerable<Item>> GetAllItemsAsync()
     {
-        IEnumerable<Item> list = context.Items.ToList();
+        IEnumerable<Item> list = context.Items.Include(item => item.Ingredients).ToList();
         return list;
     }
 
-    public async Task UpdateAsync(Item item)
-    {
-        context.Items.Update(item);
-        await context.SaveChangesAsync();
-    }
+   
 
     public async Task DeleteAsync(int id)
     {

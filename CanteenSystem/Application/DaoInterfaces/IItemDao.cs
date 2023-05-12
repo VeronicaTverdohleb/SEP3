@@ -8,7 +8,7 @@ public interface IItemDao
     Task<Item> CreateAsync(ItemCreationDto item);
     Task<IEnumerable<Item>> GetAsync(SearchItemSto searchParameters);
     Task<IEnumerable<Item>> GetAllItemsAsync();
-    Task UpdateAsync(Item item);
+  
     Task DeleteAsync(int id);
     Task<Item?> GetByNameAsync(string name);
     Task<Item?> GetByIdAsync(int id);

@@ -66,20 +66,7 @@ public class ItemController : ControllerBase
              return StatusCode(500, e.Message);
          }
      }*/
-    [HttpPatch]
-    public async Task<ActionResult> UpdateAsync([FromBody] ManageItemDto dto)
-    {
-        try
-        {
-            await itemLogic.UpdateAsync(dto);
-            return Ok();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return StatusCode(500, e.Message);
-        }
-    }
+    
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteAsync([FromRoute] int id)
     {
@@ -95,7 +82,7 @@ public class ItemController : ControllerBase
         }
     }
    
-    [HttpGet("{id:int}")]
+    [HttpGet, Route("/items/{id:int}")]
     public async Task<ActionResult<ItemBasicDto>> GetById([FromRoute] int id)
     {
         try

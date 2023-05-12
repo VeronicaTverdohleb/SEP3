@@ -1,4 +1,4 @@
-﻿@page "/ManageItems"
+﻿@page "/ManageItems/{Id:int}"
 @using global::Shared.Dtos
 @using global::Shared.Model
 @using HttpClients.ClientInterfaces
@@ -9,92 +9,5 @@
 
 <h3>Manage Items</h3>
 
-<div class="card1">
-    @if (ingredients == null)
-    {
-        <label>Loading itmes...</label>
-    }
-    else if (!ingredients.Any())
-    {
-        <label>No ingredients, you cannot create an Item</label>
-    }
-    else if (dto == null)
-    {
-        <label>Loading item data..</label>
-    }
-    else
-    {
-        <div class="form-group field">
-            <label>Name:</label>
-            <textarea  type="text" rows="1" cols="50" @bind="dto.name"/>
-        </div>
-        <div class="form-group field">
-            <label>Ingredients:</label>
-            <textarea rows="4" cols="50" @bind="dto.Ingredients"/>
-        </div>
-        <div class="form-group field">
-            <label>Item price:</label>
-            <textarea  type="text" rows="1" cols="50" @bind="dto.Price"/>
-        </div>
-        <div class="button-row">
-            <button @onclick="UpdateAsync" class="acceptbtn">Update</button>
-        </div>
-    }
-    @if (!string.IsNullOrEmpty(msg))
-    {
-        <label style="color: red">@msg</label>
-    }
-</div>
+<h3>Selected Item: </h3>
 
-@code {
-
-    [Parameter]
-    public int Id { get; set; }
-
-    public string Name { get; }
-
-    private ManageItemDto dto = null!;
-    private ItemBasicDto basicdto = null!;
-    private ItemCreationDto createdto = null!;
-    private string msg = "";
-    private IEnumerable<Ingredient>? ingredients;
-
-    protected override async Task OnInitializedAsync()
-    {
-        msg = "";
-        try
-        {
-            ingredients = await ingredientService.getAllIngredientsAsync(Name);
-            ItemBasicDto itemData = await itemService.GetByIdAsync(Id);
-           // Ingredient ingredientsCurrentlyAssigned = ingredients.First(i => i.Id.Equals(itemData.Ingredients));
-
-            basicdto = new(Name,itemData.Price,itemData.Ingredients)
-            {
-                name = itemData.name,
-                Ingredients = itemData.Ingredients,
-                Price = itemData.Price
-            };
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            msg = e.Message;
-        }
-    }
-
-    private async Task UpdateAsync()
-    {
-        try
-        {
-            await itemService.UpdateAsync(dto);
-            navMgr.NavigateTo("/ViewPosts");
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            msg = e.Message;
-        }
-    }
-
-
-}}

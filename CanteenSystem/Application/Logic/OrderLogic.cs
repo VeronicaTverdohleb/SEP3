@@ -45,24 +45,26 @@ public class OrderLogic : IOrderLogic
         await orderDao.DeleteOrderAsync(id);
     }
 
-    public async Task<Order> CreateOrderAsync(OrderCreationDto dto)
+    public async Task<Order> CreateOrderAsync(MakeOrderDto dto)
     {
-        Item? item = await itemDao.GetByIdAsync(dto.Items.Count);
+        foreach (int item in dto.ItemIds)
+        {
+            Item? existing = await itemDao.GetByIdAsync(item);
+            if (existing == null)
+            {
+                throw new Exception($"This item you try to use, does not exist!");
+            }
+
+
+        }
+
         User? user = await userDao.GetByUsernameAsync(dto.Customer.UserName);
-        Item items = new Item()
+        if (user == null)
         {
-            Name = item.Name,
-            Price = item.Price
+            throw new Exception($"This user does not exist!");
 
-
-        };
-        Order order = new Order()
-        {
-            Customer = user,
-            Items = {items},
-
-        };
-        Order created = await orderDao.CreateOrderAsync(order);
+        }
+        Order created = await orderDao.CreateOrderAsync(dto);
         return created;
     }
 

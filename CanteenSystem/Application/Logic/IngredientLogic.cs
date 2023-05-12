@@ -63,6 +63,31 @@ public class IngredientLogic : IIngredientLogic
         return new IngredientBasicDto(todoIngredient.Id ,todoIngredient.Name, todoIngredient.Amount, todoIngredient.Allergen);
 
     }
+    public async Task<Ingredient?> GetByIdAsyncFromIng(int id)
+    {
+        Ingredient? todoIngredient = await ingredientDao.GetByIdAsync(id);
+        if (todoIngredient == null)
+        {
+            throw new Exception($"Post with id {id} not found");
+        }
+
+        return new Ingredient(todoIngredient.Name, todoIngredient.Amount, todoIngredient.Allergen);
+
+        
+    }
+
+    public async Task<Ingredient?> GetByNameAsyncFromIng(string name)
+    {
+        Ingredient? todoIngredient = await ingredientDao.GetByNameAsync(name);
+        if (todoIngredient == null)
+        {
+            throw new Exception($"Post with id {name} not found");
+        }
+
+        return new Ingredient(todoIngredient.Name, todoIngredient.Amount, todoIngredient.Allergen);
+
+    
+    }
 
     public async Task DeleteIngredient(int id)
     {
@@ -88,4 +113,6 @@ public class IngredientLogic : IIngredientLogic
         return new IngredientBasicDto(todoIngredient.Id ,todoIngredient.Name, todoIngredient.Amount, todoIngredient.Allergen);
 
     }
+
+   
 }
