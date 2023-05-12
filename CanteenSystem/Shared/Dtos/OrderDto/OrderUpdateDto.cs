@@ -5,9 +5,9 @@ namespace Shared.Dtos;
 public class OrderUpdateDto
 {
     public int Id { get; }
-    public string? CustomerName { get; }
-    public IEnumerable<Item>? items { get; set; }
-    public string? status { get; set; }
+    public string? CustomerName { get; set; }
+    public ICollection<Item>? Items { get; set; }
+    public string? Status { get; set; }
 
     public OrderUpdateDto(int id)
     {

@@ -68,8 +68,38 @@ public class OrderLogic : IOrderLogic
         return created;
     }
 
-    public async Task UpdateOrderAsync(OrderUpdateDto order)
+    public async Task UpdateOrderAsync(OrderUpdateDto dto)
     {
-        throw new NotImplementedException();
+        Order? existing = await orderDao.GetByIdAsync(dto.Id);
+
+        if (existing == null)
+        {
+            throw new Exception($"Order with ID {dto.Id} not found!");
+        }
+
+        if (dto.Status.Equals("completed"))
+        {
+            throw new Exception("Cannot un-complete a completed Order");
+        }
+
+        User userToUse =  existing.Customer;
+
+        Order updated = new (dto.Items ,dto.Status)
+        {
+            Customer = userToUse
+        };
+
+        ValidateOrder(updated);
+
+        await orderDao.UpdateOrderAsync(updated);
+    }
+    
+    private void ValidateOrder(Order dto)
+    {
+        if (dto.Items.Count == 0)
+        {
+            throw new Exception("Order will be empty! delete instead!");
+        }
+        // other validation stuff
     }
 }
