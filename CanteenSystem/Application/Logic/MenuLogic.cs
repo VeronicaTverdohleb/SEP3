@@ -14,7 +14,7 @@ public class MenuLogic: IMenuLogic
         this.menuDao = menuDao;
     }
 
-    public Task<Menu> GetMenuByDateAsync(DateTime date)
+    public Task<MenuBasicDto> GetMenuByDateAsync(DateTime date)
     {
         return menuDao.GetMenuByDateAsync(date);
     }

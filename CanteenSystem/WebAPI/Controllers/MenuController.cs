@@ -1,5 +1,6 @@
 ﻿using Application.LogicInterfaces;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Dtos;
 using Shared.Model;
 
 namespace WebAPI.Controllers;
@@ -20,7 +21,7 @@ public class MenuController: ControllerBase
     {
         try
         {
-            Menu menu = await menuLogic.GetMenuByDateAsync(date);
+            MenuBasicDto menu = await menuLogic.GetMenuByDateAsync(date);
             return Ok(menu);
         }
         catch (Exception e)

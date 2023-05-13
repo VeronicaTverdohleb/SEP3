@@ -5,6 +5,6 @@ namespace Application.DaoInterfaces;
 
 public interface IMenuDao
 {
-    public Task<Menu> GetMenuByDateAsync(DateTime date);
+    public Task<MenuBasicDto> GetMenuByDateAsync(DateTime date);
 
 }

@@ -3,12 +3,14 @@
 @using HttpClients.ClientInterfaces
 @using global::Shared.Dtos
 @inject IMenuService menuService
+@inject IItemService itemService
+@inject IIngredientService ingredientService
 
 <div class="page">
-    <InputDate @bind-Value="pickedDate"></InputDate>
-
-    <button class="datebtn" @onclick="LoadMenu">See Menu</button>
-
+    <div class="datepicker">
+        <InputDate @bind-Value="pickedDate"></InputDate>
+        <button class="datebtn" @onclick="LoadMenu">See Menu</button>
+ </div>
     <h3>Menu for the day</h3>
 
     @if (!string.IsNullOrEmpty(msg))
@@ -22,36 +24,34 @@
     {
         <span>Loading..</span>
     }
+    else if (pickedDate < DateTime.Today)
+    {
+        <span>Please input a valid date (today or in the future)</span>
+    }
     else if (menu.Items == null || !menu.Items.Any())
     {
-        <span>There are no items on this menu...</span>
+        <span>Unfortunately, there are no items on this menu</span>
     }
+
     else
     {
-        <div class="menu">
-            <table>
-                <tr>
-                    <th>
-                        <label>Item</label>
-                    </th>
-                    <th>
-                        <label>Ingredients</label>
-                    </th>
-                    <th>
-                        <label>Allergens</label>
-                    </th>
-                </tr>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Ingredients</th>
+                <th>Allergens</th>
+            </tr>
 
-                @foreach (Item item in menu.Items)
-                {
-                    <tr>
-                        <th>@item.Name</th>
-                        <th>@GetIngredients(item)</th>
-                        <th>@GetAllergens(item)</th>
-                    </tr>
-                }
-            </table>
-        </div>
+            @foreach (ItemMenuDto item in menu.Items)
+            {
+                <tr>
+                    <td>
+                        <p>@item.Name</p></td>
+                    <td>@item.IngredientNames</td>
+                    <td>@item.Allergens</td>
+                </tr>
+            }
+        </table>
     }
 </div>
 
@@ -93,58 +93,9 @@
         }
     }
 
-    private string GetIngredients(Item item)
-    {
-        /*
-        
-        if (item == null || item.Ingredients != null || !item.Ingredients.Any())
-        {
-            if (item.Ingredients == null || !item.Ingredients.Any())
-            {
-                ingredients = "";
-            }
-            else
-            {
-                foreach (Ingredient ingredient in item.Ingredients)
-                {
-                    if (!item.Ingredients.Last().Equals(ingredient))
 
-                        ingredients += ingredient.Name + ", ";
-                }
-            }
-        }
-        */
-        return ingredients;
-    }
 
-    private string GetAllergens(Item item)
-    {
-        /*
-        string allergens = "";
-        if (item.Ingredients == null || !item.Ingredients.Any())
-        {
-            return "";
-        }
-        foreach (Ingredient ingredient in item.Ingredients)
-        {
-            if (ingredient.Allergen == null)
-            {
-                return "";
-            }
-            
-            foreach (Allergen allergen in ingredient.Allergens)
-            {
-                if (!item.Ingredients.Last().Equals(ingredient))
-                {
-                    allergens += allergen.Code + ", ";
-                }
-            }
-            
-        }
-        Console.WriteLine(allergens);
-        return allergens;
-        */
-        return "";
-    }
+
+
 
 }
