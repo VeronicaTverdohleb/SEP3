@@ -1,6 +1,7 @@
 ﻿using Application.DaoInterfaces;
 using Application.LogicInterfaces;
 using Shared.Dtos;
+using Shared.Dtos.IngredientDto;
 using Shared.Model;
 
 namespace Application.Logic;
@@ -97,7 +98,7 @@ public class ItemLogic : IItemLogic
         await itemDao.DeleteAsync(id);
     }
 
-    public async Task<ManageItemDto> GetByIdAsync(int id)
+    public async Task<ItemBasicDto?> GetByIdAsync(int id)
     {
         Item? item = await itemDao.GetByIdAsync(id);
         if (item == null)
@@ -105,17 +106,22 @@ public class ItemLogic : IItemLogic
             throw new Exception($"Item with ID {id} was not found!");
         }
 
-        return new ManageItemDto(item.Name, item.Id, item.Ingredients.Count(), item.Price);
+        return new ItemBasicDto(item.Name, item.Price,item.Ingredients);
     }
 
-    public async Task<ManageItemDto> GetByNameAsync(string name)
+    public async Task<ItemBasicDto?> GetByNameAsync(string name)
     {
         Item? item = await itemDao.GetByNameAsync(name);
         if (item == null)
         {
-            throw new Exception($"Item with ID {name} was not found!");
+            throw new Exception($"Item with Name {name} was not found!");
         }
 
-        return new ManageItemDto(item.Name, item.Id, item.Ingredients.Count, item.Price);
+        return new ItemBasicDto(item.Name, item.Price,item.Ingredients);
+    }
+
+    public Task<IEnumerable<Item>> GetAllItemsAsync()
+    {
+        return itemDao.GetAllItemsAsync();
     }
 }

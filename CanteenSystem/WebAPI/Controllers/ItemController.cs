@@ -1,6 +1,7 @@
 ﻿using Application.LogicInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Dtos;
+using Shared.Dtos.IngredientDto;
 using Shared.Model;
 
 namespace WebAPI.Controllers;
@@ -32,14 +33,14 @@ public class ItemController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-   
+
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Item>>> GetAsync([FromQuery] string? name, [FromQuery] int? id)
+    public async Task<ActionResult<IEnumerable<Item>>> GetAllItemsAsync()
     {
         try
         {
-            SearchItemSto parameters = new(name, (int)id);
-            var items = await itemLogic.GetAsync(parameters);
+
+            var items = await itemLogic.GetAllItemsAsync();
             return Ok(items);
         }
         catch (Exception e)
@@ -47,7 +48,24 @@ public class ItemController : ControllerBase
             Console.WriteLine(e);
             return StatusCode(500, e.Message);
         }
+
     }
+
+    /* [HttpGet]
+     public async Task<ActionResult<IEnumerable<Item>>> GetAsync([FromQuery] string? name, [FromQuery] int? id)
+     {
+         try
+         {
+             SearchItemSto parameters = new(name, (int)id);
+             var items = await itemLogic.GetAsync(parameters);
+             return Ok(items);
+         }
+         catch (Exception e)
+         {
+             Console.WriteLine(e);
+             return StatusCode(500, e.Message);
+         }
+     }*/
     [HttpPatch]
     public async Task<ActionResult> UpdateAsync([FromBody] ManageItemDto dto)
     {
@@ -78,11 +96,11 @@ public class ItemController : ControllerBase
     }
    
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<ManageItemDto>> GetById([FromRoute] int id)
+    public async Task<ActionResult<ItemBasicDto>> GetById([FromRoute] int id)
     {
         try
         {
-            ManageItemDto result = await itemLogic.GetByIdAsync(id);
+            ItemBasicDto result = (await itemLogic.GetByIdAsync(id))!;
             return Ok(result);
         }
         catch (Exception e)
@@ -92,12 +110,12 @@ public class ItemController : ControllerBase
         }
     }
     
-    [HttpGet("{name:required}")]
-    public async Task<ActionResult<ManageItemDto>> GetByName([FromQuery] string name)
+    [HttpGet, Route("/item/{name}")]
+    public async Task<ActionResult<ItemBasicDto>> GetByName([FromQuery] string name)
     {
         try
         {
-            ManageItemDto result = (await itemLogic.GetByNameAsync(name))!;
+            ItemBasicDto result = (await itemLogic.GetByNameAsync(name))!;
             return Ok(result);
         }
         catch (Exception e)

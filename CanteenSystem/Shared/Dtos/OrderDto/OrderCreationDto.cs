@@ -5,6 +5,7 @@ namespace Shared.Dtos;
 public class OrderCreationDto
 {
     public User Customer { get;  }
+   // public int CustomerId { get; }
     public string Status { get; }
     public List<Item> Items { get; }
 

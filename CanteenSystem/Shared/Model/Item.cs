@@ -10,7 +10,11 @@ public class Item
     
     public ICollection<Ingredient>? Ingredients { get; }
 
-    
+    [JsonIgnore]
+    public ICollection<Order>? Orders { get; }
+    [JsonIgnore]
+    public ICollection<Menu>? Menus { get; }
+
     //public List<DateTime> Date { get; set; }
 
     public Item() {}

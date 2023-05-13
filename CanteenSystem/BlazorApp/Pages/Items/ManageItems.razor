@@ -65,8 +65,8 @@
         try
         {
             ingredients = await ingredientService.getAllIngredientsAsync(Name);
-            ManageItemDto itemData = await itemService.GetByIdAsync(Id);
-            Ingredient ingredientsCurrentlyAssigned = ingredients.First(i => i.Id.Equals(itemData.ingredientId));
+            ItemBasicDto itemData = await itemService.GetByIdAsync(Id);
+           // Ingredient ingredientsCurrentlyAssigned = ingredients.First(i => i.Id.Equals(itemData.Ingredients));
 
             basicdto = new(Name,itemData.Price,itemData.Ingredients)
             {

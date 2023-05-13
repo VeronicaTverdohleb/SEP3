@@ -8,12 +8,10 @@ public interface IItemService
     
     Task CreateAsync(ItemCreationDto dto);
     Task<ICollection<Item>> GetAsync(
-        string? name, 
-        int? id, 
-        int? price
+        string? name
     );
     Task UpdateAsync(ManageItemDto dto);
-    Task<ManageItemDto> GetByIdAsync(int id);
-    Task<ManageItemDto> GetByNameAsync(string name);
+    Task<ItemBasicDto> GetByIdAsync(int id);
+    Task<ItemBasicDto> GetByNameAsync(string name);
     Task DeleteAsync(int id);
 }

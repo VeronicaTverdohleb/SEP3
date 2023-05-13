@@ -1,0 +1,81 @@
+﻿@page "/ViewItemDetails"
+@using HttpClients.ClientInterfaces
+@using global::Shared.Dtos
+@using global::Shared.Model
+@inject NavigationManager navMgr
+@inject IItemService itemService;
+@inject IIngredientService IngredientService;
+<h3>ViewItemDetails</h3>
+
+<div class="card1">
+    @if (_ingredients == null)
+    {
+        <label>Loading item...</label>
+    }
+    else if (!_ingredients.Any())
+    {
+        <label>No itme</label>
+    }
+    else if (dto == null)
+    {
+        <label>Loading pitem data..</label>
+    }
+    else
+    {
+        <div class="form-group field">
+            <label>Name:</label>
+            <textarea  type="text" rows="1" cols="50" @bind="dto.name" readonly/>
+        </div>
+        <div class="form-group field">
+            <label>Price:</label>
+            <textarea rows="4" cols="50" @bind="dto.Price" readonly/>
+        </div>
+        <div class="form-group field">
+            <label>Ingredients:</label>
+            <textarea rows="4" cols="50" @bind="dto.Ingredients" readonly/>
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(msg))
+    {
+        <label style="color: red">@msg</label>
+    }
+</div>
+
+
+        
+       
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private ItemBasicDto dto = null!;
+   
+    private string msg = "";
+    private string? name;
+    private int price;
+    private ICollection<Ingredient> _ingredients;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            _ingredients = await IngredientService.getAllIngredientsAsync(name);
+            ItemBasicDto todoData = await itemService.GetByIdAsync(Id);
+            Ingredient currentlyAssigned = _ingredients.First(i => i.Name.Equals(todoData.name));
+
+            dto = new(name,price,_ingredients)
+            {
+                name = todoData.name,
+                Price = todoData.Price,
+                Ingredients= todoData.Ingredients
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    } 
+    
+}
