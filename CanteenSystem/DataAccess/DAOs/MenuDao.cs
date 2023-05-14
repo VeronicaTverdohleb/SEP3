@@ -1,5 +1,6 @@
 ﻿using Application.DaoInterfaces;
 using Microsoft.EntityFrameworkCore;
+using Shared.Dtos;
 using Shared.Model;
 
 namespace EfcDataAccess.DAOs;
@@ -13,8 +14,9 @@ public class MenuDao : IMenuDao
         this.context = context;
     }
     
-    public async Task<Menu> GetMenuByDateAsync(DateTime date)
+    public async Task<MenuBasicDto> GetMenuByDateAsync(DateTime date)
     {
+        List<ItemMenuDto> newItems = new List<ItemMenuDto>();
         // We need format yyyy-mm-dd, but the DateTime creates yyyy-m-d when the Month/Date are only one digit
         String newDate = ConvertDate(date);
         
@@ -26,9 +28,27 @@ public class MenuDao : IMenuDao
         if (!foundItems.Any())
             Console.WriteLine($"There are no Items on this date");
 
-        ICollection<Item> items = foundItems.ToList();
-        Menu menu = new Menu(items, date);
+        foreach (Item item in foundItems)
+        {
+            String ingredients = "";
+            String allergens = ""; 
+            foreach (Ingredient ingredient in item.Ingredients) {
+                    if (item.Ingredients.Last().Equals(ingredient)) {
+                        ingredients += ingredient.Name;
+                        if (ingredient.Allergen != 0)
+                            allergens += ingredient.Allergen;
+                    }
+                    else {
+                        ingredients += ingredient.Name + ", ";
+                        allergens += ingredient.Allergen + ", ";
+                    }
+            }
 
+            ItemMenuDto newItem = new ItemMenuDto(item.Name, ingredients, allergens);
+            newItems.Add(newItem);
+        }
+
+        MenuBasicDto menu = new MenuBasicDto(newItems, date);
         return menu;
     }
 
