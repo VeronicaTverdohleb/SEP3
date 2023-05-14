@@ -6,6 +6,35 @@
 @inject NavigationManager navMgr;
 <h3>ViewOrders</h3>
 
+<div class="filter-bar">
+    <div class="filters-container">
+        <img src="icons/@(doShowFilters ? "clear_" : "")funnel.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel"/>
+        @if (doShowFilters)
+        {
+            <div class="filter">
+                <label>Order Id:</label>
+                <input type="text" @bind="idFilter"/>
+            </div>
+            <div class="filter">
+                <label>Date of order:</label>
+                <input type="date" @bind="dateFilter"/>
+            </div>
+            <div class="filter">
+                <label>order status:</label>
+                <select @bind="completedStatusFilter">
+                    <option value="ordered">ordered</option>
+                    <option value="in progress">in progress</option>
+                    <option value="ready for pickup">ready for pickup</option>
+                </select>
+            </div>
+            <div class="filter">
+                <label>Customer name:</label>
+                <input type="text" @bind="customerNameFilter"/>
+            </div>
+        }
+    </div>
+</div>
+
 <div>
     <button @onclick="LoadOrders">Load</button>
 </div>
@@ -22,9 +51,12 @@ else
     @foreach (var order in orders)
     {
         <div class="order">
-            <a @onclick=@(() => SeeOrder(@order.Id))><h3 class="clickable">Order number: @order.Id</h3></a>
-            <p class="legal">order by: @order.Customer.UserName</p>
-            </div>
+            
+            <a @onclick=@(() => SeeOrder(@order.Id))>
+                <h3 class="clickable">Order number: @order.Id</h3>
+                <h5 class="clickable">Ordered for: @order.Date.ToShortDateString()</h5>
+                <p class="legal">order by: @order.Customer.UserName</p></a>
+        </div>
             <br/>
         }
 }
@@ -42,11 +74,17 @@ else
     private IEnumerable<Claim>? userClaims;
     private bool isLoggedIn;
 
+    private bool doShowFilters = false;
+    private int? idFilter;
+    private DateOnly? dateFilter;
+    private string? customerNameFilter;
+    private string? completedStatusFilter;
+
     private async Task LoadOrders()
     {
         try
         {
-            orders = await orderService.getAllOrdersAsync(null,null);
+            orders = await orderService.getAllOrdersAsync(idFilter,dateFilter,customerNameFilter,completedStatusFilter);
         }
         catch (Exception e)
         {

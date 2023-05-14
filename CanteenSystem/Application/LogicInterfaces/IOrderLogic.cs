@@ -5,7 +5,7 @@ namespace Application.LogicInterfaces;
 
 public interface IOrderLogic
 {
-    Task<IEnumerable<Order>> GetAllOrdersAsync();
+    Task<IEnumerable<Order>> GetAllOrdersAsync(SearchOrderParametersDto searchParameters);
     Task<Order> GetOrderByIdAsync(int id);
     Task<Order> CreateOrderAsync(OrderCreationDto dto);
     Task UpdateOrderAsync(OrderUpdateDto order);

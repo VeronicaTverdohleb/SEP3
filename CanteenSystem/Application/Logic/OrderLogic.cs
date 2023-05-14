@@ -18,9 +18,9 @@ public class OrderLogic : IOrderLogic
         this.userDao = userDao;
     }
 
-    public Task<IEnumerable<Order>> GetAllOrdersAsync()
+    public Task<IEnumerable<Order>> GetAllOrdersAsync(SearchOrderParametersDto parameters)
     {
-        return orderDao.GetAllOrdersAsync();
+        return orderDao.GetAllOrdersAsync(parameters);
     }
 
     public async Task<Order> GetOrderByIdAsync(int id)
@@ -81,10 +81,12 @@ public class OrderLogic : IOrderLogic
         }
 
         User userToUse =  existing.Customer;
+        DateTime dateToUse = existing.Date;
 
         Order updated = new (dto.Items ,dto.Status)
         {
-            Customer = userToUse
+            Customer = userToUse,
+            Date = dateToUse
         };
 
         ValidateOrder(updated);

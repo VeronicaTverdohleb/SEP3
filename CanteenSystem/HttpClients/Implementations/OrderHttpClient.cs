@@ -16,9 +16,10 @@ public class OrderHttpClient:IOrderService
         this.client = client;
     }
 
-    public async Task<ICollection<Order>> getAllOrdersAsync(string? userName, string? completedStatus)
+    public async Task<ICollection<Order>> getAllOrdersAsync(int? id, DateOnly? date, string? userName, string? completedStatus)
     {
-        HttpResponseMessage response = await client.GetAsync("/Order");
+        string query = ConstructQuery(id, date, userName, completedStatus);
+        HttpResponseMessage response = await client.GetAsync("/Order"+query);
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
@@ -30,6 +31,35 @@ public class OrderHttpClient:IOrderService
             PropertyNameCaseInsensitive = true
         })!;
         return orders;
+    }
+
+    private static string ConstructQuery(int? id, DateOnly? date, string? userName, string? completedStatus)
+    {
+        string query = "";
+        if (id!=null)
+        {
+            query += $"?id={id}";
+        }
+
+        if (date.HasValue)
+        {
+            query += string.IsNullOrEmpty(query) ? "?" : "&";
+            query += $"date={date.Value}";
+        }
+
+        if (!string.IsNullOrEmpty(userName))
+        {
+            query += string.IsNullOrEmpty(query) ? "?" : "&";
+            query += $"userName={userName}";
+        }
+
+        if (!string.IsNullOrEmpty(completedStatus))
+        {
+            query += string.IsNullOrEmpty(query) ? "?" : "&";
+            query += $"completedStatus={completedStatus}";
+        }
+        Console.WriteLine(query);
+        return query;
     }
 
     public async Task<OrderCreationDto> GetOrderByIdAsync(int id)
