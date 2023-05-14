@@ -54,7 +54,7 @@ else
             
             <a @onclick=@(() => SeeOrder(@order.Id))>
                 <h3 class="clickable">Order number: @order.Id</h3>
-                <h5 class="clickable">Ordered for: @order.Date.ToShortDateString()</h5>
+                <h5 class="clickable">Ordered for: @order.Date.ToString()</h5>
                 <p class="legal">order by: @order.Customer.UserName</p></a>
         </div>
             <br/>

@@ -25,7 +25,7 @@ public class OrderDao : IOrderDao
 
         if (searchParameters.Date.HasValue)
         {
-            result = result.Where(o => o.Date.ToShortDateString().Equals(searchParameters.Date.ToString()));
+            result = result.Where(o => o.Date.ToString().Equals(searchParameters.Date.ToString()));
         }
 
         if (!string.IsNullOrEmpty(searchParameters.UserName))
