@@ -5,5 +5,5 @@ namespace Application.LogicInterfaces;
 
 public interface IMenuLogic
 {
-    public Task<Menu> GetMenuByDateAsync(DateTime date);
+    public Task<MenuBasicDto> GetMenuByDateAsync(DateTime date);
 }

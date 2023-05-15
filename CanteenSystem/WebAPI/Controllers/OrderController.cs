@@ -18,12 +18,12 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Order>>> GetAsync()
+    public async Task<ActionResult<IEnumerable<Order>>> GetAsync([FromQuery]int? id, [FromQuery]DateOnly? date, [FromQuery]string? userName, [FromQuery]string? completedStatus)
     {
         try
         {
-
-            var posts = await orderLogic.GetAllOrdersAsync();
+            SearchOrderParametersDto parameters = new(id, date, userName, completedStatus);
+            var posts = await orderLogic.GetAllOrdersAsync(parameters);
             return Ok(posts);
         }
         catch (Exception e)

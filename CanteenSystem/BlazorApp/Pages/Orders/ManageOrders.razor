@@ -95,7 +95,13 @@ else
             Console.WriteLine("about to fetch");
             order = await orderService.GetOrderByIdAsync(Id);
             var fetchedItems = await itemService.GetAsync(null);
-            allItems = fetchedItems.OrderByDescending(i => i.Name).ToList();
+            allItems = fetchedItems.OrderBy(i => i.Name).ToList();
+            if (allItems.Count!=0)
+            {
+                itemToAdd = allItems.FirstOrDefault();
+
+            }
+            itemToRemove = order.Items.FirstOrDefault();
             updateDto = new(Id)
             {
                 Items = allItems,

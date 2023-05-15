@@ -5,7 +5,7 @@ namespace Application.DaoInterfaces;
 
 public interface IOrderDao
 {
-    Task<IEnumerable<Order>> GetAllOrdersAsync();
+    Task<IEnumerable<Order>> GetAllOrdersAsync(SearchOrderParametersDto searchParameters);
     Task<Order> GetByIdAsync(int id);
     Task<Order> CreateOrderAsync(MakeOrderDto dto);
     Task UpdateOrderAsync(Order order);

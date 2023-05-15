@@ -14,13 +14,37 @@ public class OrderDao : IOrderDao
     {
         this.context = context;
     }
-    public async Task<IEnumerable<Order>> GetAllOrdersAsync()
+    public Task<IEnumerable<Order>> GetAllOrdersAsync(SearchOrderParametersDto searchParameters)
     {
-        //IQueryable<Order> orderQuery = context.Orders.AsQueryable();
+        IEnumerable<Order> result = context.Orders.Include(order => order.Customer).Include(order=>order.Items).AsEnumerable();
+
+        if (searchParameters.Id!=null)
+        {
+            result = result.Where(o => o.Id == searchParameters.Id);
+        }
+
+        if (searchParameters.Date.HasValue)
+        {
+            result = result.Where(o => o.Date.ToString().Equals(searchParameters.Date.ToString()));
+        }
+
+        if (!string.IsNullOrEmpty(searchParameters.UserName))
+        {
+            result = result.Where(o => o.Customer.UserName.Equals(searchParameters.UserName));
+        }
+
+        if (!string.IsNullOrEmpty(searchParameters.CompletedStatus))
+        {
+            result = result.Where(o => o.Status.Equals(searchParameters.CompletedStatus));
+        }
+
+        return Task.FromResult(result);
+        
+        /*//IQueryable<Order> orderQuery = context.Orders.AsQueryable();
         IQueryable<Order> orderQuery = context.Orders.Include(order => order.Customer).Include(order=>order.Items).AsQueryable();
         
         List<Order> result = await orderQuery.ToListAsync();
-        return result;
+        return result;*/
     }
 
     public Task<Order> GetByIdAsync(int id)
