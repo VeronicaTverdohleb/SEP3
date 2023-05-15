@@ -83,7 +83,7 @@ public class OrderLogic : IOrderLogic
         }
 
         User userToUse =  existing.Customer;
-        DateTime dateToUse = existing.Date;
+        DateOnly dateToUse = existing.Date;
 
         Order updated = new (dto.Items ,dto.Status)
         {
