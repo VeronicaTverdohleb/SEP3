@@ -103,11 +103,15 @@ public class OrderHttpClient:IOrderService
 
     public async Task CreateAsync(OrderCreationDto dto)
     {
-        HttpResponseMessage response = await client.PostAsJsonAsync("/orders", dto);
+        String postAsJson = JsonSerializer.Serialize(dto);
+        StringContent content = new(postAsJson, Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await client.PostAsync("/Order", content);
+        string responsecontent = await response.Content.ReadAsStringAsync();
+
         if (!response.IsSuccessStatusCode)
         {
-            string content = await response.Content.ReadAsStringAsync();
-            throw new Exception(content);
+            throw new Exception(responsecontent);
         }
+        
     }
 }

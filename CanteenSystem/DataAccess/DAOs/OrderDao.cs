@@ -55,9 +55,17 @@ public class OrderDao : IOrderDao
         return Task.FromResult(existing);
     }
 
-    public async Task<Order> CreateOrderAsync(Order order)
+    public async Task<Order> CreateOrderAsync(MakeOrderDto dto)
     {
-        EntityEntry<Order> added = await context.Orders.AddAsync(order);
+        ICollection<Item> items = new List<Item>();
+        foreach (int item in dto.ItemIds)
+        {
+            Item? itemI = context.Items.FirstOrDefault(i => i.Id == item);
+            items.Add(itemI);
+        }
+        
+        Order newOrder = new Order(dto.Customer,dto.Date,dto.Status, items);
+        EntityEntry<Order> added = await context.Orders.AddAsync(newOrder);
         await context.SaveChangesAsync();
         return added.Entity;
     }

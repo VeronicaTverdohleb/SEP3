@@ -77,4 +77,20 @@ public class OrderController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+    
+    [HttpPost]
+    public async Task<ActionResult<Item>> CreateAsync(MakeOrderDto dto)
+    {
+        try
+        {
+            Order order = await orderLogic.CreateOrderAsync(dto);
+            return Created($"/order/{order.Id}", order);
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
 }

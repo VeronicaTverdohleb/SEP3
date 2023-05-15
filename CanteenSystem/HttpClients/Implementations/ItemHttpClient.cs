@@ -20,7 +20,7 @@ public class ItemHttpClient :IItemService
     {
         String postAsJson = JsonSerializer.Serialize(dto);
         StringContent content = new(postAsJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage response = await client.PostAsync("/items", content);
+        HttpResponseMessage response = await client.PostAsync("/Item", content);
         string responsecontent = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)
@@ -126,7 +126,7 @@ public class ItemHttpClient :IItemService
 
     public async Task DeleteAsync(int id)
     {
-        HttpResponseMessage response = await client.DeleteAsync($"item/{id}");
+        HttpResponseMessage response = await client.DeleteAsync($"item3/{id}");
         if (!response.IsSuccessStatusCode)
         {
             string content = await response.Content.ReadAsStringAsync();
