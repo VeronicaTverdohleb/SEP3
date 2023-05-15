@@ -36,20 +36,12 @@ else
         <option value="ready for pickup">ready for pickup</option>
     </select>
     <p>total price: @totalPrice kr</p>
-    @foreach (var item in allItems)
-    {
-        foreach (var ingredient in item.Ingredients)
-        {
-            <p>@ingredient.Name</p>
-        }
-    }
-    
+
     @foreach (var item in order.Items)
     {
         <p>@item.Name</p>
     }
-    
-    
+
 
     <br/>
     <br/>
@@ -107,7 +99,6 @@ else
     private OrderFullInfoDto order;
     private OrderUpdateDto updateDto = null!;
     private ICollection<Item> allItems;
-    private ICollection<ItemBasicDto> orderItems;
     private Item itemToAdd;
     private Item itemToRemove;
     private double totalPrice;
@@ -124,22 +115,17 @@ else
             var fetchedItems = await itemService.GetAsync(null);
             allItems = fetchedItems.OrderBy(i => i.Name).ToList();
             status = order.Status;
-            foreach (var item in order.Items)
-            {
-                orderItems.Add(await itemService.GetByIdAsync(item.Id));
-            }
-            UpdateTotalPrice();
+            totalPrice = UpdateTotalPrice();
             if (allItems.Count!=0)
             {
                 itemToAdd = allItems.FirstOrDefault();
 
             }
             itemToRemove = order.Items.FirstOrDefault();
-            updateDto = new(Id)
+            updateDto = new(Id,order.Items,order.Status)
             {
-                Items = allItems,
+                Items = order.Items,
                 Status = order.Status,
-                CustomerName = order.Customer.UserName
             };
             Console.WriteLine("fetched the order!");
         }
@@ -155,16 +141,15 @@ else
         
     }
 
-    private async void UpdateTotalPrice()
+    private double UpdateTotalPrice()
     {
-        totalPrice = 0;
-        var itemsInOrder = order.Items;
-        Console.WriteLine(itemsInOrder.Count);
-        foreach (var item in itemsInOrder)
+        double temp = 0;
+        foreach (var item in order.Items)
         {
             Console.WriteLine(item.Name + item.Price);
-            totalPrice += item.Price;
+            temp += item.Price;
         }
+        return temp;
     }
 
     private void SetStatus(ChangeEventArgs e)
@@ -181,15 +166,14 @@ else
     {
         Console.WriteLine("start of method");
         int amount = 0;
-        foreach (var item in orderItems)
+        foreach (var item in order.Items)
         {
             Console.WriteLine("first part of loop");
-            var ingredientList = item.Ingredients.ToList();
+            var ingredientList = item.Ingredients;
             for (int i = 0;i< ingredientList.Count;i++)
             {
                 Console.WriteLine("we got into the loop");
-                amount = ingredientList[i].Amount;
-                await ingredientService.UpdateIngredientAmount(new IngredientUpdateDto(ingredientList[i].Id, amount));
+                await ingredientService.UpdateIngredientAmount(new IngredientUpdateDto(ingredientList.ToList()[0].Id, amount));
             }
         }
     }
@@ -268,11 +252,31 @@ else
     private async Task AddItem()
     {
         msg = "";
+        bool present = false;
         try
         {
-            order.Items.Add(itemToAdd);
-            UpdateTotalPrice();
-            await orderService.UpdateAsync(updateDto);
+            foreach (var item in order.Items)
+            {
+                if (item.Id == itemToAdd.Id)
+                {
+                    present = true;
+                }
+            }
+            if (present)
+            {
+                msg = "Order already contains this item";
+                Console.WriteLine("already in order");
+            }
+            else
+            {
+                msg = "item added to order";
+                Console.WriteLine("added to order");
+                order.Items.Add(itemToAdd);
+                totalPrice = UpdateTotalPrice();
+                OrderUpdateDto update = new OrderUpdateDto(Id, order.Items, order.Status);
+                await orderService.UpdateAsync(update);
+            }
+            
         }
         catch (Exception e)
         {
@@ -287,7 +291,7 @@ else
         try
         {
             order.Items.Remove(itemToRemove);
-            UpdateTotalPrice();
+            totalPrice = UpdateTotalPrice();
             await orderService.UpdateAsync(updateDto);
         }
         catch (Exception e)

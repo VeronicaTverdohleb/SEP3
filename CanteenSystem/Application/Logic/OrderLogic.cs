@@ -79,16 +79,14 @@ public class OrderLogic : IOrderLogic
 
         if (dto.Status.Equals("ready for pickup"))
         {
-            throw new Exception("Cannot un-complete a completed Order");
+            throw new Exception("cannot change an order that's ready for pickup");
         }
-
-        User userToUse =  existing.Customer;
-        DateOnly dateToUse = existing.Date;
-
-        Order updated = new (dto.Items ,dto.Status)
+        
+        Order updated = new (dto.Items,dto.Status)
         {
-            Customer = userToUse,
-            Date = dateToUse
+            Id = existing.Id,
+            Customer = existing.Customer,
+            Date = existing.Date
         };
 
         ValidateOrder(updated);

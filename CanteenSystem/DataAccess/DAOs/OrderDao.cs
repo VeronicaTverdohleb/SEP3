@@ -70,11 +70,61 @@ public class OrderDao : IOrderDao
         return added.Entity;
     }
 
-    public async Task UpdateOrderAsync(Order order)
+    public async Task UpdateOrderAsync(Order orderToUpdate)
     {
-        context.Orders.Update(order);
+        Order? existing = await context.Orders.FirstOrDefaultAsync(order => order.Id == orderToUpdate.Id);
+
+        if (existing == null)
+        {
+            throw new Exception($"Order with id {orderToUpdate.Id} does not exist!");
+        }
+
+        // Update the properties of the existing order
+        existing.Status = orderToUpdate.Status;
+
+        // Update the items in the order
+        var existingItemIds = existing.Items.Select(item => item.Id).ToList();
+        var updatedItemIds = orderToUpdate.Items.Select(item => item.Id).ToList();
+
+        // Remove items that are no longer in the updated order
+        foreach (var itemId in existingItemIds.Except(updatedItemIds))
+        {
+            Item? itemToRemove = await context.Items.FindAsync(itemId);
+            if (itemToRemove!=null)
+            {
+                existing.Items.Remove(itemToRemove);
+            }
+        }
+
+        // Add new items or update existing items in the order
+        foreach (var updatedItem in orderToUpdate.Items)
+        {
+            Item? existingItem = existing.Items.FirstOrDefault(item => item.Id == updatedItem.Id);
+
+            if (existingItem != null)
+            {
+                // Update existing item properties
+                existingItem.Name = updatedItem.Name;
+                existingItem.Price = updatedItem.Price;
+            }
+            else
+            {
+                // Add new item to the order
+                Item newItem = new Item
+                {
+                    Id = updatedItem.Id,
+                    Name = updatedItem.Name,
+                    Price = updatedItem.Price
+                };
+                existing.Items.Add(newItem);
+            }
+        }
+
         await context.SaveChangesAsync();
     }
+
+
+
 
     public async Task DeleteOrderAsync(int id)
     {

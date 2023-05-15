@@ -77,17 +77,16 @@ public class OrderHttpClient:IOrderService
                 PropertyNameCaseInsensitive = true
             }
         )!;
-        Console.WriteLine("in OrderHttpClient content:");
-        Console.WriteLine(content);
         return order;
     }
 
     public async Task UpdateAsync(OrderUpdateDto dto)
     {
         string dtoAsJson = JsonSerializer.Serialize(dto);
+        Console.WriteLine(dtoAsJson);
         StringContent body = new StringContent(dtoAsJson, Encoding.UTF8, "application/json");
 
-        HttpResponseMessage response = await client.PatchAsync("/orders", body);
+        HttpResponseMessage response = await client.PatchAsync("/order", body);
         if (!response.IsSuccessStatusCode)
         {
             string content = await response.Content.ReadAsStringAsync();

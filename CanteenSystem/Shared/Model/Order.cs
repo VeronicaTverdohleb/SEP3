@@ -21,8 +21,8 @@ public class Order
         Status = status;
         Items = items;
     }
-    
-    
+
+
     public Order() {}
 
     public Order(ICollection<Item> items, string status)
