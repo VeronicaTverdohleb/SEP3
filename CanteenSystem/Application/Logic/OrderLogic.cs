@@ -75,7 +75,7 @@ public class OrderLogic : IOrderLogic
             throw new Exception($"Order with ID {dto.Id} not found!");
         }
 
-        if (dto.Status.Equals("completed"))
+        if (dto.Status.Equals("ready for pickup"))
         {
             throw new Exception("Cannot un-complete a completed Order");
         }

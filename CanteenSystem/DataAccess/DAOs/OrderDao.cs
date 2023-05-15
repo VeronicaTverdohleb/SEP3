@@ -47,9 +47,9 @@ public class OrderDao : IOrderDao
         return result;*/
     }
 
-    public Task<Order> GetByIdAsync(int id)
+    public Task<Order?> GetByIdAsync(int id)
     {
-        Order? existing = context.Orders.Include(order => order.Customer).Include(order => order.Items).FirstOrDefault(o =>
+        Order? existing = context.Orders.Include(order => order.Customer).Include(order => order.Items).ThenInclude(item => item.Ingredients).FirstOrDefault(o =>
             o.Id == id
         );
         return Task.FromResult(existing);
