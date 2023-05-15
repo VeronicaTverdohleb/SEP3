@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Runtime.InteropServices.JavaScript;
+using System.Text.Json.Serialization;
 using Shared.Dtos;
 
 namespace Shared.Model;
@@ -13,9 +14,10 @@ public class Order
     
     public ICollection<Item> Items { get; set; }
     
-    public Order(User customer,string status, ICollection<Item> items)
+    public Order(User customer, DateOnly date, string status, ICollection<Item> items)
     {
         Customer = customer;
+        Date = date;
         Status = status;
         Items = items;
     }

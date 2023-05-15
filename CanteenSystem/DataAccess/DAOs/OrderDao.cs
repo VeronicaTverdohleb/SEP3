@@ -64,7 +64,7 @@ public class OrderDao : IOrderDao
             items.Add(itemI);
         }
         
-        Order newOrder = new Order(dto.Customer,dto.Status, items);
+        Order newOrder = new Order(dto.Customer,dto.Date,dto.Status, items);
         EntityEntry<Order> added = await context.Orders.AddAsync(newOrder);
         await context.SaveChangesAsync();
         return added.Entity;

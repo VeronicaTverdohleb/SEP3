@@ -21,11 +21,11 @@ else
         <div class="filters-container">
             <div class="form-group field">
                 <label>Date:</label>
-                <textarea rows="1" cols="15" @bind=""/>
+                <textarea rows="1" cols="15" @bind="date"/>
             </div>
             <div class="form-group field">
                 <label>Items:</label>
-                <select @bind="">
+                <select @bind="items">
                     <option>Choose</option>
                     @foreach (Item item in items)
                     {
@@ -34,8 +34,14 @@ else
                 </select>
             </div>
              <div class="form-group field">
-                            <label>TotalPrice:</label>
-                            <textarea rows="1" cols="5" @bind="" />
+                 <label>TotalPrice:</label>
+                
+                     @foreach (Item item in items)
+                     {
+                         price += item.Price;
+
+                     }
+                    
                         </div>
 
             <div class="button-row">
@@ -54,6 +60,7 @@ else
     private int Id { get; set; }
     private ICollection<Item> items;
     private IEnumerable<Order>? orders;
+    private DateOnly date;
     private User user;
     private MakeOrderDto dto;
     private int price;
@@ -64,7 +71,7 @@ else
     {
         try
         {
-            orders = await orderService.getAllOrdersAsync(null,null);
+            orders = await orderService.getAllOrdersAsync(null,null, null, null);
             items = await itemService.GetAsync(null);
             
 
