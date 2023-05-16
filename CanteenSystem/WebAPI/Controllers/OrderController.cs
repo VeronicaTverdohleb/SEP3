@@ -18,12 +18,12 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Order>>> GetAsync()
+    public async Task<ActionResult<IEnumerable<Order>>> GetAsync([FromQuery]int? id, [FromQuery]DateOnly? date, [FromQuery]string? userName, [FromQuery]string? completedStatus)
     {
         try
         {
-
-            var posts = await orderLogic.GetAllOrdersAsync();
+            SearchOrderParametersDto parameters = new(id, date, userName, completedStatus);
+            var posts = await orderLogic.GetAllOrdersAsync(parameters);
             return Ok(posts);
         }
         catch (Exception e)
@@ -39,6 +39,21 @@ public class OrderController : ControllerBase
         try
         {
             Order order = await orderLogic.GetOrderByIdAsync(id);
+            return Ok(order);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet, Route("/User/{username}/orders")]
+    public async Task<ActionResult<IEnumerable<Order>>> GetOrderByCustomerUsername([FromRoute] string username)
+    {
+        try
+        {
+            IEnumerable<Order> order = await orderLogic.GetOrdersByCustomerUsername(username);
             return Ok(order);
         }
         catch (Exception e)
@@ -70,6 +85,22 @@ public class OrderController : ControllerBase
         {
             await orderLogic.UpdateOrderAsync(dto);
             return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpPost]
+    public async Task<ActionResult<Item>> CreateAsync(MakeOrderDto dto)
+    {
+        try
+        {
+            Order order = await orderLogic.CreateOrderAsync(dto);
+            return Created($"/order/{order.Id}", order);
+
         }
         catch (Exception e)
         {

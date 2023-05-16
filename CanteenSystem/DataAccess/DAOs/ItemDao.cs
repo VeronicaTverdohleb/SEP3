@@ -56,11 +56,7 @@ public class ItemDao : IItemDao
         return list;
     }
 
-    public async Task UpdateAsync(Item item)
-    {
-        context.Items.Update(item);
-        await context.SaveChangesAsync();
-    }
+   
 
     public async Task DeleteAsync(int id)
     {

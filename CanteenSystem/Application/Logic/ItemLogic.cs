@@ -49,43 +49,7 @@ public class ItemLogic : IItemLogic
         return itemDao.GetAsync(searchParameters);
     }
 
-    public async Task UpdateAsync(ManageItemDto dto)
-    {
-        Item? existing = await itemDao.GetByIdAsync(dto.Id);
-        if (existing == null)
-        {
-            throw new Exception($"Item with ID {dto.Id} not found!");
-        }
-
-        ICollection<Ingredient?> ingredients = new List<Ingredient?>();
-        if (dto.Ingredients != null)
-        {
-            for (int i = 0; i < ingredients.Count; i++)
-            {
-                Ingredient? ingredient = await ingredientDao.GetByIdAsync(dto.ingredientId);
-                ingredients.Add(ingredient);
-            }
-        }
-
-        if (ingredients == null)
-        {
-            throw new Exception($"Ingredient was not found.");
-        }
-
-
-        ICollection<Ingredient> ingredientToUse = dto.Ingredients ?? existing.Ingredients;
-        string titleToUse = dto.name ?? existing.Name;
-        int priceToUse = existing.Price;
-        Item updated = new()
-        {
-            Name = titleToUse,
-            Ingredients = { ingredientToUse.GetEnumerator().Current },
-            Id = existing.Id,
-            Price = existing.Price
-        };
-
-        await itemDao.UpdateAsync(updated);
-    }
+    
 
     public async Task DeleteAsync(int id)
     {

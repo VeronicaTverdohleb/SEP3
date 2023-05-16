@@ -18,9 +18,9 @@ public class OrderLogic : IOrderLogic
         this.userDao = userDao;
     }
 
-    public Task<IEnumerable<Order>> GetAllOrdersAsync()
+    public Task<IEnumerable<Order>> GetAllOrdersAsync(SearchOrderParametersDto parameters)
     {
-        return orderDao.GetAllOrdersAsync();
+        return orderDao.GetAllOrdersAsync(parameters);
     }
 
     public async Task<Order> GetOrderByIdAsync(int id)
@@ -45,24 +45,37 @@ public class OrderLogic : IOrderLogic
         await orderDao.DeleteOrderAsync(id);
     }
 
-    public async Task<Order> CreateOrderAsync(OrderCreationDto dto)
+    public async Task<IEnumerable<Order>> GetOrdersByCustomerUsername(string username)
     {
-        Item? item = await itemDao.GetByIdAsync(dto.Items.Count);
+        IEnumerable<Order> order = await orderDao.GetOrdersByCustomerUsername(username);
+        if (order == null)
+        {
+            throw new Exception($"No orders were found");
+        }
+
+        return order;
+    }
+
+    public async Task<Order> CreateOrderAsync(MakeOrderDto dto)
+    {
+        foreach (int item in dto.ItemIds)
+        {
+            Item? existing = await itemDao.GetByIdAsync(item);
+            if (existing == null)
+            {
+                throw new Exception($"This item you try to use, does not exist!");
+            }
+
+
+        }
+
         User? user = await userDao.GetByUsernameAsync(dto.Customer.UserName);
-        Item items = new Item()
+        if (user == null)
         {
-            Name = item.Name,
-            Price = item.Price
+            throw new Exception($"This user does not exist!");
 
-
-        };
-        Order order = new Order()
-        {
-            Customer = user,
-            Items = {items},
-
-        };
-        Order created = await orderDao.CreateOrderAsync(order);
+        }
+        Order created = await orderDao.CreateOrderAsync(dto);
         return created;
     }
 
@@ -75,16 +88,16 @@ public class OrderLogic : IOrderLogic
             throw new Exception($"Order with ID {dto.Id} not found!");
         }
 
-        if (dto.Status.Equals("completed"))
+        if (dto.Status.Equals("ready for pickup"))
         {
-            throw new Exception("Cannot un-complete a completed Order");
+            throw new Exception("cannot change an order that's ready for pickup");
         }
-
-        User userToUse =  existing.Customer;
-
-        Order updated = new (dto.Items ,dto.Status)
+        
+        Order updated = new (dto.Items,dto.Status)
         {
-            Customer = userToUse
+            Id = existing.Id,
+            Customer = existing.Customer,
+            Date = existing.Date
         };
 
         ValidateOrder(updated);

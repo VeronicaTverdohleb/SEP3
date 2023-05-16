@@ -5,12 +5,13 @@ namespace Shared.Dtos;
 public class OrderUpdateDto
 {
     public int Id { get; }
-    public string? CustomerName { get; set; }
-    public ICollection<Item>? Items { get; set; }
-    public string? Status { get; set; }
+    public ICollection<Item> Items { get; set; }
+    public string Status { get; set; }
 
-    public OrderUpdateDto(int id)
+    public OrderUpdateDto(int id, ICollection<Item> items, string status)
     {
         Id = id;
+        Items = items;
+        Status = status;
     }
 }

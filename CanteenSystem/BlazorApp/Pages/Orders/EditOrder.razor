@@ -1,6 +1,103 @@
 ﻿@page "/EditOrder"
-<h3>Edit Order feature will be implemented soon</h3>
+@using HttpClients.ClientInterfaces
+@using global::Shared.Model
+@using BlazorApp.Services
+@using System.Security.Claims
+@inject IOrderService orderService
+@inject IAuthService authService;
 
+<h3>Your Orders</h3>
+
+@if (orders == null)
+{
+}
+else if (!orders.Any())
+{
+    <p>No Orders to display</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Cancel</th>
+        </thead>
+        <tbody>
+        @foreach (var order in orders)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.Date</td>
+                <td>@order.Status</td>
+                <td>
+                    <div class="filter-bar">
+                        <div class="filters-container">
+                            <img src="icons/@(doShowFilters ? "clear_" : "")add.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel"/>
+                            @if (doShowFilters)
+                            {
+                                <div>
+                                    <button onclick="@(() => CancelOrder(order.Id))">Cancel Order</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
 @code {
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+    private IEnumerable<Claim>? userClaims;
+    private IEnumerable<Order>? orders;
     
+    private bool doShowFilters = false;
+    private string username;
+    private string msg = "";
+    
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var authState = await AuthState;
+            var user = authState.User;
+            
+            userClaims = user.Claims;
+            foreach (var claim in userClaims!)
+            {
+                if (claim.Type.Equals("Username"))
+                    username = claim.Value;
+            }
+            
+            orders = await orderService.GetOrdersByCustomerUsername(username);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+    
+    private async Task CancelOrder(int id)
+    {
+        msg = "";
+        try
+        {
+            
+            await orderService.DeleteAsync(id);
+        
+            var list = new List<Order>(orders!);
+            list.RemoveAll(i => i.Id == id);
+            orders = list.AsEnumerable();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
 }

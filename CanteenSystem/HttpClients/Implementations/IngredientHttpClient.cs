@@ -77,6 +77,16 @@ public class IngredientHttpClient : IIngredientService
         return ingredient;
     }
 
+    public Task<Ingredient?> GetByIdAsyncFromIng(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Ingredient?> GetByNameAsyncFromIng(string name)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task DeleteIngredient(int id)
     {
         HttpResponseMessage response = await client.DeleteAsync($"Ingredient/{id}");

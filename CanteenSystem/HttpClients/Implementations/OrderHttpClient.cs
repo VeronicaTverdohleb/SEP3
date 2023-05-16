@@ -16,9 +16,10 @@ public class OrderHttpClient:IOrderService
         this.client = client;
     }
 
-    public async Task<ICollection<Order>> getAllOrdersAsync(string? userName, string? completedStatus)
+    public async Task<ICollection<Order>> getAllOrdersAsync(int? id, DateOnly? date, string? userName, string? completedStatus)
     {
-        HttpResponseMessage response = await client.GetAsync("/Order");
+        string query = ConstructQuery(id, date, userName, completedStatus);
+        HttpResponseMessage response = await client.GetAsync("/Order"+query);
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
@@ -32,7 +33,36 @@ public class OrderHttpClient:IOrderService
         return orders;
     }
 
-    public async Task<OrderCreationDto> GetOrderByIdAsync(int id)
+    private static string ConstructQuery(int? id, DateOnly? date, string? userName, string? completedStatus)
+    {
+        string query = "";
+        if (id!=null)
+        {
+            query += $"?id={id}";
+        }
+
+        if (date.HasValue)
+        {
+            query += string.IsNullOrEmpty(query) ? "?" : "&";
+            query += $"date={date.Value}";
+        }
+
+        if (!string.IsNullOrEmpty(userName))
+        {
+            query += string.IsNullOrEmpty(query) ? "?" : "&";
+            query += $"userName={userName}";
+        }
+
+        if (!string.IsNullOrEmpty(completedStatus))
+        {
+            query += string.IsNullOrEmpty(query) ? "?" : "&";
+            query += $"completedStatus={completedStatus}";
+        }
+        Console.WriteLine(query);
+        return query;
+    }
+
+    public async Task<OrderFullInfoDto> GetOrderByIdAsync(int id)
     {
         HttpResponseMessage response = await client.GetAsync($"/orders/{id}");
         string content = await response.Content.ReadAsStringAsync();
@@ -41,7 +71,7 @@ public class OrderHttpClient:IOrderService
             throw new Exception(content);
         }
 
-        OrderCreationDto order = JsonSerializer.Deserialize<OrderCreationDto>(content, 
+        OrderFullInfoDto order = JsonSerializer.Deserialize<OrderFullInfoDto>(content, 
             new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -53,9 +83,10 @@ public class OrderHttpClient:IOrderService
     public async Task UpdateAsync(OrderUpdateDto dto)
     {
         string dtoAsJson = JsonSerializer.Serialize(dto);
+        Console.WriteLine(dtoAsJson);
         StringContent body = new StringContent(dtoAsJson, Encoding.UTF8, "application/json");
 
-        HttpResponseMessage response = await client.PatchAsync("/orders", body);
+        HttpResponseMessage response = await client.PatchAsync("/order", body);
         if (!response.IsSuccessStatusCode)
         {
             string content = await response.Content.ReadAsStringAsync();
@@ -69,13 +100,35 @@ public class OrderHttpClient:IOrderService
         HttpResponseMessage response = await client.DeleteAsync($"Orders/{id}");
     }
 
-    public async Task CreateAsync(OrderCreationDto dto)
+    public async Task<ICollection<Order>> GetOrdersByCustomerUsername(string username)
     {
-        HttpResponseMessage response = await client.PostAsJsonAsync("/orders", dto);
+        HttpResponseMessage response = await client.GetAsync($"/User/{username}/orders");
+        string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
-            string content = await response.Content.ReadAsStringAsync();
             throw new Exception(content);
         }
+
+        ICollection<Order> order = JsonSerializer.Deserialize<ICollection<Order>>(content, 
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            }
+        )!;
+        return order;
+    }
+
+    public async Task CreateAsync(OrderCreationDto dto)
+    {
+        String postAsJson = JsonSerializer.Serialize(dto);
+        StringContent content = new(postAsJson, Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await client.PostAsync("/Order", content);
+        string responsecontent = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(responsecontent);
+        }
+        
     }
 }
