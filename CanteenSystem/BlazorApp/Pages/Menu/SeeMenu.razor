@@ -1,40 +1,42 @@
 ﻿@page "/SeeMenu"
-@using global::Shared.Model
 @using HttpClients.ClientInterfaces
 @using global::Shared.Dtos
 @inject IMenuService menuService
-@inject IItemService itemService
-@inject IIngredientService ingredientService
 
 <div class="page">
     <div class="datepicker">
         <InputDate @bind-Value="pickedDate"></InputDate>
-        <button class="datebtn" @onclick="LoadMenu">See Menu</button>
- </div>
-    <h3>Menu for the day</h3>
+        @if (!doSeeMenu)
+        {
+            <button class="datebtn" @onclick="LoadMenu">See Menu</button>
+        }
+        else if (doSeeMenu)
+        {
+            <button class="hidebtn" @onclick="@(() => doSeeMenu = !doSeeMenu)">Hide Menu</button>
+        }
+        @if (!string.IsNullOrEmpty(msg))
+        {
+            <p class="error-message">@msg</p>
+        }
+    </div>
 
-    @if (!string.IsNullOrEmpty(msg))
-    {
-        <div>
-            <span>@msg</span>
-        </div>
-    }
 
-    @if (menu == null)
-    {
-        <span>Loading..</span>
-    }
-    else if (pickedDate < DateTime.Today)
+    @if (menu == null) {}
+
+    else if (pickedDate < DateOnly.FromDateTime(DateTime.Today))
     {
         <span>Please input a valid date (today or in the future)</span>
     }
+
     else if (menu.Items == null || !menu.Items.Any())
     {
-        <span>Unfortunately, there are no items on this menu</span>
+        
     }
 
-    else
+
+    else if (doSeeMenu)
     {
+        <h3>Menu for the day: @dateString</h3>
         <table>
             <tr>
                 <th>Item</th>
@@ -46,7 +48,8 @@
             {
                 <tr>
                     <td>
-                        <p>@item.Name</p></td>
+                        <p class="item-name">@item.Name</p>
+                    </td>
                     <td>@item.IngredientNames</td>
                     <td>@item.Allergens</td>
                 </tr>
@@ -57,24 +60,28 @@
 
 
 @code {
-    private string msg;
+    private string msg = "";
     private MenuBasicDto menu;
-    private DateTime pickedDate;
+    private DateOnly pickedDate;
     private string ingredients = "";
     private string allergens = "";
+    private string dateString = "";
+    private bool doSeeMenu = false;
 
 
     protected override async Task OnInitializedAsync()
     {
-        pickedDate = DateTime.Now;
+        pickedDate = DateOnly.FromDateTime(DateTime.Today);
+
         msg = "";
         try
         {
-            menu = await menuService.GetMenuByDateAsync(DateTime.Now);
+            menu = await menuService.GetMenuByDateAsync(pickedDate);
+            ConvertDate(menu.Date);
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Console.WriteLine(e.Message);
             msg = e.Message;
         }
     }
@@ -85,17 +92,26 @@
         try
         {
             menu = await menuService.GetMenuByDateAsync(pickedDate);
+            ConvertDate(menu.Date);
+            doSeeMenu = !doSeeMenu;
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Console.WriteLine(e.Message);
             msg = e.Message;
         }
     }
 
-
-
-
-
+    private void ConvertDate(DateOnly date)
+    {
+        if (date.Month < 10 && date.Day < 10)
+            dateString = "0" + date.Day + "-0" + date.Month + "-" + date.Year;
+        else if (date.Month >= 10 && date.Day < 10)
+            dateString = "0" + date.Day + "-" + date.Month + "-" + date.Year;
+        else if (date.Month < 10 && date.Day >= 10)
+            dateString = date.Day + "-0" + date.Month + "-" + date.Year;
+        else
+            dateString = date.Day + "-" + date.Month + "-" + date.Year;
+    }
 
 }
