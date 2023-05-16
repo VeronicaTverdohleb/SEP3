@@ -48,6 +48,21 @@ public class OrderController : ControllerBase
         }
     }
     
+    [HttpGet, Route("/User/{username}/orders")]
+    public async Task<ActionResult<IEnumerable<Order>>> GetOrderByCustomerUsername([FromRoute] string username)
+    {
+        try
+        {
+            IEnumerable<Order> order = await orderLogic.GetOrdersByCustomerUsername(username);
+            return Ok(order);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
     [HttpDelete("/Orders/{id:int}")]
     public async Task<ActionResult> DeleteAsync([FromRoute] int id)
     {
