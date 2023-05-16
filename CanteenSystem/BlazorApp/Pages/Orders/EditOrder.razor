@@ -32,7 +32,17 @@ else
                 <td>@order.Date</td>
                 <td>@order.Status</td>
                 <td>
-                    <img src="img/delete.png" class="delete" @onclick="() => CancelOrder(order.Id)"/>
+                    <div class="filter-bar">
+                        <div class="filters-container">
+                            <img src="icons/@(doShowFilters ? "clear_" : "")add.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel"/>
+                            @if (doShowFilters)
+                            {
+                                <div>
+                                    <button onclick="@(() => CancelOrder(order.Id))">Cancel Order</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
                 </td>
             </tr>
         }
@@ -45,6 +55,7 @@ else
     private IEnumerable<Claim>? userClaims;
     private IEnumerable<Order>? orders;
     
+    private bool doShowFilters = false;
     private string username;
     private string msg = "";
     

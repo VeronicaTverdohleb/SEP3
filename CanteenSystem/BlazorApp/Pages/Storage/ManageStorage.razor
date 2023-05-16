@@ -51,7 +51,17 @@ else
                 <td>@item.Amount</td>
                 <td>@item.Allergen</td>
                 <td>
-                    <img src="img/delete.png" class="funnel" @onclick="() => DeleteIngredient(item.Id)"/>
+                    <div class="filter-bar">
+                        <div class="filters-container">
+                            <img src="icons/@(doShowFilters2 ? "clear_" : "")add.png" class="funnel" @onclick="@(() => doShowFilters2 = !doShowFilters2)" alt="Funnel"/>
+                            @if (doShowFilters2)
+                            {
+                                <div>
+                                    <button onclick="@(() => DeleteIngredient(item.Id))">Confirm Deletion</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
                 </td>
             </tr>
         }
@@ -116,6 +126,7 @@ else
 
     private bool doShowFilters = false;
     private bool doShowFilters1 = false;
+    private bool doShowFilters2 = false;
     private string msg = "";
     
     private string? name;
