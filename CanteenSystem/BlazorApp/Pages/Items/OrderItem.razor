@@ -2,6 +2,7 @@
 @using HttpClients.ClientInterfaces
 @using global::Shared.Model
 @using global::Shared.Dtos
+@using System.Security.Claims
 @inject IItemService itemService;
 @inject IIngredientService ingredientService;
 @inject IOrderService orderService;
@@ -13,66 +14,127 @@
 }
 else if (!items.Any())
 {
-    <p>No Posts to display</p>
+    <p>No  to display</p>
 }
 else
 {
-    <div class="filter-bar">
-        <div class="filters-container">
-            <div class="form-group field">
-                <label>Date:</label>
-                <textarea rows="1" cols="15" @bind="date"/>
-            </div>
-            <div class="form-group field">
-                <label>Items:</label>
-                <select @bind="items">
-                    <option>Choose</option>
-                    @foreach (Item item in items)
-                    {
-                        <option value="@item.Id">@item.Name</option>
-                    }
-                </select>
-            </div>
-             <div class="form-group field">
-                 <label>TotalPrice:</label>
-                
-                     @foreach (Item item in items)
-                     {
-                         price += item.Price;
+    <div class="datepicker">
+        <InputDate @bind-Value="date"></InputDate>
+    </div>    
+        <br/>
+    <div>        
+        <label>Choose which items you would like to add to your order:</label>
+        <select name="addItem" id="addItem" @onchange="SetItemsToAddToOrder">
+            @foreach (Item item in items)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+        <button @onclick="AddItem">Add to order</button>
+    </div>
+    
+    <h5>Selected Items</h5>
+            
+    @if (_itemsAdded.Count>0)
+    {
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Item Price</th>
+                <th>Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var i in items)
+            {
+                foreach (var j in _itemsAdded)
+                {
+                    if(i.Id==j.Id){
+                                
+                        <tr>
+                            <td>@i.Name</td>
+                            <td>@i.Price</td>
+                            <td>
+                               <img src="img/delete.png" class="funnel" @onclick="RemoveItem"/>
+                                                   
+                            </td>
+                        </tr>
 
-                     }
+                    }
                     
-                        </div>
+                }
+                
+            }
+            </tbody>
+        </table>
+    }
+        
+    <div class="form-group field">
+        <label>TotalPrice:</label>
+            
+        <textarea rows="1" cols="10" @bind="price" readonly/>
+
+    </div>
+   
+        
 
             <div class="button-row">
                 @if (!string.IsNullOrEmpty(msg))
                 {
                     <label style="color: red">@msg</label>
                 }
-                <button @onclick="CreateItem" class="acceptbtn">Create</button>
+                <button @onclick="CreateOrder" class="acceptbtn">Create Order</button>
             </div>
-            }
-        </div>
-    </div>
+    
 }
+        
+    
+
 
 @code {
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+
     private int Id { get; set; }
-    private ICollection<Item> items;
-    private IEnumerable<Order>? orders;
-    private DateOnly date;
-    private User user;
-    private MakeOrderDto dto;
-    private int price;
+    private IEnumerable<Item> items=new List<Item>();
+    private IEnumerable<Order>? orders=new List<Order>();
+    private DateOnly date= DateOnly.FromDateTime(DateTime.UtcNow);
+    private static User user;
+    
+    private Item itemToAdd=new Item();
     private string msg = "";
     private string status = "ordered";
+    private string error = "";
+    private bool addBool;
+    private bool isVisible=false;
+    private static string? username="";
+    private static string? name="";
+    private static string? lastname="";
+    private static string? password="";
+    private static string? email="";
+    private static string? role="";
+    private int price;
+    private IEnumerable<Claim>? _userClaims;
+    private List<Item> _itemsAdded = new List<Item>();
+
+
+    private MakeOrderDto dto=new MakeOrderDto(user,new DateOnly(),"ordered",new List<int>());
+
+   
+    
     
     protected override async Task OnInitializedAsync()
-    {
+    {AuthenticationState authState = await AuthState;
+        ClaimsPrincipal user = authState.User;
+        _userClaims = user.Claims;
+
+
         try
         {
             orders = await orderService.getAllOrdersAsync(null,null, null, null);
             items = await itemService.GetAsync(null);
+          
             
 
 
@@ -83,9 +145,70 @@ else
             msg = e.Message;
         }
     }
-    
-    private async Task CreateItem()
+    private void SetItemsToAddToOrder(ChangeEventArgs e)
     {
+        int selectedValue = int.Parse(e.Value.ToString());
+        itemToAdd = items.FirstOrDefault(item => item.Id == selectedValue);
+    }
+    private async Task AddItem()
+    {
+        msg = "";
+        try
+        {
+           // dto.ItemIds.Add(itemToAdd.Id);
+            _itemsAdded.Add(itemToAdd);
+            
+            price += itemToAdd.Price;
+            msg = "Item added";
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+    private async Task RemoveItem()
+    {
+        msg = "";
+        try
+        {
+    // dto.ItemIds.Add(itemToAdd.Id);
+            _itemsAdded.Remove(itemToAdd);
+            
+            price -= itemToAdd.Price;
+            msg = "Item added";
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        } 
+    }
+
+    private async Task CreateOrder()
+    {
+        
+        foreach (Claim claim in _userClaims!)
+        {
+          
+            if (claim.Type.Equals("Username"))
+                username = claim.Value;
+            if (claim.Type.Equals("Role"))
+                role = claim.Value;
+            if (claim.Type.Equals("Firstname"))
+                name = claim.Value;
+            if (claim.Type.Equals("Lastname"))
+                lastname = claim.Value;
+            if (claim.Type.Equals("Password"))
+                password = claim.Value;
+            if (claim.Type.Equals("Email"))
+                email = claim.Value;
+            
+        }
+       
         msg = "";
         if (items == null )
         {
@@ -95,10 +218,23 @@ else
 
         try
         {
-            
+            List<int> ids = new List<int>();
+            foreach (var item1 in items)
+            {
+              ids.Add(item1.Id);  
+            }
 
-           // await orderService.CreateAsync(new OrderCreationDto(user, status,items));
 
+            user = new User(name, lastname, username, password, email, role)
+            {
+                FirstName = name,
+                LastName = lastname,
+                UserName = username,
+                Password = password,
+                Email = email,
+                Role = role
+            };
+           await orderService.CreateAsync(new MakeOrderDto(user,date, status,ids));
         }
         catch (Exception e)
         {

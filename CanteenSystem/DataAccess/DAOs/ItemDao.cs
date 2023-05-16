@@ -35,25 +35,42 @@ public class ItemDao : IItemDao
         return added.Entity;
     }
 
-    public async Task<IEnumerable<Item>> GetAsync(SearchItemSto searchParameters)
+    public Task<IEnumerable<Item>> GetAsync(SearchItemSto searchParameters)
     {
-        IQueryable<Item> query = context.Items.Include(item => item.Ingredients).AsQueryable();
-        
-
+        IEnumerable<Item> result = context.Items.AsEnumerable();
         if (!string.IsNullOrEmpty(searchParameters.NameContains))
         {
-            query = query.Where(item =>
-                item.Name.ToLower().Contains(searchParameters.NameContains.ToLower()));
+            result = result.Where(i =>
+                i.Name.Contains(searchParameters.NameContains, StringComparison.OrdinalIgnoreCase));
         }
 
-        List<Item> result = await query.ToListAsync();
-        return result;
+        return Task.FromResult(result);
+        /*  IQueryable<Item> query = context.Items.Include(item => item.Ingredients).AsQueryable();
+          
+  
+          if (!string.IsNullOrEmpty(searchParameters.NameContains))
+          {
+              query = query.Where(item =>
+                  item.Name.ToLower().
+                      Contains(searchParameters.NameContains.ToLower()));
+          }
+  
+          List<Item> result = await query.ToListAsync();
+          return result;*/
     }
 
-    public async Task<IEnumerable<Item>> GetAllItemsAsync()
+  
+
+    public Task<IEnumerable<Item>> GetAllItemsAsync(SearchItemSto searchParameters)
     {
-        IEnumerable<Item> list = context.Items.Include(item => item.Ingredients).ToList();
-        return list;
+        IEnumerable<Item> list = context.Items.Include(item => item.Ingredients).AsEnumerable();
+        if (!string.IsNullOrEmpty(searchParameters.NameContains))
+        {
+            list = list.Where(i =>
+                i.Name.Contains(searchParameters.NameContains, StringComparison.OrdinalIgnoreCase));
+
+        }
+        return Task.FromResult(list);
     }
 
    
