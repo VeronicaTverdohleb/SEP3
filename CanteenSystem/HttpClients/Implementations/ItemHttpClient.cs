@@ -31,8 +31,9 @@ public class ItemHttpClient :IItemService
 
     public async Task<ICollection<Item>> GetAsync(string? name)
     {
-        
-        HttpResponseMessage response = await client.GetAsync("/Item");
+        string query = ConstructQuery(name);
+
+        HttpResponseMessage response = await client.GetAsync("/item"+query);
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
@@ -46,7 +47,7 @@ public class ItemHttpClient :IItemService
         return items;
     }
     
-    private static string ConstructQuery(string? name, int? id, int? price)
+    private static string ConstructQuery(string? name)
     {
         string query = "";
         if (!string.IsNullOrEmpty(name))
@@ -54,17 +55,7 @@ public class ItemHttpClient :IItemService
             query += $"?Name={name}";
         }
 
-        if (id != null)
-        {
-            query += string.IsNullOrEmpty(query) ? "?" : "&";
-            query += $"Id={id}";
-        }
-        if (price!= null)
-        {
-            query += string.IsNullOrEmpty(query) ? "?" : "&";
-            query += $"Price={price}";
-        }
-
+       
         if (!string.IsNullOrEmpty(name))
         {
             query += string.IsNullOrEmpty(query) ? "?" : "&";
@@ -126,7 +117,7 @@ public class ItemHttpClient :IItemService
 
     public async Task DeleteAsync(int id)
     {
-        HttpResponseMessage response = await client.DeleteAsync($"item3/{id}");
+        HttpResponseMessage response = await client.DeleteAsync($"item/{id}");
         if (!response.IsSuccessStatusCode)
         {
             string content = await response.Content.ReadAsStringAsync();

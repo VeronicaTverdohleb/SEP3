@@ -99,7 +99,7 @@ public class OrderHttpClient:IOrderService
         HttpResponseMessage response = await client.DeleteAsync($"Orders/{id}");
     }
 
-    public async Task CreateAsync(OrderCreationDto dto)
+    public async Task CreateAsync(MakeOrderDto dto)
     {
         String postAsJson = JsonSerializer.Serialize(dto);
         StringContent content = new(postAsJson, Encoding.UTF8, "application/json");

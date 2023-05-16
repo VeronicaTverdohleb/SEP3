@@ -10,7 +10,7 @@ public interface IItemLogic
     Task DeleteAsync(int id);
     Task<ItemBasicDto?> GetByIdAsync(int id);
     Task<ItemBasicDto?> GetByNameAsync(string name);
-    Task<IEnumerable<Item>> GetAllItemsAsync();
+    Task<IEnumerable<Item>> GetAllItemsAsync(SearchItemSto searchParameters);
 
     
 }

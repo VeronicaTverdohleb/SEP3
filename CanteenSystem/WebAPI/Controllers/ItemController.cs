@@ -35,12 +35,12 @@ public class ItemController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Item>>> GetAllItemsAsync()
+    public async Task<ActionResult<IEnumerable<Item>>> GetAllItemsAsync([FromQuery] string? name)
     {
         try
         {
-
-            var items = await itemLogic.GetAllItemsAsync();
+            SearchItemSto parameters = new(name,null);
+            var items = await itemLogic.GetAllItemsAsync(parameters);
             return Ok(items);
         }
         catch (Exception e)
@@ -51,21 +51,7 @@ public class ItemController : ControllerBase
 
     }
 
-    /* [HttpGet]
-     public async Task<ActionResult<IEnumerable<Item>>> GetAsync([FromQuery] string? name, [FromQuery] int? id)
-     {
-         try
-         {
-             SearchItemSto parameters = new(name, (int)id);
-             var items = await itemLogic.GetAsync(parameters);
-             return Ok(items);
-         }
-         catch (Exception e)
-         {
-             Console.WriteLine(e);
-             return StatusCode(500, e.Message);
-         }
-     }*/
+    
     
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteAsync([FromRoute] int id)

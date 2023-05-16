@@ -57,13 +57,7 @@ public class OrderLogic : IOrderLogic
 
 
         }
-
-        User? user = await userDao.GetByUsernameAsync(dto.Customer.UserName);
-        if (user == null)
-        {
-            throw new Exception($"This user does not exist!");
-
-        }
+       
         Order created = await orderDao.CreateOrderAsync(dto);
         return created;
     }

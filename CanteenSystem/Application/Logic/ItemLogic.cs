@@ -84,8 +84,8 @@ public class ItemLogic : IItemLogic
         return new ItemBasicDto(item.Name, item.Price,item.Ingredients);
     }
 
-    public Task<IEnumerable<Item>> GetAllItemsAsync()
+    public Task<IEnumerable<Item>> GetAllItemsAsync(SearchItemSto searchParameters)
     {
-        return itemDao.GetAllItemsAsync();
+        return itemDao.GetAllItemsAsync(searchParameters);
     }
 }

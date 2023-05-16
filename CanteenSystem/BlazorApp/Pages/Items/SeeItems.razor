@@ -16,11 +16,7 @@
         {
             <div class="filter">
                 <label>Name:</label>
-                <input type="text" @bind="nameFilter"/>
-            </div>
-            <div class="filter">
-                <label>Item Id:</label>
-                <input type="number" @bind="idFilter"/>
+                <input type="text" @bind="_nameFilter"/>
             </div>
         }
     </div>
@@ -59,9 +55,6 @@ else
                 <td>@item.Name</td>
                 <td>@item.Price</td>
                 <td>
-                    <img src="icons/edit.gif" class="funnel" @onclick="@(() => navMgr.NavigateTo($"/ManageItems/{item.Id}"))"/>
-                </td>
-                <td>
                     <img src="icons/view.png" class="funnel" @onclick="@(() => navMgr.NavigateTo($"/ViewItemDetails/{item.Id}"))"/>
                     </td>
                 
@@ -82,20 +75,20 @@ else
 }
 
 
-
+<br/>
+<br/>
 
 <h3>Add Item</h3>
-@if (_ing == null)
+@if (_ingredients == null)
 {
 }
-else if (!_ing.Any())
+else if (!_ingredients.Any())
 {
-    <p>No Posts to display</p>
+    <p>No Items to display</p>
 }
 else
 {
-    <div class="filter-bar">
-        <div class="filters-container">
+    
             <div class="form-group field">
                 <label>Name:</label>
                 <textarea rows="1" cols="15" @bind="newItemName"/>
@@ -104,16 +97,54 @@ else
                 <label>Price:</label>
                 <textarea rows="1" cols="5" @bind="newPrice" />
             </div>
-            <div class="form-group field">
-                <label>Ingredients:</label>
-                <select @bind="_i1">
-                    <option>Choose</option>
-                    @foreach (Ingredient ingredient in _ing)
+            <label>Ingredients:</label>
+            <select name="addItem" id="addItem" @onchange="SetIngredientToAdd">
+                <option>Choose:</option>
+                @foreach (Ingredient ingredient in _ingredients)
+                {
+                    <option value="@ingredient.Id">@ingredient.Name</option>
+
+                }
+            </select>
+            <button @onclick="AddIngredient">add ingredient</button>
+            
+            <h5>Selected Items</h5>
+            
+            @if (newIngredients.Count>0)
+            {
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Ingredient Name</th>
+                        <th>Item Allergen</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var i in _ingredients)
                     {
-                        <option value="@ingredient.Id">@ingredient.Name</option>
+                        foreach (var j in newIngredients)
+                        {
+                            if(i.Id==j){
+                                
+                                <tr>
+                                    <td>@i.Name</td>
+                                    <td>@i.Allergen</td>
+                                </tr>
+
+                        }
+                        
+
+                               
+                            
+                        }
+                        
+                       
                     }
-                </select>
-            </div>
+                    </tbody>
+                </table>
+            }
+           
+        
 
             <div class="button-row">
                 @if (!string.IsNullOrEmpty(msg))
@@ -122,36 +153,39 @@ else
                 }
                 <button @onclick="CreateItem" class="acceptbtn">Create</button>
             </div>
-            }
-        </div>
-    </div>
+            
+        
+    
 }
 
 @code {
    
-    private IEnumerable<Item>? items;
-    private IEnumerable<Ingredient>? _ing;
+    private IEnumerable<Item>? items=new List<Item>();
+    private IEnumerable<Ingredient>? _ingredients=new List<Ingredient>();
+    //private List<Ingredient> selectedIngredient=new List<Ingredient>();
     private IngredientBasicDto ingdto = null!;
-    private ItemBasicDto dto = null!;
-    private int price;
+   
+  
     private string msg = "";
     private bool doShowFilters = false;
-    private string newItemName ="";
-    private int newPrice;
-    private List<int> newIngredients;
-    private int? _i1;
+    private static string newItemName ="";
+    private static  int newPrice;
+    private List<int> newIngredients=new List<int>();
+    private bool addBool;
+    private Ingredient ingredientToAdd;
+    private ItemBasicDto dto = new ItemBasicDto(newItemName, newPrice, new List<Ingredient>());
   
 
-    private string? nameFilter;
-    private int? idFilter;
+    private string? _nameFilter;
+   
     
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            _ing = await ingredientService.getAllIngredientsAsync(null);
+            _ingredients = await ingredientService.getAllIngredientsAsync(null);
 
-            items = await itemService.GetAsync(nameFilter);
+            items = await itemService.GetAsync(null);
             
 
 
@@ -167,9 +201,9 @@ else
     
      private async Task LoadItems()
     {
-        try
+         try
         {
-            items = await itemService.GetAsync(nameFilter);
+            items = await itemService.GetAsync(_nameFilter);
         }
         catch (Exception e)
         {
@@ -181,7 +215,7 @@ else
     private async Task CreateItem()
     {
         msg = "";
-        if (_i1 == null )
+        if (dto.Ingredients == null )
         {
             msg = "You must select an ingredient!";
             return;
@@ -201,10 +235,10 @@ else
         {
             
            
-            newIngredients.Add((int)_i1);
+            
             ItemCreationDto creationDto = new(newItemName,newPrice,newIngredients);
             await itemService.CreateAsync(creationDto);
-    //ingredients = await ingredientService.getAllIngredientsAsync(Name);
+            //ingredients = await ingredientService.getAllIngredientsAsync(Name);
             msg = "Item created";
 
         }
@@ -216,7 +250,28 @@ else
     }
 
 
+    private void SetIngredientToAdd(ChangeEventArgs e)
+    {
+        int selectedValue = int.Parse(e.Value.ToString());
+        ingredientToAdd = _ingredients.FirstOrDefault(i => i.Id == selectedValue);
+    }
+    
+    private async Task AddIngredient()
+    {
+        try
+        {
+            newIngredients.Add(ingredientToAdd.Id);
+            //dto.Ingredients.Add(ingredientToAdd);
+            msg = "Ingredient added";
+            
 
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
      
      
      

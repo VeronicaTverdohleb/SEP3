@@ -1,6 +1,7 @@
 ﻿using Shared.Dtos;
 using Shared.Model;
 
+
 namespace Application.DaoInterfaces;
 
 public interface IOrderDao
@@ -11,3 +12,4 @@ public interface IOrderDao
     Task UpdateOrderAsync(Order order);
     Task DeleteOrderAsync(int id);
 }
+
