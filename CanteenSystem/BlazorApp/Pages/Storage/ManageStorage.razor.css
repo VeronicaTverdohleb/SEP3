@@ -3,3 +3,29 @@
     height:30px;
     cursor: pointer;
 }
+
+.table{
+    background-image: linear-gradient(180deg, darkturquoise 0%, paleturquoise 70%);
+    border-radius: 20px;
+}
+
+.allergen{
+    border-radius: 10px;
+    background-color: #0bff80;
+}
+
+.allergen-table{
+    margin: auto;
+    width: 70%;
+}
+
+.tItem{
+    margin: auto;
+    padding: 5px;
+}
+.filter-bar{
+    width: 25%;
+    margin: auto;
+    display: inline-block;
+    padding: 50px;
+}

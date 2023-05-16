@@ -3,3 +3,15 @@
     height:30px;
     cursor: pointer;
 }
+
+.table{
+    background-image: linear-gradient(180deg, darkturquoise 0%, paleturquoise 70%);
+    border-radius: 20px;
+}
+
+.delete{
+    background-color: #ff0e0e;
+    width:30px;
+    height:30px;
+    cursor: pointer;
+}

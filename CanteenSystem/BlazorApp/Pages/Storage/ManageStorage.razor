@@ -15,6 +15,23 @@ else if (!ingredients.Any())
 }
 else
 {
+    <div class="allergen-table">
+        <table class="allergen">
+            <thead>
+            <tr>
+                <td class="tItem">1. Dairy</td>
+                <td class="tItem">2. Eggs</td>
+                <td class="tItem">3. Fish</td>
+                <td class="tItem">4. Shell Fish</td>
+                <td class="tItem">5. Tree Nuts</td>
+                <td class="tItem">6. Peanuts</td>
+                <td class="tItem">7. Wheat</td>
+                <td class="tItem">8. Soybeans</td>
+                <td class="tItem">9. Sesame</td>
+            </tr>
+            </thead>
+        </table>
+    </div>
     <table class="table">
         <thead>
         <tr>
@@ -42,8 +59,9 @@ else
     </table>
 }
 
-<h2>Add</h2>
+<div class="icon-row">
 <div class="filter-bar">
+    <h2>Add</h2>
     <div class="filters-container">
         <img src="icons/@(doShowFilters1 ? "clear_" : "")add.png" class="funnel" @onclick="@(() => doShowFilters1 = !doShowFilters1)" alt="Funnel"/>
         @if (doShowFilters1)
@@ -70,8 +88,8 @@ else
         }
     </div>
 </div>
-<h2>Edit</h2>
 <div class="filter-bar">
+    <h2>Edit</h2>
     <div class="filters-container">
         <img src="icons/@(doShowFilters ? "clear_" : "")funnel.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel"/>
         @if (doShowFilters)
@@ -89,6 +107,7 @@ else
             </div>
         }
     </div>
+</div>
 </div>
 
 

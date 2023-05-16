@@ -32,7 +32,7 @@ else
                 <td>@order.Date</td>
                 <td>@order.Status</td>
                 <td>
-                    <img src="img/delete.png" class="funnel" @onclick="() => CancelOrder(order.Id)"/>
+                    <img src="img/delete.png" class="delete" @onclick="() => CancelOrder(order.Id)"/>
                 </td>
             </tr>
         }
