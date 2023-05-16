@@ -45,6 +45,17 @@ public class OrderLogic : IOrderLogic
         await orderDao.DeleteOrderAsync(id);
     }
 
+    public async Task<IEnumerable<Order>> GetOrdersByCustomerUsername(string username)
+    {
+        IEnumerable<Order> order = await orderDao.GetOrdersByCustomerUsername(username);
+        if (order == null)
+        {
+            throw new Exception($"No orders were found");
+        }
+
+        return order;
+    }
+
     public async Task<Order> CreateOrderAsync(MakeOrderDto dto)
     {
         foreach (int item in dto.ItemIds)
@@ -71,18 +82,16 @@ public class OrderLogic : IOrderLogic
             throw new Exception($"Order with ID {dto.Id} not found!");
         }
 
-        if (dto.Status.Equals("completed"))
+        if (dto.Status.Equals("ready for pickup"))
         {
-            throw new Exception("Cannot un-complete a completed Order");
+            throw new Exception("cannot change an order that's ready for pickup");
         }
-
-        User userToUse =  existing.Customer;
-        DateOnly dateToUse = existing.Date;
-
-        Order updated = new (dto.Items ,dto.Status)
+        
+        Order updated = new (dto.Items,dto.Status)
         {
-            Customer = userToUse,
-            Date = dateToUse
+            Id = existing.Id,
+            Customer = existing.Customer,
+            Date = existing.Date
         };
 
         ValidateOrder(updated);

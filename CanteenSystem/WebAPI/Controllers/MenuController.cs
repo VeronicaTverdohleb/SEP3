@@ -16,8 +16,23 @@ public class MenuController: ControllerBase
         this.menuLogic = menuLogic;
     }
     
-    [HttpGet, Route("/GetMenu")]
-    public async Task<ActionResult<Menu>> GetAsync([FromQuery] DateTime date)
+    [HttpPost]
+    public async Task<ActionResult<Menu>> CreateAsync([FromBody]MenuBasicDto dto)
+    {
+        try
+        {
+            Menu created = await menuLogic.CreateAsync(dto);
+            return Created($"/Menu/{created.Id}", created);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet, Route("/Menu")]
+    public async Task<ActionResult<Menu>> GetAsync([FromQuery] DateOnly date)
     {
         try
         {
@@ -30,5 +45,21 @@ public class MenuController: ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-
+    
+    [HttpPatch]
+    public async Task<ActionResult> UpdateAsync([FromBody] MenuUpdateDto dto)
+    {
+        try
+        {
+            await menuLogic.UpdateMenuAsync(dto);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    
 }

@@ -3,8 +3,10 @@
 @using global::Shared.Dtos
 @using HttpClients.ClientInterfaces
 @using System.Reflection.Metadata
+@using global::Shared.Dtos.IngredientDto
 @inject IOrderService orderService
 @inject IItemService itemService
+@inject IIngredientService ingredientService 
 @inject NavigationManager navMgr
 
 @if (order == null)
@@ -27,6 +29,20 @@ else
     </div>
     <br/>
     <p class="legal">ordered by: @order.Customer.FirstName @order.Customer.LastName</p>
+    <label>Status: </label>   
+    <select name ="orderStatus" id="orderStatus" @onchange="SetStatus">
+        <option value="ordered">ordered</option>
+        <option value="in progress">in progress</option>
+        <option value="ready for pickup">ready for pickup</option>
+    </select>
+    <p>total price: @totalPrice kr</p>
+
+    @foreach (var item in order.Items)
+    {
+        <p>@item.Name</p>
+    }
+
+
     <br/>
     <br/>
     <div>
@@ -79,11 +95,13 @@ else
     private bool confirmBool;
     private bool addBool;
     private bool removeBool;
-    private OrderCreationDto order;
+    private string status;
+    private OrderFullInfoDto order;
     private OrderUpdateDto updateDto = null!;
     private ICollection<Item> allItems;
     private Item itemToAdd;
     private Item itemToRemove;
+    private double totalPrice;
     private string msg = "";
     private string error = "";
 
@@ -96,17 +114,18 @@ else
             order = await orderService.GetOrderByIdAsync(Id);
             var fetchedItems = await itemService.GetAsync(null);
             allItems = fetchedItems.OrderBy(i => i.Name).ToList();
+            status = order.Status;
+            totalPrice = UpdateTotalPrice();
             if (allItems.Count!=0)
             {
                 itemToAdd = allItems.FirstOrDefault();
 
             }
             itemToRemove = order.Items.FirstOrDefault();
-            updateDto = new(Id)
+            updateDto = new(Id,order.Items,order.Status)
             {
-                Items = allItems,
+                Items = order.Items,
                 Status = order.Status,
-                CustomerName = order.Customer.UserName
             };
             Console.WriteLine("fetched the order!");
         }
@@ -120,6 +139,43 @@ else
     private void RefreshOrder()
     {
         
+    }
+
+    private double UpdateTotalPrice()
+    {
+        double temp = 0;
+        foreach (var item in order.Items)
+        {
+            Console.WriteLine(item.Name + item.Price);
+            temp += item.Price;
+        }
+        return temp;
+    }
+
+    private void SetStatus(ChangeEventArgs e)
+    {
+        string selectedValue = e.Value.ToString();
+        status = selectedValue;
+        if (status.Equals("ready for pickup"))
+        {
+            UpdateStorageAmounts();
+        }
+    }
+
+    private async void UpdateStorageAmounts()
+    {
+        Console.WriteLine("start of method");
+        int amount = 0;
+        foreach (var item in order.Items)
+        {
+            Console.WriteLine("first part of loop");
+            var ingredientList = item.Ingredients;
+            for (int i = 0;i< ingredientList.Count;i++)
+            {
+                Console.WriteLine("we got into the loop");
+                await ingredientService.UpdateIngredientAmount(new IngredientUpdateDto(ingredientList.ToList()[0].Id, amount));
+            }
+        }
     }
 
     private void SetItemToAdd(ChangeEventArgs e)
@@ -196,10 +252,31 @@ else
     private async Task AddItem()
     {
         msg = "";
+        bool present = false;
         try
         {
-            order.Items.Add(itemToAdd);
-            await orderService.UpdateAsync(updateDto);
+            foreach (var item in order.Items)
+            {
+                if (item.Id == itemToAdd.Id)
+                {
+                    present = true;
+                }
+            }
+            if (present)
+            {
+                msg = "Order already contains this item";
+                Console.WriteLine("already in order");
+            }
+            else
+            {
+                msg = "item added to order";
+                Console.WriteLine("added to order");
+                order.Items.Add(itemToAdd);
+                totalPrice = UpdateTotalPrice();
+                OrderUpdateDto update = new OrderUpdateDto(Id, order.Items, order.Status);
+                await orderService.UpdateAsync(update);
+            }
+            
         }
         catch (Exception e)
         {
@@ -214,6 +291,7 @@ else
         try
         {
             order.Items.Remove(itemToRemove);
+            totalPrice = UpdateTotalPrice();
             await orderService.UpdateAsync(updateDto);
         }
         catch (Exception e)

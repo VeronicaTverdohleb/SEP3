@@ -62,7 +62,7 @@ public class OrderHttpClient:IOrderService
         return query;
     }
 
-    public async Task<OrderCreationDto> GetOrderByIdAsync(int id)
+    public async Task<OrderFullInfoDto> GetOrderByIdAsync(int id)
     {
         HttpResponseMessage response = await client.GetAsync($"/orders/{id}");
         string content = await response.Content.ReadAsStringAsync();
@@ -71,7 +71,7 @@ public class OrderHttpClient:IOrderService
             throw new Exception(content);
         }
 
-        OrderCreationDto order = JsonSerializer.Deserialize<OrderCreationDto>(content, 
+        OrderFullInfoDto order = JsonSerializer.Deserialize<OrderFullInfoDto>(content, 
             new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -83,9 +83,10 @@ public class OrderHttpClient:IOrderService
     public async Task UpdateAsync(OrderUpdateDto dto)
     {
         string dtoAsJson = JsonSerializer.Serialize(dto);
+        Console.WriteLine(dtoAsJson);
         StringContent body = new StringContent(dtoAsJson, Encoding.UTF8, "application/json");
 
-        HttpResponseMessage response = await client.PatchAsync("/orders", body);
+        HttpResponseMessage response = await client.PatchAsync("/order", body);
         if (!response.IsSuccessStatusCode)
         {
             string content = await response.Content.ReadAsStringAsync();
@@ -98,8 +99,28 @@ public class OrderHttpClient:IOrderService
     {
         HttpResponseMessage response = await client.DeleteAsync($"Orders/{id}");
     }
+    
+    
+    
+    public async Task<ICollection<Order>> GetOrdersByCustomerUsername(string username)
+    {
+        HttpResponseMessage response = await client.GetAsync($"/User/{username}/orders");
+        string content = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
 
-    public async Task CreateAsync(MakeOrderDto dto)
+        ICollection<Order> order = JsonSerializer.Deserialize<ICollection<Order>>(content, 
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            }
+        )!;
+        return order;
+    }
+
+    public async Task CreateAsync(OrderCreationDto dto)
     {
         String postAsJson = JsonSerializer.Serialize(dto);
         StringContent content = new(postAsJson, Encoding.UTF8, "application/json");

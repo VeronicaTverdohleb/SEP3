@@ -1,0 +1,46 @@
+﻿
+.deletebtn {
+    height: 50px;
+    width: 50px;
+}
+
+.error-message {
+    font-size: large;
+    color: red;
+    font-weight: bold;
+    margin-left: 25px;
+    margin-top: 12px;
+}
+
+tr:first-of-type {
+    text-align: center;
+    font-size: xx-large;
+}
+
+th {
+    padding: 10px 30px;
+    background-color: paleturquoise;
+}
+
+.item-name {
+    font-size: x-large;
+    border-radius: 10px;
+    background-color: lightgreen;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+td {
+    font-size: large;
+    padding: 10px 30px;
+}
+
+th:first-of-type {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+th:last-of-type {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}

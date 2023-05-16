@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 using HttpClients.ClientInterfaces;
 using Shared.Dtos;
 using Shared.Model;
@@ -15,10 +17,10 @@ public class MenuHttpClient : IMenuService
         this.client = client;
     }
 
-    public async Task<MenuBasicDto> GetMenuByDateAsync(DateTime date)
+    public async Task<MenuBasicDto> GetMenuByDateAsync(DateOnly date)
     {
         string query = ConstructQuery(ConvertDate(date));
-        HttpResponseMessage response = await client.GetAsync("/GetMenu" + query);
+        HttpResponseMessage response = await client.GetAsync("/Menu" + query);
         string result = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
@@ -31,13 +33,38 @@ public class MenuHttpClient : IMenuService
         })!;
         return menu;
     }
-    
+
+
+    public async Task UpdateMenuAsync(MenuUpdateDto dto)
+    {
+        string dtoAsJson = JsonSerializer.Serialize(dto);
+        StringContent body = new StringContent(dtoAsJson, Encoding.UTF8, "application/json");
+
+        HttpResponseMessage response = await client.PatchAsync("/Menu", body);
+        if (!response.IsSuccessStatusCode)
+        {
+            string content = await response.Content.ReadAsStringAsync();
+            throw new Exception(content);
+        }
+    }
+
+    public async Task CreateAsync(MenuBasicDto dto)
+    {
+        HttpResponseMessage response = await client.PostAsJsonAsync("/Menu", dto);
+        if (!response.IsSuccessStatusCode)
+        {
+            string content = await response.Content.ReadAsStringAsync();
+            throw new Exception(content);
+        }
+    }
+
+
     private static string ConstructQuery(String date)
     {
         return $"?date={date}";
     }
-    
-    private static string ConvertDate(DateTime date)
+
+    private static string ConvertDate(DateOnly date)
     {
         String newDate;
         if (date.Month < 10 && date.Day < 10)
@@ -50,8 +77,4 @@ public class MenuHttpClient : IMenuService
             newDate = date.Year + "-" + date.Month + "-" + date.Day;
         return newDate;
     }
-    
-    
-    
-    
 }
