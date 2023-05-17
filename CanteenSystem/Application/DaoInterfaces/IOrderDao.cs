@@ -12,6 +12,5 @@ public interface IOrderDao
     Task<Order> CreateOrderAsync(MakeOrderDto dto);
     Task UpdateOrderAsync(Order order);
     Task DeleteOrderAsync(int id);
-    Task<IEnumerable<Order>> GetOrdersByCustomerUsername(string username);
-}
+    }
 

@@ -73,7 +73,7 @@ else
                     username = claim.Value;
             }
             
-            orders = await orderService.GetOrdersByCustomerUsername(username);
+            orders = await orderService.getAllOrdersAsync(null,null,null,null);
         }
         catch (Exception e)
         {
