@@ -1,5 +1,6 @@
 ﻿using Application.DaoInterfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Shared.Dtos;
 using Shared.Model;
 
@@ -14,55 +15,119 @@ public class MenuDao : IMenuDao
         this.context = context;
     }
     
-    public async Task<MenuBasicDto> GetMenuByDateAsync(DateTime date)
+    public async Task<Menu> CreateAsync(Menu menu)
+    {
+        EntityEntry<Menu> added = await context.Menus.AddAsync(menu);
+        await context.SaveChangesAsync();
+        return added.Entity;
+    }
+    
+
+    public async Task<MenuBasicDto> GetMenuByDateAsync(DateOnly date)
     {
         List<ItemMenuDto> newItems = new List<ItemMenuDto>();
         // We need format yyyy-mm-dd, but the DateTime creates yyyy-m-d when the Month/Date are only one digit
-        String newDate = ConvertDate(date);
+
+        Menu? foundMenu = context.Menus
+            .AsNoTracking()
+            .Include(menu => menu.Items)
+            .FirstOrDefault(menu => menu.Date == date);
         
+        if (foundMenu == null)
+            throw new Exception("There is no Menu on this date");
 
-        IQueryable<Item>? foundItems = context.Items
-            .FromSql($"Select * from Items where MenuDate = {newDate}")
-            .Include(item => item.Ingredients).AsQueryable();
+        if (!foundMenu.Items.Any())
+            Console.WriteLine("There are no Items on this Menu");
 
-        if (!foundItems.Any())
-            Console.WriteLine($"There are no Items on this date");
-
-        foreach (Item item in foundItems)
+        foreach (Item item in foundMenu.Items)
         {
             String ingredients = "";
-            String allergens = ""; 
-            foreach (Ingredient ingredient in item.Ingredients) {
-                    if (item.Ingredients.Last().Equals(ingredient)) {
-                        ingredients += ingredient.Name;
-                        if (ingredient.Allergen != 0)
-                            allergens += ingredient.Allergen;
-                    }
-                    else {
-                        ingredients += ingredient.Name + ", ";
-                        allergens += ingredient.Allergen + ", ";
-                    }
+            String allergens = "";
+            Item? foundItem = context.Items
+                .AsNoTracking()
+                .Include(item2 => item2.Ingredients)
+                .FirstOrDefault(item3 => item3.Id == item.Id);
+            if (foundItem == null)
+                throw new Exception("There are no Items with this Id");
+
+            if (foundItem.Ingredients == null)
+                throw new Exception("There are no Ingredients in this Item");
+
+            foreach (Ingredient ingredient in foundItem.Ingredients)
+            {
+                if (foundItem.Ingredients.Last().Equals(ingredient))
+                {
+                    ingredients += ingredient.Name;
+                    if (ingredient.Allergen != 0)
+                        allergens += ingredient.Allergen;
+                }
+                else
+                {
+                    ingredients += ingredient.Name + ", ";
+                    allergens += ingredient.Allergen + ", ";
+                }
             }
 
-            ItemMenuDto newItem = new ItemMenuDto(item.Name, ingredients, allergens);
+            ItemMenuDto newItem = new ItemMenuDto(item.Id, foundMenu.Id, item.Name, ingredients, allergens);
             newItems.Add(newItem);
         }
 
+
+        if (newItems == null || !newItems.Any())
+            throw new Exception("There are no Items on this Menu");
         MenuBasicDto menu = new MenuBasicDto(newItems, date);
         return menu;
     }
 
-    private static string ConvertDate(DateTime date)
+
+    public async Task UpdateMenuAsync(MenuUpdateDto dto)
     {
-        String newDate;
-        if (date.Month < 10 && date.Day < 10)
-            newDate = date.Year + "-0" + date.Month + "-0" + date.Day;
-        else if (date.Month >= 10 && date.Day < 10)
-            newDate = date.Year + "-" + date.Month + "-0" + date.Day;
-        else if (date.Month < 10 && date.Day >= 10)
-            newDate = date.Year + "-0" + date.Month + "-" + date.Day;
-        else
-            newDate = date.Year + "-" + date.Month + "-" + date.Day;
-        return newDate;
+        ICollection<Item> items = new List<Item>();
+
+        Item? foundItem = context.Items
+            .AsNoTracking()
+            .FirstOrDefault(item => item.Id == dto.ItemId);
+        if (foundItem != null)
+        {
+            items.Add(foundItem);
+            Console.WriteLine($"Item in the Update body: {foundItem.Id}");
+        }
+
+        Menu? foundMenu = context.Menus
+            .AsNoTracking()
+            .Include(menu => menu.Items)
+            .FirstOrDefault(menu => menu.Date == dto.Date);
+
+        Menu menu = new Menu(dto.Date, items)
+        {
+            Id = foundMenu.Id
+        };
+
+        
+        if (dto.Action.Equals("remove".ToLower()))
+        {
+            context.Menus.Remove(foundMenu);
+            await context.SaveChangesAsync();
+            
+            foreach (Item i in foundMenu.Items)
+            {
+                if (i.Id == dto.ItemId)
+                    foundMenu.Items.Remove(i);
+            }
+
+            Menu newMenu = new Menu(dto.Date, foundMenu.Items);
+
+            await context.Menus.AddAsync(newMenu);
+            await context.SaveChangesAsync();
+            
+            //context.Menus.Update(menu);
+            Console.WriteLine("Removed item");
+        }
+        else if (dto.Action.Equals("add".ToLower()))
+        {
+            context.Menus.Update(menu);
+        }
+        await context.SaveChangesAsync();
     }
+    
 }

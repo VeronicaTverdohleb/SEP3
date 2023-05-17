@@ -4,6 +4,8 @@
 
 .datepicker {
     font-size: 20px;
+    display: flex;
+    justify-content: flex-start;
 }
 
 .datebtn {
@@ -13,6 +15,19 @@
      background-color: darkturquoise;
      border-radius: 10px;
  }
+
+.hidebtn {
+    width: 130px;
+    height: 50px;
+    margin-left: 40px;
+    background-color: hotpink;
+    border-radius: 10px;
+}
+
+span {
+    margin-top: 10px;
+    color: red;
+}
 
 h3 {
     margin-top: 20px;
@@ -29,7 +44,7 @@ th {
     background-color: paleturquoise;
 }
 
-p {
+.item-name {
     font-size: x-large;
     border-radius: 10px;
     background-color: lightgreen;
@@ -50,6 +65,14 @@ th:first-of-type {
 th:last-of-type {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+
+.error-message {
+    font-size: large;
+    color: red;
+    font-weight: bold;
+    margin-left: 25px;
+    margin-top: 12px;
 }
 
 

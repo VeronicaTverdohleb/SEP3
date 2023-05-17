@@ -28,7 +28,7 @@ public class DataContext : DbContext
         modelBuilder.Entity<Ingredient>().HasKey(ingredient => ingredient.Id);
         modelBuilder.Entity<SupplyOrder>().HasKey(supplyOrder => supplyOrder.Id);
         modelBuilder.Entity<Order>().HasKey(order => order.Id);
-        modelBuilder.Entity<Menu>().HasKey(dailyMenu => dailyMenu.Date);
+        modelBuilder.Entity<Menu>().HasKey(menu => menu.Id);
     }
     
 }
