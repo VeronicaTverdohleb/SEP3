@@ -44,18 +44,7 @@ public class OrderLogic : IOrderLogic
 
         await orderDao.DeleteOrderAsync(id);
     }
-
-    public async Task<IEnumerable<Order>> GetOrdersByCustomerUsername(string username)
-    {
-        IEnumerable<Order> order = await orderDao.GetOrdersByCustomerUsername(username);
-        if (order == null)
-        {
-            throw new Exception($"No orders were found");
-        }
-
-        return order;
-    }
-
+    
     public async Task<Order> CreateOrderAsync(MakeOrderDto dto)
     {
         foreach (int item in dto.ItemIds)

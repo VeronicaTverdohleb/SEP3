@@ -1,10 +1,8 @@
 ﻿@page "/EditOrder"
 @using HttpClients.ClientInterfaces
 @using global::Shared.Model
-@using BlazorApp.Services
 @using System.Security.Claims
 @inject IOrderService orderService
-@inject IAuthService authService;
 
 <h3>Your Orders</h3>
 
@@ -54,7 +52,7 @@ else
     public Task<AuthenticationState> AuthState { get; set; } = null!;
     private IEnumerable<Claim>? userClaims;
     private IEnumerable<Order>? orders;
-    
+
     private bool doShowFilters = false;
     private string username;
     private string msg = "";
@@ -72,8 +70,7 @@ else
                 if (claim.Type.Equals("Username"))
                     username = claim.Value;
             }
-            
-            orders = await orderService.GetOrdersByCustomerUsername(username);
+            orders = await orderService.getAllOrdersAsync(null, null, username, null);
         }
         catch (Exception e)
         {

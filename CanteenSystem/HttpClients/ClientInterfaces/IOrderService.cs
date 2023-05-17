@@ -10,6 +10,5 @@ public interface IOrderService
     Task UpdateAsync(OrderUpdateDto dto);
     Task CreateAsync(OrderCreationDto dto);
     Task DeleteAsync(int id);
-    Task<ICollection<Order>> GetOrdersByCustomerUsername(string username);
 
 }

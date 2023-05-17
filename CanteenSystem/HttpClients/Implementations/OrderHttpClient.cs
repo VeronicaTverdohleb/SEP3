@@ -100,24 +100,6 @@ public class OrderHttpClient:IOrderService
         HttpResponseMessage response = await client.DeleteAsync($"Orders/{id}");
     }
 
-    public async Task<ICollection<Order>> GetOrdersByCustomerUsername(string username)
-    {
-        HttpResponseMessage response = await client.GetAsync($"/User/{username}/orders");
-        string content = await response.Content.ReadAsStringAsync();
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception(content);
-        }
-
-        ICollection<Order> order = JsonSerializer.Deserialize<ICollection<Order>>(content, 
-            new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            }
-        )!;
-        return order;
-    }
-
     public async Task CreateAsync(OrderCreationDto dto)
     {
         String postAsJson = JsonSerializer.Serialize(dto);
