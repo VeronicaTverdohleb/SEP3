@@ -1,0 +1,77 @@
+﻿@using global::Shared.Model
+@using HttpClients.ClientInterfaces
+@using global::Shared.Dtos
+@using Microsoft.Data.Sqlite
+@using Microsoft.EntityFrameworkCore
+@inject IMenuService menuService
+
+@if (doSeeMenuInMenuList)
+{
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Ingredients</th>
+            <th>Allergens</th>
+            <th> </th>
+        </tr>
+
+        @foreach (ItemMenuDto item in menu.Items)
+        {
+            <tr>
+                <td>
+                    <p class="item-name">@item.Name</p>
+                </td>
+                <td>@item.IngredientNames</td>
+                <td>@item.Allergens</td>
+                <td>
+                    <img src="img/delete.png" class="deletebtn" @onclick="@(() => DeleteItemFromMenu(item.Id))" alt="Delete Button"/>
+                </td>
+            </tr>
+        }
+    </table>
+}
+<h5 class="error-message">@msg</h5>
+
+@code {
+
+    [Parameter]
+    public MenuBasicDto menu { get; set; }
+
+    [Parameter]
+    public bool doSeeMenuInMenuList { get; set; } = true;
+
+
+    private string msg = "";
+
+
+    private async Task DeleteItemFromMenu(int itemId)
+    {
+        msg = "";
+        try
+        {
+            MenuUpdateDto dto = new MenuUpdateDto(menu.Date, itemId, "remove");
+            
+            await menuService.UpdateMenuAsync(dto);
+            await LoadMenu();
+        }
+        catch (Exception e)
+        {
+            msg = e.Message;
+        }
+    }
+
+    private async Task LoadMenu()
+    {
+        msg = "";
+        try
+        {
+            menu = await menuService.GetMenuByDateAsync(menu.Date);
+        }
+        catch (Exception e)
+        {
+            if (e.Message.Equals("There are no Items on this Menu"))
+                doSeeMenuInMenuList = false;
+        }
+    }
+
+}

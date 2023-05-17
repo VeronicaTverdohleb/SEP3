@@ -70,7 +70,9 @@ public class OrderLogic : IOrderLogic
         }
        
         Order created = await orderDao.CreateOrderAsync(dto);
+        Console.WriteLine(created);
         return created;
+        
     }
 
     public async Task UpdateOrderAsync(OrderUpdateDto dto)

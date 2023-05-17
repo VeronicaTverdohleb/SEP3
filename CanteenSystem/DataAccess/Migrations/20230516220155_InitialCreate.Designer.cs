@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EfcDataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230511134454_Collection for orders and menus in item for join tables")]
-    partial class Collectionforordersandmenusinitemforjointables
+    [Migration("20230516220155_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,12 +40,12 @@ namespace EfcDataAccess.Migrations
                     b.Property<int>("ItemsId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("MenusDate")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("MenusId")
+                        .HasColumnType("INTEGER");
 
-                    b.HasKey("ItemsId", "MenusDate");
+                    b.HasKey("ItemsId", "MenusId");
 
-                    b.HasIndex("MenusDate");
+                    b.HasIndex("MenusId");
 
                     b.ToTable("ItemMenu");
                 });
@@ -71,7 +71,7 @@ namespace EfcDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Allergen")
+                    b.Property<int?>("Allergen")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Amount")
@@ -106,10 +106,14 @@ namespace EfcDataAccess.Migrations
 
             modelBuilder.Entity("Shared.Model.Menu", b =>
                 {
-                    b.Property<DateTime>("Date")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateOnly?>("Date")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Date");
+                    b.HasKey("Id");
 
                     b.ToTable("Menus");
                 });
@@ -122,6 +126,9 @@ namespace EfcDataAccess.Migrations
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -213,7 +220,7 @@ namespace EfcDataAccess.Migrations
 
                     b.HasOne("Shared.Model.Menu", null)
                         .WithMany()
-                        .HasForeignKey("MenusDate")
+                        .HasForeignKey("MenusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

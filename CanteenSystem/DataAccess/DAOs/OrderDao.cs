@@ -67,6 +67,7 @@ public class OrderDao : IOrderDao
         Order newOrder = new Order(dto.Customer,dto.Date,dto.Status, items);
         EntityEntry<Order> added = await context.Orders.AddAsync(newOrder);
         await context.SaveChangesAsync();
+        Console.WriteLine(added.Entity);
         return added.Entity;
     }
 
@@ -136,5 +137,10 @@ public class OrderDao : IOrderDao
 
         context.Orders.Remove(existing);
         await context.SaveChangesAsync();
+    }
+
+    public Task<IEnumerable<Order>> GetOrdersByCustomerUsername(string username)
+    {
+        throw new NotImplementedException();
     }
 }

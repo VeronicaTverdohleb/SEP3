@@ -3,3 +3,18 @@
     height:30px;
     cursor: pointer;
 }
+.addItemToOrderBtn{
+    gap: 50px;
+    width: 150px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: darkturquoise;
+}
+
+.createOrder{
+    gap: 50px;
+    width: 150px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: darkturquoise;
+}

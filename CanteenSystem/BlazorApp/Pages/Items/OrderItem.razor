@@ -6,6 +6,7 @@
 @inject IItemService itemService;
 @inject IIngredientService ingredientService;
 @inject IOrderService orderService;
+@inject IJSRuntime jsRuntime;
 
 
 <h3>Make Order</h3>
@@ -18,21 +19,30 @@ else if (!items.Any())
 }
 else
 {
+    <label>Choose which date you would like to pick up your order:</label>
     <div class="datepicker">
         <InputDate @bind-Value="date"></InputDate>
-    </div>    
+        
+    </div>   
+    if (date < DateOnly.FromDateTime(DateTime.Today))
+    {
+        <lable style="color: red">Please input a valid date (today or in the future)</lable>
+    }
+   // if((date== DateOnly.FromDateTime(DateTime.Now)))
         <br/>
     <div>        
         <label>Choose which items you would like to add to your order:</label>
         <select name="addItem" id="addItem" @onchange="SetItemsToAddToOrder">
+            <option>Choose:</option>
             @foreach (Item item in items)
             {
                 <option value="@item.Id">@item.Name</option>
             }
         </select>
-        <button @onclick="AddItem">Add to order</button>
+        
+        <button class="addItemToOrderBtn" @onclick="AddItem">Add to order</button>
     </div>
-    
+    <br/>   <br/>
     <h5>Selected Items</h5>
             
     @if (_itemsAdded.Count>0)
@@ -69,14 +79,14 @@ else
             </tbody>
         </table>
     }
-        
+    <br/>  
     <div class="form-group field">
         <label>TotalPrice:</label>
             
-        <textarea rows="1" cols="10" @bind="price" readonly/>
+        <input type="text" @bind="price" readonly/>
 
     </div>
-   
+    <br/>
         
 
             <div class="button-row">
@@ -84,7 +94,7 @@ else
                 {
                     <label style="color: red">@msg</label>
                 }
-                <button @onclick="CreateOrder" class="acceptbtn">Create Order</button>
+                <button @onclick="ConfirmAction" class="createOrder">Create Order</button>
             </div>
     
 }
@@ -174,7 +184,6 @@ else
         msg = "";
         try
         {
-    // dto.ItemIds.Add(itemToAdd.Id);
             _itemsAdded.Remove(itemToAdd);
             
             price -= itemToAdd.Price;
@@ -235,11 +244,28 @@ else
                 Role = role
             };
            await orderService.CreateAsync(new MakeOrderDto(user,date, status,ids));
+            msg = "The order was placed";
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             msg = e.Message;
+        }
+    }
+    
+    private async Task ConfirmAction()
+    {
+        bool confirmed = await jsRuntime.InvokeAsync<bool>("confirmAction", "Are you sure you want to place the order?" +
+                                                                            "(Order pickup is available after 12.00AM of the chosen date)");
+        
+        if (confirmed)
+        {
+            CreateOrder();
+            
+        }
+        else
+        {
+            OnInitializedAsync();
         }
     }
 

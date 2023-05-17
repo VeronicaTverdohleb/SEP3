@@ -6,6 +6,7 @@
 @inject IItemService itemService;
 @inject IIngredientService ingredientService;
 @inject NavigationManager navMgr
+@inject IJSRuntime jsRuntime;
 
 <h3>See Items</h3>
 
@@ -42,7 +43,6 @@ else
             <th>Item ID</th>
             <th>Name</th>
             <th>Price</th>
-            <th>Edit</th>
             <th>View</th>
             <th>Delete?</th>
         </tr>
@@ -59,10 +59,9 @@ else
                     </td>
                 
                 <td>
-                    <label @onclick="@(() => RemoveItem(item.Id))" style="cursor:pointer; color: red; font-weight: bold">
-                        &#x2717;
-                    </label>
-                    </td>
+                    <img src="img/delete.png" class="funnel" @onclick="@(() => ConfirmAction(item.Id))"/>
+                    
+                </td>
                 
             </tr>
         }
@@ -77,8 +76,13 @@ else
 
 <br/>
 <br/>
-
+<div class="icon-row">
+<div class="filter-bar">
 <h3>Add Item</h3>
+<div class="filters-container">
+        <img src="icons/@(doShowFilters1 ? "clear_" : "")add.png" class="funnel" @onclick="@(() => doShowFilters1 = !doShowFilters1)" alt="Funnel"/>
+        @if (doShowFilters1)
+        {
 @if (_ingredients == null)
 {
 }
@@ -89,24 +93,26 @@ else if (!_ingredients.Any())
 else
 {
     
-            <div class="form-group field">
-                <label>Name:</label>
-                <textarea rows="1" cols="15" @bind="newItemName"/>
-            </div>
-            <div class="form-group field">
-                <label>Price:</label>
-                <textarea rows="1" cols="5" @bind="newPrice" />
-            </div>
+    <div class="form-group field">
+        <label>Name:</label>
+        <input type="text" @bind="newItemName"/>
+    </div>
+    <br/>
+    <div class="form-group field">
+        <label>Price :</label>
+        <input type="text" @bind="newPrice" />
+    </div>
+    <br/>
             <label>Ingredients:</label>
-            <select name="addItem" id="addItem" @onchange="SetIngredientToAdd">
-                <option>Choose:</option>
-                @foreach (Ingredient ingredient in _ingredients)
-                {
-                    <option value="@ingredient.Id">@ingredient.Name</option>
+    <select name="addItem" id="addItem" @onchange="SetIngredientToAdd">
+        <option>Choose:</option>
+        @foreach (Ingredient ingredient in _ingredients)
+        {
+            <option value="@ingredient.Id">@ingredient.Name</option>
 
-                }
-            </select>
-            <button @onclick="AddIngredient">add ingredient</button>
+        }
+    </select>
+    <button class="addItemBtn"  @onclick="AddIngredient">add ingredient</button>
             
             <h5>Selected Items</h5>
             
@@ -117,6 +123,8 @@ else
                     <tr>
                         <th>Ingredient Name</th>
                         <th>Item Allergen</th>
+                        <th>Remove</th>
+                        
                     </tr>
                     </thead>
                     <tbody>
@@ -129,9 +137,13 @@ else
                                 <tr>
                                     <td>@i.Name</td>
                                     <td>@i.Allergen</td>
+                                    <td>
+                                      <img src="img/delete.png" class="funnel" @onclick="RemoveIngredient"/>
+                                                                      
+                                    </td>
                                 </tr>
-
-                        }
+                                
+                            }
                         
 
                                
@@ -151,12 +163,19 @@ else
                 {
                     <label style="color: red">@msg</label>
                 }
-                <button @onclick="CreateItem" class="acceptbtn">Create</button>
+                <button class="createItemBtn" @onclick="CreateItem">Create</button>
             </div>
             
+
+
+        }
         
-    
-}
+
+        }
+</div>
+</div>
+</div>
+
 
 @code {
    
@@ -165,7 +184,9 @@ else
     //private List<Ingredient> selectedIngredient=new List<Ingredient>();
     private IngredientBasicDto ingdto = null!;
    
-  
+    
+    private bool doShowFilters1 = false;
+    private bool doShowFilters2 = false;
     private string msg = "";
     private bool doShowFilters = false;
     private static string newItemName ="";
@@ -240,6 +261,9 @@ else
             await itemService.CreateAsync(creationDto);
             //ingredients = await ingredientService.getAllIngredientsAsync(Name);
             msg = "Item created";
+            items = await itemService.GetAsync(null);
+
+
 
         }
         catch (Exception e)
@@ -261,8 +285,23 @@ else
         try
         {
             newIngredients.Add(ingredientToAdd.Id);
-            //dto.Ingredients.Add(ingredientToAdd);
             msg = "Ingredient added";
+            
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+    
+    private async Task RemoveIngredient()
+    {
+        try
+        {
+            newIngredients.Remove(ingredientToAdd.Id);
+            msg = "Ingredient removed";
             
 
         }
@@ -275,37 +314,7 @@ else
      
      
      
-    /*
-     
-     private async Task LoadTodos()
-    {
-        try
-        {
-            todos = await todoService.GetAsync(null, null, null, null);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            msg = e.Message;
-        }
-    }
-    private async Task CompleteTodo(Post item, bool status)
-    {
-        PostUpdateDto dto = new(item.Id)
-        {
-            IsCompleted = status
-        };
-    
-        try
-        {
-            await todoService.UpdateAsync(dto);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            msg = e.Message;
-        }
-    }*/ 
+   
     private async Task RemoveItem(int id)
     {
         msg = "";
@@ -315,12 +324,34 @@ else
         
             var list = new List<Item>(items!);
             list.RemoveAll(todo => todo.Id == id);
+            items = await itemService.GetAsync(null);
+
             items = list.AsEnumerable();
+            
+
+
+
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             msg = e.Message;
+        }
+    }
+    
+    private async Task ConfirmAction(int id)
+    {
+        bool confirmed = await jsRuntime.InvokeAsync<bool>("confirmAction", "Are you sure you want to proceed?");
+        
+        if (confirmed)
+        {
+            RemoveItem(id);
+            items = await itemService.GetAsync(null);
+            
+        }
+        else
+        {
+            LoadItems();
         }
     }
     

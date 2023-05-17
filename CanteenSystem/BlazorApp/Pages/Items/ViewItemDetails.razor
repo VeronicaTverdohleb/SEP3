@@ -5,7 +5,7 @@
 @inject NavigationManager navMgr
 @inject IItemService itemService;
 @inject IIngredientService IngredientService;
-<h3>ViewItemDetails</h3>
+<h3>Item Details</h3>
 
 <div class="card1">
     @if (_ingredients== null)
@@ -15,18 +15,20 @@
     
     else if (dto == null)
     {
-        <label>Loading pitem data..</label>
+        <label>Loading item data..</label>
     }
     else
     {
         <div class="form-group field">
             <label>Name:</label>
-            <textarea  type="text" rows="1" cols="20" @bind="dto.Name" readonly/>
+            <input  type="text" @bind="dto.Name" readonly/>
         </div>
+        <br/>
         <div class="form-group field">
-            <label>Price:</label>
-            <textarea rows="1" cols="10" @bind="dto.Price" readonly/>
+            <label>Price:  </label>
+            <input  type="text" @bind="dto.Price" readonly/>
         </div>
+        <br/>
         <div class="form-group field">
             <label>Ingredients:</label>
              @foreach (var ing in dto.Ingredients)
