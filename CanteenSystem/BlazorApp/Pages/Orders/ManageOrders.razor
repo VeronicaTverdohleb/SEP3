@@ -2,11 +2,8 @@
 @using global::Shared.Model
 @using global::Shared.Dtos
 @using HttpClients.ClientInterfaces
-@using System.Reflection.Metadata
-@using global::Shared.Dtos.IngredientDto
 @inject IOrderService orderService
 @inject IItemService itemService
-@inject IIngredientService ingredientService 
 @inject NavigationManager navMgr
 
 @if (order == null)
@@ -19,34 +16,40 @@
 else
 {
     <div class="post-card">
-        <h3>Order: @Id</h3>
+        <h3>Order number: @Id</h3>
+        <p>requested pickup date: @order.Date</p>
         <p>This order has the following items:</p>
         <br/>
         @foreach (var item in order.Items)
         {
-            <li>@item.Name</li>
+            <li>@item.Name with price: @item.Price kr</li>
         }
     </div>
     <br/>
     <p class="legal">ordered by: @order.Customer.FirstName @order.Customer.LastName</p>
     <label>Status: </label>   
-    <select name ="orderStatus" id="orderStatus" @onchange="SetStatus">
-        <option value="ordered">ordered</option>
-        <option value="in progress">in progress</option>
-        <option value="ready for pickup">ready for pickup</option>
+    <select name="orderStatus" id="orderStatus" @onchange="SetStatus">
+        @if (order.Status.Equals("ordered"))
+        {
+            <option selected="selected" value="ordered">ordered</option>
+            <option value="in progress">in progress</option>
+            <option value="ready for pickup">ready for pickup</option>
+        }else if (order.Status.Equals("in progress"))
+        {
+            <option value="ordered">ordered</option>
+            <option selected="selected" value="in progress">in progress</option>
+            <option value="ready for pickup">ready for pickup</option>
+        }
+        else
+        {
+            <option value="ordered">ordered</option>
+            <option value="in progress">in progress</option>
+            <option selected="selected" value="ready for pickup">ready for pickup</option>
+        }
     </select>
     <p>total price: @totalPrice kr</p>
-
-    @foreach (var item in order.Items)
-    {
-        <p>@item.Name</p>
-    }
-
-
-    <br/>
-    <br/>
     <div>
-        <button @onclick="ConfirmButton">Delete order</button>
+        <button @onclick="ConfirmButton">Delete order (irreversible)</button>
         <button @onclick="AddItemButton">Add item(s) to order</button>
         <button @onclick="RemoveItemButton">Remove item(s) from order</button>
     </div>
@@ -63,6 +66,7 @@ else
         <div>
             <label>Select the item to add:</label>
             <select name="addItem" id="addItem" @onchange="SetItemToAdd">
+                <option selected="selected"></option>
                 @foreach (var item in allItems)
                 {
                     <option value="@item.Id">@item.Name</option>
@@ -76,7 +80,7 @@ else
         <div>
             <label>Select the item to remove:</label>
             <select name="removeItem" id="removeItem" @onchange="SetItemToRemove">
-
+                <option selected="selected"></option>
                 @foreach (var item in order.Items)
                 {
                     <option value="@item.Id">@item.Name</option>
@@ -85,7 +89,8 @@ else
             <button @onclick="@RemoveItem">remove from order</button>
         </div>
     }
-    <p>@msg</p>
+    <br/>
+    <p style="color: red">@msg</p>
 }
 
 @code {
@@ -116,12 +121,6 @@ else
             allItems = fetchedItems.OrderBy(i => i.Name).ToList();
             status = order.Status;
             totalPrice = UpdateTotalPrice();
-            if (allItems.Count!=0)
-            {
-                itemToAdd = allItems.FirstOrDefault();
-
-            }
-            itemToRemove = order.Items.FirstOrDefault();
             updateDto = new(Id,order.Items,order.Status)
             {
                 Items = order.Items,
@@ -140,7 +139,7 @@ else
     {
         
     }
-
+    
     private double UpdateTotalPrice()
     {
         double temp = 0;
@@ -152,42 +151,40 @@ else
         return temp;
     }
 
-    private void SetStatus(ChangeEventArgs e)
+    private async void SetStatus(ChangeEventArgs e)
     {
         string selectedValue = e.Value.ToString();
-        status = selectedValue;
         if (status.Equals("ready for pickup"))
         {
-            UpdateStorageAmounts();
+            msg = "Cannot change status of an order that is ready for pickup!";
         }
-    }
-
-    private async void UpdateStorageAmounts()
-    {
-        Console.WriteLine("start of method");
-        int amount = 0;
-        foreach (var item in order.Items)
+        else
         {
-            Console.WriteLine("first part of loop");
-            var ingredientList = item.Ingredients;
-            for (int i = 0;i< ingredientList.Count;i++)
-            {
-                Console.WriteLine("we got into the loop");
-                await ingredientService.UpdateIngredientAmount(new IngredientUpdateDto(ingredientList.ToList()[0].Id, amount));
-            }
+            status = selectedValue;
+            msg = "order status changed to: " + status;
+            OrderUpdateDto update = new OrderUpdateDto(Id, order.Items, status);
+            Console.WriteLine("updating! " + update.Id + update.Status);
+            await orderService.UpdateAsync(update);
         }
     }
 
     private void SetItemToAdd(ChangeEventArgs e)
     {
-        int selectedValue = int.Parse(e.Value.ToString());
-        itemToAdd = allItems.FirstOrDefault(item => item.Id == selectedValue);
+        if (!e.Value.ToString().Equals(""))
+        {
+            int selectedValue = int.Parse(e.Value.ToString());
+            itemToAdd = allItems.FirstOrDefault(item => item.Id == selectedValue);
+        }
     }
 
     private void SetItemToRemove(ChangeEventArgs e)
     {
-        int selectedValue = int.Parse(e.Value.ToString());
-        itemToRemove = order.Items.FirstOrDefault(item => item.Id == selectedValue);
+        if (!e.Value.ToString().Equals(""))
+        {
+            int selectedValue = int.Parse(e.Value.ToString());
+            itemToRemove = order.Items.FirstOrDefault(item => item.Id == selectedValue);
+        }
+        
     }
 
     private void ConfirmButton()
@@ -266,6 +263,10 @@ else
             {
                 msg = "Order already contains this item";
                 Console.WriteLine("already in order");
+            }else
+            if (order.Status.Equals("ready for pickup"))
+            {
+                msg = "Cannot add items to an order that is ready for pickup";
             }
             else
             {
@@ -290,9 +291,17 @@ else
         msg = "";
         try
         {
-            order.Items.Remove(itemToRemove);
-            totalPrice = UpdateTotalPrice();
-            await orderService.UpdateAsync(updateDto);
+            if (order.Status.Equals("ready for pickup"))
+            {
+                msg = "Cannot remove an item of an order that is ready for pickup!";
+            }
+            else
+            {
+                order.Items.Remove(itemToRemove);
+                totalPrice = UpdateTotalPrice();
+                msg = "item removed from order";
+                await orderService.UpdateAsync(updateDto);
+            }
         }
         catch (Exception e)
         {

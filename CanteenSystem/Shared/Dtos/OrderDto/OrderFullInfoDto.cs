@@ -9,5 +9,5 @@ public class OrderFullInfoDto
     public string? Status { get; set; }
     public DateOnly? Date { get; set; }
     public ICollection<Item>? Items { get; set; }
-    public ICollection<Ingredient>? Ingredients { get; set; }
+    // public ICollection<Ingredient>? Ingredients { get; set; }
 }

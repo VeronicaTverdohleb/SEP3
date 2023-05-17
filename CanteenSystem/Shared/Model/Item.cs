@@ -8,7 +8,7 @@ public class Item
     public string Name { get; set; }
     public int Price { get; set; }
     
-    public ICollection<Ingredient>? Ingredients { get; }
+    public ICollection<Ingredient>? Ingredients { get; set; }
 
     [JsonIgnore]
     public ICollection<Order>? Orders { get; }

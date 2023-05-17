@@ -73,11 +73,6 @@ public class OrderLogic : IOrderLogic
             throw new Exception($"Order with ID {dto.Id} not found!");
         }
 
-        if (dto.Status.Equals("ready for pickup"))
-        {
-            throw new Exception("cannot change an order that's ready for pickup");
-        }
-        
         Order updated = new (dto.Items,dto.Status)
         {
             Id = existing.Id,

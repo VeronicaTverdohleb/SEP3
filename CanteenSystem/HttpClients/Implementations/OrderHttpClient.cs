@@ -44,7 +44,7 @@ public class OrderHttpClient:IOrderService
         if (date.HasValue)
         {
             query += string.IsNullOrEmpty(query) ? "?" : "&";
-            query += $"date={date.Value}";
+            query += $"date={date.Value.Year+"-"+date.Value.Month+"-"+date.Value.Day}";
         }
 
         if (!string.IsNullOrEmpty(userName))
