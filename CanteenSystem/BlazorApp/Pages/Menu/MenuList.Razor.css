@@ -25,7 +25,7 @@ th {
 .item-name {
     font-size: x-large;
     border-radius: 10px;
-    background-color: lightgreen;
+    font-weight: bold;
     margin-top: 10px;
     padding: 10px;
 }

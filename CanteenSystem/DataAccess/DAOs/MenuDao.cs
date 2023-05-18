@@ -58,13 +58,16 @@ public class MenuDao : IMenuDao
                 if (foundItem.Ingredients.Last().Equals(ingredient))
                 {
                     ingredients += ingredient.Name;
-                    if (ingredient.Allergen != 0)
+                    Console.WriteLine($"Allergen: {ingredient.Allergen}");
+                    if (ingredient.Allergen is not 0)
                         allergens += ingredient.Allergen;
                 }
                 else
                 {
                     ingredients += ingredient.Name + ", ";
-                    allergens += ingredient.Allergen + ", ";
+                    Console.WriteLine($"Allergen: {ingredient.Allergen}");
+                    if (ingredient.Allergen is not 0)
+                        allergens += ingredient.Allergen + ", ";
                 }
             }
 
@@ -103,7 +106,6 @@ public class MenuDao : IMenuDao
             Id = foundMenu.Id
         };
 
-        
         if (dto.Action.Equals("remove".ToLower()))
         {
             context.Menus.Remove(foundMenu);
@@ -119,9 +121,6 @@ public class MenuDao : IMenuDao
 
             await context.Menus.AddAsync(newMenu);
             await context.SaveChangesAsync();
-            
-            //context.Menus.Update(menu);
-            Console.WriteLine("Removed item");
         }
         else if (dto.Action.Equals("add".ToLower()))
         {
