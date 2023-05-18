@@ -66,7 +66,7 @@ else
         <div>
             <label>Select the item to add:</label>
             <select name="addItem" id="addItem" @onchange="SetItemToAdd">
-                <option selected="selected"></option>
+                <option selected="selected">choose:</option>
                 @foreach (var item in allItems)
                 {
                     <option value="@item.Id">@item.Name</option>
@@ -80,7 +80,7 @@ else
         <div>
             <label>Select the item to remove:</label>
             <select name="removeItem" id="removeItem" @onchange="SetItemToRemove">
-                <option selected="selected"></option>
+                <option selected="selected">choose:</option>
                 @foreach (var item in order.Items)
                 {
                     <option value="@item.Id">@item.Name</option>
