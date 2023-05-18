@@ -4,9 +4,14 @@
     cursor: pointer;
 }
 
-.table{
-    background-image: linear-gradient(180deg, darkturquoise 0%, paleturquoise 70%);
-    border-radius: 20px;
+.head{
+    margin: auto;
+    width: 25%;
+    border-radius: 5px;
+}
+
+h3{
+    font-weight: bold;
 }
 
 .delete{
@@ -14,4 +19,13 @@
     width:30px;
     height:30px;
     cursor: pointer;
+}
+
+button{
+    background-color: lightgreen;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 30px;
 }

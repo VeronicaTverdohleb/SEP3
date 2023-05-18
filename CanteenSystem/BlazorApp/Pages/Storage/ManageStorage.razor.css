@@ -4,9 +4,10 @@
     cursor: pointer;
 }
 
-.table{
-    background-image: linear-gradient(180deg, darkturquoise 0%, paleturquoise 70%);
-    border-radius: 20px;
+.head{
+    margin: auto;
+    width: 30%;
+    border-radius: 5px;
 }
 
 .allergen{
@@ -16,15 +17,22 @@
 
 .allergen-table{
     margin: auto;
-    width: 70%;
 }
 
 .tItem{
     margin: auto;
-    padding: 5px;
+    padding: 8px;
 }
 .filter-bar{
     width: 25%;
     margin: auto;
     display: inline-block;
+}
+button{
+    background-color: lightgreen;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 30px;
 }

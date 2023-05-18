@@ -1,12 +1,13 @@
 ﻿@page "/EditOrder"
 @using HttpClients.ClientInterfaces
 @using global::Shared.Model
-@using BlazorApp.Services
 @using System.Security.Claims
 @inject IOrderService orderService
-@inject IAuthService authService;
+@inject NavigationManager navMgr;
 
-<h3>Your Orders</h3>
+<div class="head">
+    <h3>Your Orders</h3>
+</div>
 
 @if (orders == null)
 {
@@ -22,7 +23,7 @@ else
         <th>ID</th>
         <th>Date</th>
         <th>Status</th>
-        <th>Cancel</th>
+        <th>Edit</th>
         </thead>
         <tbody>
         @foreach (var order in orders)
@@ -31,19 +32,7 @@ else
                 <td>@order.Id</td>
                 <td>@order.Date</td>
                 <td>@order.Status</td>
-                <td>
-                    <div class="filter-bar">
-                        <div class="filters-container">
-                            <img src="icons/@(doShowFilters ? "clear_" : "")add.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel"/>
-                            @if (doShowFilters)
-                            {
-                                <div>
-                                    <button onclick="@(() => CancelOrder(order.Id))">Cancel Order</button>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </td>
+                <td><img src="icons/edit.gif" class="funnel" @onclick="(() => SeeOrder(order.Id))" alt="nav"/></td>
             </tr>
         }
         </tbody>
@@ -73,7 +62,7 @@ else
                     username = claim.Value;
             }
             
-            orders = await orderService.getAllOrdersAsync(null,null,null,null);
+            orders = await orderService.getAllOrdersAsync(null,null,username,null);
         }
         catch (Exception e)
         {
@@ -81,23 +70,9 @@ else
             msg = e.Message;
         }
     }
-    
-    private async Task CancelOrder(int id)
+
+    private void SeeOrder(int id)
     {
-        msg = "";
-        try
-        {
-            
-            await orderService.DeleteAsync(id);
-        
-            var list = new List<Order>(orders!);
-            list.RemoveAll(i => i.Id == id);
-            orders = list.AsEnumerable();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            msg = e.Message;
-        }
+        navMgr.NavigateTo($"/ViewOrder/{id}");
     }
 }

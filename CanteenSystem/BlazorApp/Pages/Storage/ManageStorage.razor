@@ -3,8 +3,10 @@
 @using global::Shared.Model
 @using global::Shared.Dtos.IngredientDto
 @inject IIngredientService IngredientService;
-<h3>INGREDIENTS</h3>
-
+@inject IJSRuntime jsRuntime;
+<div class="head">
+    <h3>INGREDIENTS</h3>
+</div>
 @if (ingredients == null)
 {
     <p></p>
@@ -51,17 +53,9 @@ else
                 <td>@item.Amount</td>
                 <td>@item.Allergen</td>
                 <td>
-                    <div class="filter-bar">
-                        <div class="filters-container">
-                            <img src="icons/@(doShowFilters2 ? "clear_" : "")add.png" class="funnel" @onclick="@(() => doShowFilters2 = !doShowFilters2)" alt="Funnel"/>
-                            @if (doShowFilters2)
-                            {
-                                <div>
-                                    <button onclick="@(() => DeleteIngredient(item.Id))">Confirm Deletion</button>
-                                </div>
-                            }
-                        </div>
-                    </div>
+                    <td>
+                        <img src="img/delete.png" class="funnel" @onclick="(() => ConfirmAction(item.Id))" alt="delete"/>
+                    </td>
                 </td>
             </tr>
         }
@@ -70,54 +64,54 @@ else
 }
 
 <div class="icon-row">
-<div class="filter-bar">
-    <h2>Add</h2>
-    <div class="filters-container">
-        <img src="icons/@(doShowFilters1 ? "clear_" : "")add.png" class="funnel" @onclick="@(() => doShowFilters1 = !doShowFilters1)" alt="Funnel"/>
-        @if (doShowFilters1)
-        {
-            <div class="form-group field">
-                <label>Name:</label>
-                <textarea rows="1" cols="15" @bind="name"/>
-            </div>
-            <div class="form-group field">
-                <label>Amount:</label>
-                <textarea rows="1" cols="5" @bind="amount"/>
-            </div>
-            <div class="form-group field">
-                <label>Allergen:</label>
-                <textarea rows="1" cols="5" @bind="allergen"/>
-            </div>
-            <div class="button-row">
-                @if (!string.IsNullOrEmpty(msg))
-                {
-                    <label style="color: red">@msg</label>
-                }
-                <button @onclick="CreateIngredient" class="acceptbtn">Create</button>
-            </div>
-        }
+    <div class="filter-bar">
+        <h2>Add</h2>
+        <div class="filters-container">
+            <img src="icons/@(doShowFilters1 ? "clear_" : "")add.png" class="funnel" @onclick="@(() => doShowFilters1 = !doShowFilters1)" alt="Funnel"/>
+            @if (doShowFilters1)
+            {
+                <div class="form-group field">
+                    <label>Name:</label>
+                    <input type="text" rows="1" cols="15" @bind="name"/>
+                </div>
+                <div class="form-group field">
+                    <label>Amount:</label>
+                    <input type="text" rows="1" cols="5" @bind="amount"/>
+                </div>
+                <div class="form-group field">
+                    <label>Allergen:</label>
+                    <input type="text" rows="1" cols="5" @bind="allergen"/>
+                </div>
+                <div class="button-row">
+                    @if (!string.IsNullOrEmpty(msg))
+                    {
+                        <label style="color: red">@msg</label>
+                    }
+                    <button @onclick="CreateIngredient" class="acceptbtn">Create</button>
+                </div>
+            }
+        </div>
     </div>
-</div>
-<div class="filter-bar">
-    <h2>Edit</h2>
-    <div class="filters-container">
-        <img src="icons/@(doShowFilters ? "clear_" : "")funnel.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel"/>
-        @if (doShowFilters)
-        {
-            <div>
-                <label>Id:</label>
-                <input type="text" @bind="id"/>
-            </div>
-            <div>
-                <label>Amount:</label>
-                <input type="text" @bind="amount"/>
-            </div>
-            <div class="button-row">
-                <button @onclick="EditIngredient" class="acceptbtn">Create</button>
-            </div>
-        }
+    <div class="filter-bar">
+        <h2>Edit</h2>
+        <div class="filters-container">
+            <img src="icons/@(doShowFilters ? "clear_" : "")funnel.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel"/>
+            @if (doShowFilters)
+            {
+                <div>
+                    <label>Id:</label>
+                    <input type="text" @bind="id"/>
+                </div>
+                <div>
+                    <label>Amount:</label>
+                    <input type="text" @bind="amount"/>
+                </div>
+                <div class="button-row">
+                    <button @onclick="EditIngredient" class="acceptbtn">Create</button>
+                </div>
+            }
+        </div>
     </div>
-</div>
 </div>
 
 
@@ -193,6 +187,28 @@ else
         {
             Console.WriteLine(e);
             msg = e.Message;
+        }
+    }
+    private async Task ConfirmAction(int id)
+    {
+        bool confirmed = await jsRuntime.InvokeAsync<bool>("confirmAction", "Are you sure you want to proceed?");
+        
+        if (confirmed)
+        {
+            try
+            {
+                await DeleteIngredient(id);
+                await OnInitializedAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                msg = e.Message;
+            }
+        }
+        else
+        {
+            await OnInitializedAsync();
         }
     }
 }
