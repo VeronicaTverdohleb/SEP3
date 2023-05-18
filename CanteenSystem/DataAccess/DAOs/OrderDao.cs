@@ -63,11 +63,11 @@ public class OrderDao : IOrderDao
             Item? itemI = context.Items.FirstOrDefault(i => i.Id == item);
             items.Add(itemI);
         }
-        
-        Order newOrder = new Order(dto.Customer,dto.Date,dto.Status, items);
+
+        User? userToAdd = context.Users.FirstOrDefault(u=>u.Id==dto.CustomerId);
+        Order newOrder = new Order(userToAdd,dto.Date,dto.Status, items);
         EntityEntry<Order> added = await context.Orders.AddAsync(newOrder);
         await context.SaveChangesAsync();
-        Console.WriteLine(added.Entity);
         return added.Entity;
     }
 

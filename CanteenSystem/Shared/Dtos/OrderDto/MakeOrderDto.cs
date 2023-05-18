@@ -4,15 +4,15 @@ namespace Shared.Dtos;
 
 public class MakeOrderDto
 {
-    public List<int> ItemIds { get; set; }
+    public List<int> ItemIds { get;  }
     public DateOnly Date { get;}
   
-    public User Customer { get; private set; }
+    public int CustomerId { get;  }
     public string Status { get; }
     
-    public MakeOrderDto(User customer, DateOnly date, string status,  List<int> itemIds)
+    public MakeOrderDto(int customerId, DateOnly date, string status,  List<int> itemIds)
     {
-        Customer = customer;
+        CustomerId = customerId;
         Status = status;
         Date = date;
         ItemIds = itemIds;

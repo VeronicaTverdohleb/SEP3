@@ -15,22 +15,25 @@
 }
 else if (!items.Any())
 {
-    <p>No  to display</p>
+    <p>No to display</p>
 }
 else
 {
     <label>Choose which date you would like to pick up your order:</label>
     <div class="datepicker">
         <InputDate @bind-Value="date"></InputDate>
-        
-    </div>   
+
+    </div>
     if (date < DateOnly.FromDateTime(DateTime.Today))
     {
         <lable style="color: red">Please input a valid date (today or in the future)</lable>
     }
-   // if((date== DateOnly.FromDateTime(DateTime.Now)))
-        <br/>
-    <div>        
+    if ((date < DateOnly.FromDateTime(DateTime.Today)) && (date < DateOnly.FromDateTime(DateTime.Now.AddHours(12.00))))
+    {
+        <lable style="color: red">You cannot place an order at this date after 12.00 PM </lable>
+    }
+    <br/>
+    <div>
         <label>Choose which items you would like to add to your order:</label>
         <select name="addItem" id="addItem" @onchange="SetItemsToAddToOrder">
             <option>Choose:</option>
@@ -39,13 +42,14 @@ else
                 <option value="@item.Id">@item.Name</option>
             }
         </select>
-        
+
         <button class="addItemToOrderBtn" @onclick="AddItem">Add to order</button>
     </div>
-    <br/>   <br/>
+    <br/>
+    <br/>
     <h5>Selected Items</h5>
-            
-    @if (_itemsAdded.Count>0)
+
+    @if (_itemsAdded.Count > 0)
     {
         <table class="table">
             <thead>
@@ -60,94 +64,70 @@ else
             {
                 foreach (var j in _itemsAdded)
                 {
-                    if(i.Id==j.Id){
-                                
+                    if (i.Id == j.Id)
+                    {
                         <tr>
                             <td>@i.Name</td>
                             <td>@i.Price</td>
                             <td>
-                               <img src="img/delete.png" class="funnel" @onclick="RemoveItem"/>
-                                                   
+                                <img src="img/delete.png" class="funnel" @onclick="RemoveItem"/>
+
                             </td>
                         </tr>
-
                     }
-                    
                 }
-                
             }
             </tbody>
         </table>
     }
-    <br/>  
+    <br/>
     <div class="form-group field">
         <label>TotalPrice:</label>
-            
+
         <input type="text" @bind="price" readonly/>
 
     </div>
     <br/>
-        
 
-            <div class="button-row">
-                @if (!string.IsNullOrEmpty(msg))
-                {
-                    <label style="color: red">@msg</label>
-                }
-                <button @onclick="ConfirmAction" class="createOrder">Create Order</button>
-            </div>
+    <button @onclick="ConfirmAction" class="createOrder">Create Order</button>
+    @if (!string.IsNullOrEmpty(msg))
+        {
+            <label class="message" >@msg</label>
+        }
     
 }
-        
-    
 
 
 @code {
+
     [CascadingParameter]
     public Task<AuthenticationState> AuthState { get; set; } = null!;
 
-    private int Id { get; set; }
-    private IEnumerable<Item> items=new List<Item>();
-    private IEnumerable<Order>? orders=new List<Order>();
-    private DateOnly date= DateOnly.FromDateTime(DateTime.UtcNow);
-    private static User user;
-    
-    private Item itemToAdd=new Item();
+    private IEnumerable<Item> items = new List<Item>();
+    private DateOnly date = DateOnly.FromDateTime(DateTime.UtcNow);
+    private int userId;
+    private Item itemToAdd = new Item();
     private string msg = "";
     private string status = "ordered";
     private string error = "";
     private bool addBool;
-    private bool isVisible=false;
-    private static string? username="";
-    private static string? name="";
-    private static string? lastname="";
-    private static string? password="";
-    private static string? email="";
-    private static string? role="";
-    private int price;
+    private bool isVisible = false;
+    private int price = 0;
     private IEnumerable<Claim>? _userClaims;
     private List<Item> _itemsAdded = new List<Item>();
-
-
-    private MakeOrderDto dto=new MakeOrderDto(user,new DateOnly(),"ordered",new List<int>());
-
-   
     
-    
+
+
     protected override async Task OnInitializedAsync()
-    {AuthenticationState authState = await AuthState;
+    {
+        AuthenticationState authState = await AuthState;
         ClaimsPrincipal user = authState.User;
         _userClaims = user.Claims;
 
 
         try
         {
-            orders = await orderService.getAllOrdersAsync(null,null, null, null);
             items = await itemService.GetAsync(null);
-          
-            
-
-
         }
         catch (Exception e)
         {
@@ -155,22 +135,22 @@ else
             msg = e.Message;
         }
     }
+
     private void SetItemsToAddToOrder(ChangeEventArgs e)
     {
         int selectedValue = int.Parse(e.Value.ToString());
         itemToAdd = items.FirstOrDefault(item => item.Id == selectedValue);
     }
+
     private async Task AddItem()
     {
         msg = "";
         try
         {
-           // dto.ItemIds.Add(itemToAdd.Id);
             _itemsAdded.Add(itemToAdd);
-            
+
             price += itemToAdd.Price;
             msg = "Item added";
-
         }
         catch (Exception e)
         {
@@ -185,87 +165,74 @@ else
         try
         {
             _itemsAdded.Remove(itemToAdd);
-            
-            price -= itemToAdd.Price;
-            msg = "Item added";
 
+            price -= itemToAdd.Price;
+            msg = "Item removed";
+            await OnInitializedAsync();
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             msg = e.Message;
-        } 
+        }
     }
 
     private async Task CreateOrder()
     {
-        
         foreach (Claim claim in _userClaims!)
         {
-          
-            if (claim.Type.Equals("Username"))
-                username = claim.Value;
-            if (claim.Type.Equals("Role"))
-                role = claim.Value;
-            if (claim.Type.Equals("Firstname"))
-                name = claim.Value;
-            if (claim.Type.Equals("Lastname"))
-                lastname = claim.Value;
-            if (claim.Type.Equals("Password"))
-                password = claim.Value;
-            if (claim.Type.Equals("Email"))
-                email = claim.Value;
-            
+            if (claim.Type.Equals("Id"))
+                userId = int.Parse(claim.Value);
         }
-       
+
         msg = "";
-        if (items == null )
+        if (items == null)
         {
             msg = "You must select an ingredient!";
             return;
         }
-
+        msg = "";
         try
         {
             List<int> ids = new List<int>();
-            foreach (var item1 in items)
+            foreach (var item1 in _itemsAdded)
             {
-              ids.Add(item1.Id);  
+                ids.Add(item1.Id);
             }
 
+            MakeOrderDto dto = new MakeOrderDto(userId, date, status, ids);
 
-            user = new User(name, lastname, username, password, email, role)
+
+            try
             {
-                FirstName = name,
-                LastName = lastname,
-                UserName = username,
-                Password = password,
-                Email = email,
-                Role = role
-            };
-           await orderService.CreateAsync(new MakeOrderDto(user,date, status,ids));
-            msg = "The order was placed";
+                await orderService.CreateAsync(dto);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                msg = "The order was not placed";
+            }
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             msg = e.Message;
         }
+        msg = "The order was placed";
     }
-    
+
     private async Task ConfirmAction()
     {
         bool confirmed = await jsRuntime.InvokeAsync<bool>("confirmAction", "Are you sure you want to place the order?" +
-                                                                            "(Order pickup is available after 12.00AM of the chosen date)");
-        
+                                                                            " (Order pickup is available after 12.00AM of the chosen date)");
+
         if (confirmed)
         {
-            CreateOrder();
-            
+            await CreateOrder();
         }
         else
         {
-            OnInitializedAsync();
+            await OnInitializedAsync();
         }
     }
 

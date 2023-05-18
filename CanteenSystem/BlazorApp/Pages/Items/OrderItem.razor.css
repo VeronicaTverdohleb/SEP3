@@ -18,3 +18,8 @@
     border-radius: 10px;
     background-color: darkturquoise;
 }
+
+.message{
+    margin-left: 10px;
+    color: red;
+}

@@ -79,13 +79,14 @@ public class OrderController : ControllerBase
         }
     }
     
-    [HttpPost]
-    public async Task<ActionResult<Item>> CreateAsync(MakeOrderDto dto)
+    [HttpPost( "/Order")]
+    public async Task<ActionResult<Item>> CreateAsync([FromBody]MakeOrderDto dto)
     {
         try
         {
+            Console.WriteLine("in the controller ");
             Order order = await orderLogic.CreateOrderAsync(dto);
-            return Created($"/order/{order.Id}", order);
+            return Created($"/orders/{order.Id}", order);
 
         }
         catch (Exception e)
