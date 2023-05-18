@@ -22,7 +22,7 @@
             <div class="filter">
                 <label>order status:</label>
                 <select @bind="completedStatusFilter">
-                    <option></option>
+                    <option>filter by order status:</option>
                     <option value="ordered">ordered</option>
                     <option value="in progress">in progress</option>
                     <option value="ready for pickup">ready for pickup</option>
@@ -37,7 +37,7 @@
 </div>
 
 <div>
-    <button @onclick="LoadOrders">Load</button>
+    <button @onclick="LoadOrders">Load orders</button>
 </div>
 
 @if (orders == null)
