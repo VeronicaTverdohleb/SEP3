@@ -284,10 +284,15 @@ else
     {
         try
         {
-            newIngredients.Add(ingredientToAdd.Id);
-            msg = "Ingredient added";
-            
-
+            if (!newIngredients.Contains(ingredientToAdd.Id))
+            {
+                newIngredients.Add(ingredientToAdd.Id);
+                msg = "Ingredient added"; 
+            }
+            else
+            {
+                msg = "Ingredient already added";
+            }
         }
         catch (Exception e)
         {
@@ -302,7 +307,8 @@ else
         {
             newIngredients.Remove(ingredientToAdd.Id);
             msg = "Ingredient removed";
-            
+            await OnInitializedAsync();
+
 
         }
         catch (Exception e)

@@ -26,11 +26,11 @@ else
     </div>
     if (date < DateOnly.FromDateTime(DateTime.Today))
     {
-        <lable style="color: red">Please input a valid date (today or in the future)</lable>
+        <label style="color: red">Please input a valid date (today or in the future)</label>
     }
-    if ((date < DateOnly.FromDateTime(DateTime.Today)) && (date < DateOnly.FromDateTime(DateTime.Now.AddHours(12.00))))
+    if ((date == DateOnly.FromDateTime(DateTime.Today)) && (DateTime.Now.ToLocalTime().Hour>=12.00))
     {
-        <lable style="color: red">You cannot place an order at this date after 12.00 PM </lable>
+        <label style="color: red">You cannot place an order at this date after 12.00 PM </label>
     }
     <br/>
     <div>
@@ -104,7 +104,7 @@ else
     public Task<AuthenticationState> AuthState { get; set; } = null!;
 
     private IEnumerable<Item> items = new List<Item>();
-    private DateOnly date = DateOnly.FromDateTime(DateTime.UtcNow);
+    private DateOnly date = DateOnly.FromDateTime(DateTime.Now);
     private int userId;
     private Item itemToAdd = new Item();
     private string msg = "";
@@ -147,10 +147,17 @@ else
         msg = "";
         try
         {
-            _itemsAdded.Add(itemToAdd);
-
-            price += itemToAdd.Price;
-            msg = "Item added";
+            if (!_itemsAdded.Contains(itemToAdd))
+            {
+                _itemsAdded.Add(itemToAdd);
+                 price += itemToAdd.Price;
+                 msg = "Item added";
+            }
+            else
+            {
+                msg = "Item already added";
+            }
+            
         }
         catch (Exception e)
         {
@@ -205,7 +212,17 @@ else
 
             try
             {
-                await orderService.CreateAsync(dto);
+                if ((date < DateOnly.FromDateTime(DateTime.Today))||(date == DateOnly.FromDateTime(DateTime.Today)) && ((DateTime.Now.ToLocalTime().Hour>=12.00)))
+                {
+                    msg = "You cannot place an order at this time ";
+                    
+                }
+                else
+                {
+                     await orderService.CreateAsync(dto);
+                    msg = "The order was placed";
+                }
+               
             }
             catch (Exception e)
             {
@@ -218,7 +235,7 @@ else
             Console.WriteLine(e);
             msg = e.Message;
         }
-        msg = "The order was placed";
+     
     }
 
     private async Task ConfirmAction()
