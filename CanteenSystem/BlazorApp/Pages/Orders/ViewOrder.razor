@@ -34,16 +34,20 @@ else
     </div>
     if (confirmBool)
     {
-        <div>
-            <p>Are you sure you want to delete the order?</p>
-            <button @onclick="DeleteOrder">Yes</button>
-            <button @onclick="ConfirmButton">No</button>
-        </div>
+        {
+            <div>
+                <p>Are you sure you want to delete the order?</p>
+                <button @onclick="DeleteOrder">Yes</button>
+                <button @onclick="ConfirmButton">No</button>
+            </div>
+        }
     }
+    <label class="label">@msg</label>
 @code {
 
     [Parameter]
     public int Id { get; set; }
+    private DateTime date = DateTime.Now;
 
     private bool confirmBool;
     private bool addBool;
@@ -96,13 +100,20 @@ else
     {
         addBool = false;
         removeBool = false;
-        if (confirmBool)
+        if (order.Date == DateOnly.FromDateTime(DateTime.Today) && DateTime.Now > DateTime.Today.AddHours(12.00))
         {
-            confirmBool = false;
+            msg = "You Cannot Cancel An Order After 12:00";
         }
         else
         {
-            confirmBool = true;
+            if (confirmBool)
+            {
+                confirmBool = false;
+            }
+            else
+            {
+                confirmBool = true;
+            }
         }
     }
 
