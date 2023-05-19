@@ -1,0 +1,93 @@
+﻿@page "/SeeVendors"
+@using System.Text.Json
+@using BlazorApp.Services
+@inject IJSRuntime JsRuntime
+@inject IJavaSocketConnection socketService
+<h3>SeeVendors</h3>
+
+<div>
+    <label>enter ingredient you wish to see the vendors for:</label>
+    <input type="text" @bind="IngredientName"/>
+</div>
+<div>
+    <button @onclick="SendMessage">See vendors</button>
+</div>
+
+
+@code {
+    private string IngredientName = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        socketService.Connect();
+    }
+
+    private async Task SendMessage()
+    {
+        string message = "{\"IngredientName\":\"";
+        message += IngredientName;
+        message += "\"}";
+        Console.WriteLine(message);
+        await socketService.SendMessage(message);
+    }
+    
+    /*protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+    // Initialize the WebSocket connection
+        if (firstRender)
+        {
+            await JavaDataAccessService.InitWebSocket(JsRuntime, "wss://127.0.0.1:2910");
+        }
+    }
+        
+
+    [JSInvokable]
+    public async Task OnOpen()
+    {
+    // WebSocket connection is open
+    // Implement your logic here
+        await InvokeAsync(StateHasChanged);
+    }
+
+    [JSInvokable]
+    public async Task OnMessage(string message)
+    {
+    // Message received from the Java server
+    // Implement your logic here
+        await InvokeAsync(StateHasChanged);
+    }
+    
+    [JSInvokable]
+    public async Task OnError(string error)
+    {
+    // Error occurred in the WebSocket connection
+    // Implement your logic here
+        await InvokeAsync(StateHasChanged);
+    }
+
+    [JSInvokable]
+    public async Task OnClose()
+    {
+    // WebSocket connection is closed
+    // Implement your logic here
+        await InvokeAsync(StateHasChanged);
+    }
+    
+    private async Task SendMessage()
+    {
+    // Send a message through the WebSocket connection
+        string message = "{\"IngredientName\":\"";
+        message += IngredientName;
+        message += "\"}";
+        Console.WriteLine(message);
+        await JavaDataAccessService.SendWebSocketMessage(JsRuntime, message);
+        Console.Write("message sent!");
+    }
+
+    private async Task RequestVendorsFromServer(string ingredientName)
+    {
+        var request = new RequestMessage(ingredientName);
+        var json = JsonSerializer.Serialize(request);
+        await JavaDataAccessService.SendWebSocketMessage(JsRuntime, json);
+    }*/
+}
