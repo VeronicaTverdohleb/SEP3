@@ -1,13 +1,15 @@
-package org.example.server;
+package server;
 
-import org.example.datamodel.DataModel;
-import org.example.datamodel.DataModelManager;
-import org.example.model.Model;
-import org.example.model.ModelManager;
+import datamodel.DataModel;
+import model.Model;
+import datamodel.DataModelManager;
+
+import model.ModelManager;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 
 public class Server {
 
@@ -28,6 +30,8 @@ public class Server {
             }
         }catch(IOException e){
             e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

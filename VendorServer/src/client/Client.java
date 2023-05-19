@@ -1,7 +1,6 @@
-package org.example.client;
+package client;
 
-import org.example.shared.Vendor;
-import org.example.shared.VendorIngredient;
+
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
@@ -36,7 +35,8 @@ public class Client {
                 String scanned = scanner.nextLine();
 
                 Map<String, String> map = new HashMap<>();
-                map.put("IngredientName", scanned);
+                map.put("Action","get");
+                map.put("IngredientName",scanned);
                 JSONObject msg = new JSONObject(map);
 
                 outToServer.writeObject(msg);

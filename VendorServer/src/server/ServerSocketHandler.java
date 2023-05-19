@@ -1,6 +1,8 @@
-package org.example.server;
+package server;
 
-import org.example.model.Model;
+
+import datamodel.DataModel;
+import model.Model;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
@@ -14,6 +16,7 @@ public class ServerSocketHandler implements Runnable {
   private ObjectOutputStream outToClient;
 
   private Model model;
+
 
 
   public ServerSocketHandler(Socket socket, Model model) {
