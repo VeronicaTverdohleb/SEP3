@@ -14,16 +14,15 @@ public class DataModelManager implements DataModel {
     }
 
     private Connection getConnection() throws SQLException{
-        return DriverManager.getConnection("jdbc:postgresql://localhost:5433/vendor_db","postgres","bobs");
+        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/vendor_db","postgres","bobs");
     }
     @Override
     public ArrayList<VendorIngredient> getVendors(String ingredientName) throws SQLException {
-        System.out.println("in datamodelmanager");
         try(Connection connection=getConnection()){
             PreparedStatement preparedStatement=connection.prepareStatement("select * " +
                     " from vendoringredient" +
                     " where ingredientname= "+ "'" +ingredientName+ "'") ;
-            System.out.println(preparedStatement);
+            //System.out.println(preparedStatement);
             ResultSet resultSet=preparedStatement.executeQuery();
             ArrayList<VendorIngredient> vendorIngredients=new ArrayList<>();
             while (resultSet.next()){

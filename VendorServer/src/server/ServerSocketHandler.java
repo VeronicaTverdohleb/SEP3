@@ -1,72 +1,80 @@
 package server;
 
-
-import datamodel.DataModel;
 import model.Model;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import javax.xml.crypto.Data;
+import java.io.*;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class ServerSocketHandler implements Runnable {
-  private Socket socket;
-  private ObjectInputStream inFromClient;
-  private ObjectOutputStream outToClient;
+    private Socket socket;
+    private InputStream inFromClient;
+    private OutputStream outToClient;
 
-  private Model model;
+    private Model model;
 
-
-
-  public ServerSocketHandler(Socket socket, Model model) {
-    this.socket = socket;
-    this.model = model;
-    try {
-      inFromClient = new ObjectInputStream(socket.getInputStream());
-      outToClient = new ObjectOutputStream(socket.getOutputStream());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  @Override
-  public void run() {
-    try {
-      while (true) {
-        JSONObject result = null;
+    public ServerSocketHandler(Socket socket, Model model) {
+        this.socket = socket;
+        this.model = model;
         try {
-          result = (JSONObject) inFromClient.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-          throw new RuntimeException(e);
+            inFromClient = socket.getInputStream();
+            outToClient = socket.getOutputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        String read = result.toJSONString();
-        System.out.println("Received from client: " + read);
-
-        if (result.get("Action").equals("get".toLowerCase())) {
-          if (result.containsKey("IngredientName")) {
-            JSONObject newObjectToSend = model.getVendors(result.get("IngredientName").toString());
-            sendData(newObjectToSend);
-          }
-        }
-        else if (result.get("Action").equals("exit".toLowerCase())) {
-          socket.close();
-          System.out.println("Client disconnected");
-          break;
-        }
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
     }
-  }
 
-  public void sendData(JSONObject jsonToSend) {
-    try {
-      outToClient.writeObject(jsonToSend);
-    } catch (IOException e) {
-      e.printStackTrace();
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                int messageLength = inFromClient.read();
+                byte[] message = new byte[messageLength];
+                inFromClient.readNBytes(message, 0, messageLength);
+
+                JSONObject result = convertByteIntoJSONObject(message);
+                System.out.println("Received from client: " + result.toString());
+
+                if (result.get("Action").equals("get".toLowerCase())) {
+                    if (result.containsKey("IngredientName")) {
+                        byte[] newObjectToSend = model.getVendors(result.get("IngredientName").toString());
+                        sendData(newObjectToSend);
+                    }
+                } else if (result.get("Action").equals("exit".toLowerCase())) {
+                    socket.close();
+                    System.out.println("Client disconnected");
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-  }
+
+    public void sendData(byte[] jsonToSend) {
+        try {
+            int length = jsonToSend.length;
+            outToClient.write(length);
+            outToClient.write(jsonToSend, 0, length);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public JSONObject convertByteIntoJSONObject(byte[] result) {
+        JSONParser parser = new JSONParser();
+        JSONObject json = null;
+        try {
+            String newString = new String(result, StandardCharsets.UTF_8);
+            json = (JSONObject) parser.parse(newString);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return json;
+    }
 
 }

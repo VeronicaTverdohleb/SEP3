@@ -20,7 +20,7 @@ public class Server {
             DataModel dataModel = new DataModelManager();
             Model model = new ModelManager(dataModel);
 
-            while(true){
+            while(true) {
                 Socket socket = serverSocket.accept();
                 System.out.println("Client connected");
 
@@ -28,7 +28,7 @@ public class Server {
                 Thread t = new Thread(ssh);
                 t.start();
             }
-        }catch(IOException e){
+        } catch (IOException e){
             e.printStackTrace();
         } catch (SQLException e) {
             throw new RuntimeException(e);
