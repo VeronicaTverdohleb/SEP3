@@ -6,6 +6,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,13 +45,26 @@ public class Client {
 
                 // Map into JSON, so it has "" around keys and values (otherwise it just makes the values as Ingredient=Tomato)
                 JSONObject json = new JSONObject(map);
-                System.out.println("Here is the string that will be sent: " + json);
-                int length = json.toString().getBytes(StandardCharsets.UTF_8).length;
-                byte[] message;
-                message = json.toString().getBytes(StandardCharsets.UTF_8);
 
-                outToServer.write(length);
-                outToServer.write(message, 0, length);
+                System.out.println("Here is the string that will be sent to Server: " + json);
+
+                // Prepare byte array for the message content
+                byte[] message = json.toString().getBytes(StandardCharsets.UTF_8);
+
+                int toSendLen = message.length;             // Get message length as integer
+                // Prepare byte array that holds the size of the message
+                byte[] toSendLenBytes = new byte[4];        // Make a Byte array of 4 positions
+                // Integer is 32-bit, so we can split it into 4 x byte (1 byte = 8 bit)
+                // And put it into a Byte array in the first 4 positions (see the shifting below)
+                // If we wanted a larger value, for example 64-bit long, we'd make an array of 8 spots
+                // and shifted 8 times
+                toSendLenBytes[0] = (byte)(toSendLen & 0xff);
+                toSendLenBytes[1] = (byte)((toSendLen >> 8) & 0xff);
+                toSendLenBytes[2] = (byte)((toSendLen >> 16) & 0xff);
+                toSendLenBytes[3] = (byte)((toSendLen >> 24) & 0xff);
+
+                outToServer.write(toSendLenBytes);  // First, we send byte array with the size of the message
+                outToServer.write(message);         // Then we send byte array with the message content
             }
 
         } catch (IOException e){
@@ -59,14 +73,18 @@ public class Client {
     }
 
     public void listenToMessages() {
-        while(true){
+        while (true) {
             try
             {
-                int messageLength = inFromServer.read();
-                byte[] message = new byte[messageLength];
-                inFromServer.readNBytes(message, 0, messageLength);
+                // NOTE: explanation to the code below is in ServerSocketHolder
+                byte[] lenBytes = new byte[4];
+                inFromServer.read(lenBytes, 0, 4);
+                int len = (((lenBytes[3] & 0xff) << 24) | ((lenBytes[2] & 0xff) << 16) |
+                        ((lenBytes[1] & 0xff) << 8) | (lenBytes[0] & 0xff));
+                byte[] receivedBytes = new byte[len];
+                inFromServer.read(receivedBytes, 0, len);
 
-                JSONObject result = convertByteIntoJSONObject(message);
+                JSONObject result = convertByteIntoJSONObject(receivedBytes);
                 System.out.println("Received from Server: " + result);
             }
             catch (IOException e)

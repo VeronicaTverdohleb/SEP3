@@ -26,7 +26,7 @@
     {
         string message = "{\"IngredientName\":\"";
         message += IngredientName;
-        message += "\"}";
+        message += "\", \"Action\": \"get\"}";
         Console.WriteLine(message);
         await socketService.SendMessage(message);
     }
