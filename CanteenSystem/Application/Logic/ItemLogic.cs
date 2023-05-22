@@ -21,16 +21,13 @@ public class ItemLogic : IItemLogic
 
 
     public async Task<Item> CreateAsync(ItemCreationDto dto)
-    {
-        // Missing logic 
-        // Does the ingredient actually exist? And if yes, do we have enough to make the item?
-        // Can this ingredient go on this type of product (pineapple on pizza)
+    { 
         foreach (int ingredientId in dto.IngredientIds)
         {
             Ingredient? existing = await ingredientDao.GetByIdAsync(ingredientId);
             if (existing == null)
             {
-                throw new Exception($"This ingredients you try to use, does not exist!");
+                throw new Exception($"This ingredient you try to use, does not exist!");
             }
 
             if (existing.Amount == 0)

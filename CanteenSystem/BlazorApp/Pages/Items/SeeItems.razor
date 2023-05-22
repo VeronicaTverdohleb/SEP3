@@ -25,6 +25,10 @@
 
 <div>
     <button @onclick="LoadItems">Load</button>
+    @if (!string.IsNullOrEmpty(msg))
+    {
+        <label style="color: green">@msg</label>
+    }
 </div>
 
 
@@ -33,7 +37,7 @@
 }
 else if (!items.Any())
 {
-    <p>No Posts to display</p>
+    <p>No Items to display</p>
 }
 else
 {
@@ -68,9 +72,9 @@ else
         </tbody>
     </table>
 }
-@if (!string.IsNullOrEmpty(msg))
+@if (!string.IsNullOrEmpty(error))
 {
-    <label style="color: red">@msg</label>
+    <label style="color: red">@error</label>
 }
 
 
@@ -159,9 +163,9 @@ else
         
 
             <div class="button-row">
-                @if (!string.IsNullOrEmpty(msg))
+                @if (!string.IsNullOrEmpty(error))
                 {
-                    <label style="color: red">@msg</label>
+                    <label style="color: red">@error</label>
                 }
                 <button class="createItemBtn" @onclick="CreateItem">Create</button>
             </div>
@@ -188,6 +192,7 @@ else
     private bool doShowFilters1 = false;
     private bool doShowFilters2 = false;
     private string msg = "";
+    private string error = "";
     private bool doShowFilters = false;
     private static string newItemName ="";
     private static  int newPrice=0;
@@ -214,7 +219,7 @@ else
         catch (Exception e)
         {
             Console.WriteLine(e);
-            msg = e.Message;
+            error = e.Message;
         }
     }
 
@@ -229,29 +234,29 @@ else
         catch (Exception e)
         {
             Console.WriteLine(e);
-            msg = e.Message;
+            error = e.Message;
         }
     }
     
     private async Task CreateItem()
     {
-        msg = "";
+        error = "";
         if (dto.Ingredients == null )
         {
-            msg = "You must select an ingredient!";
+            error = "You must select an ingredient!";
             return;
         }
         if (string.IsNullOrEmpty(newItemName))
         {
-            msg = "Name cannot be empty!";
+            error = "Name cannot be empty!";
             return;
         }
         if (newPrice==null)
         {
-            msg = "Price cannot be empty!";
+            error = "Price cannot be empty!";
             return;
         }
-        
+        msg = "";
         try
         {
             
@@ -259,7 +264,6 @@ else
             
             ItemCreationDto creationDto = new(newItemName,newPrice,newIngredients);
             await itemService.CreateAsync(creationDto);
-            //ingredients = await ingredientService.getAllIngredientsAsync(Name);
             msg = "Item created";
             items = await itemService.GetAsync(null);
 
@@ -269,7 +273,7 @@ else
         catch (Exception e)
         {
             Console.WriteLine(e);
-            msg = e.Message;
+            error= e.Message;
         }
     }
 
@@ -282,6 +286,7 @@ else
     
     private async Task AddIngredient()
     {
+        msg = "";
         try
         {
             if (!newIngredients.Contains(ingredientToAdd.Id))
@@ -291,30 +296,31 @@ else
             }
             else
             {
-                msg = "Ingredient already added";
+                error = "Ingredient already added";
             }
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            msg = e.Message;
+            error = e.Message;
         }
     }
     
     private async Task RemoveIngredient()
     {
+        msg = "";
         try
         {
             newIngredients.Remove(ingredientToAdd.Id);
             msg = "Ingredient removed";
-            await OnInitializedAsync();
+          
 
 
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            msg = e.Message;
+            error = e.Message;
         }
     }
      
@@ -333,7 +339,8 @@ else
             items = await itemService.GetAsync(null);
 
             items = list.AsEnumerable();
-            
+            await OnInitializedAsync();
+
 
 
 
@@ -353,7 +360,8 @@ else
         {
             RemoveItem(id);
             items = await itemService.GetAsync(null);
-            
+            await OnInitializedAsync();
+
         }
         else
         {

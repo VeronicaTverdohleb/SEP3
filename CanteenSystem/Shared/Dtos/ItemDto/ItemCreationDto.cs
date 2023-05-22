@@ -10,10 +10,10 @@ public class ItemCreationDto
 
     public List<int> IngredientIds { get; set; }
     public int Id { get;  }
-    public int Price { get; set; }
+    public double Price { get; set; }
     
     
-    public ItemCreationDto(string name, int price, List<int> ingredientIds)
+    public ItemCreationDto(string name, double price, List<int> ingredientIds)
     {
         Name = name;
         Price = price;
