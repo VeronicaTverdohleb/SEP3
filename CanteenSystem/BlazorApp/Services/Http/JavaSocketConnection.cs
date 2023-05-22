@@ -9,14 +9,18 @@ public class JavaSocketConnection:IJavaSocketConnection
     //private IPEndPoint serverAddress = new IPEndPoint(IPAddress.Parse("192.168.0.6"), 4343);
     private IPEndPoint serverAddress = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 2910);
     private Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
+    private bool connected = false;
     public void Connect()
     {
-        clientSocket.Connect(serverAddress);
+        if (!connected)
+        {
+            clientSocket.Connect(serverAddress);
+            connected = true;
+        }
     }
 
     // Sending
-    public Task SendMessage(string message)
+    public Task<string> SendMessage(string message)
     {
         int toSendLen = System.Text.Encoding.ASCII.GetByteCount(message);
         byte[] toSendBytes = System.Text.Encoding.ASCII.GetBytes(message);
@@ -33,7 +37,7 @@ public class JavaSocketConnection:IJavaSocketConnection
 
         Console.WriteLine("Client received: " + rcv);
 
-        clientSocket.Close();
+        //clientSocket.Close();
         return Task.FromResult(rcv);
     }
 }

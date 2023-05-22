@@ -3,5 +3,5 @@
 public interface IJavaSocketConnection
 {
     public void Connect();
-    public Task SendMessage(string message);
+    public Task<string> SendMessage(string message);
 }
