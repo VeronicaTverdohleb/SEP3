@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
@@ -68,7 +69,12 @@ public class ServerSocketHandler implements Runnable {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                socket.close();
+                System.out.println("Client disconnected");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
