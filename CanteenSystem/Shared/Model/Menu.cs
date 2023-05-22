@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Shared.Model;
+﻿namespace Shared.Model;
 
 public class Menu
 {
