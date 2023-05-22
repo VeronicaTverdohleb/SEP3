@@ -18,6 +18,15 @@ public class
     public async Task<Ingredient> CreateAsync(Ingredient ingredient)
     {
         EntityEntry<Ingredient> added = await context.Ingredients.AddAsync(ingredient);
+        if (added == null)
+        {
+            throw new Exception("Ingredient is null");
+        }
+
+        if (string.IsNullOrEmpty(added.Entity.Name))
+        {
+            throw new Exception("Name Field Is Required");
+        }
         await context.SaveChangesAsync();
         return added.Entity;
     }
@@ -28,10 +37,10 @@ public class
         await context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<Ingredient>> GetAsync()
+    public Task<IEnumerable<Ingredient>> GetAsync()
     {
         IEnumerable<Ingredient> list = context.Ingredients.ToList();
-        return list;
+        return Task.FromResult(list);
     }
 
     public async Task<Ingredient?> GetByIdAsync(int id)
