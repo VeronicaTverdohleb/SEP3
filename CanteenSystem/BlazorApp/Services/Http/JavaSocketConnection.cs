@@ -20,14 +20,22 @@ public class JavaSocketConnection:IJavaSocketConnection
     }
 
     // Sending
-    public Task<string> SendMessage(string message)
+    public Task<string> SendMessage(string ingredientName)
     {
+        if (string.IsNullOrEmpty(ingredientName))
+        {
+            throw new Exception($"ingredient name cannot be empty!");
+        }
+        
+        string message = "{\"IngredientName\":\"";
+        message += ingredientName;
+        message += "\", \"Action\": \"get\"}";
         int toSendLen = System.Text.Encoding.ASCII.GetByteCount(message);
         byte[] toSendBytes = System.Text.Encoding.ASCII.GetBytes(message);
         byte[] toSendLenBytes = System.BitConverter.GetBytes(toSendLen);
         clientSocket.Send(toSendLenBytes);
         clientSocket.Send(toSendBytes);
-
+        
         byte[] rcvLenBytes = new byte[4];
         clientSocket.Receive(rcvLenBytes);
         int rcvLen = System.BitConverter.ToInt32(rcvLenBytes, 0);

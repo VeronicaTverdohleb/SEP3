@@ -50,14 +50,15 @@ public class OrderLogic : IOrderLogic
         foreach (int item in dto.ItemIds)
         {
             Item? existing = await itemDao.GetByIdAsync(item);
-            if (existing == null)
+            if (existing is { Name: null })
             {
                 throw new Exception($"This item you try to use, does not exist!");
             }
-
-
         }
-       
+        if (dto.ItemIds == null || !dto.ItemIds.Any())
+        {
+            throw new Exception("An order needs to have items");
+        }
         Order created = await orderDao.CreateOrderAsync(dto);
         Console.WriteLine(created);
         return created;
@@ -72,6 +73,14 @@ public class OrderLogic : IOrderLogic
         {
             throw new Exception($"Order with ID {dto.Id} not found!");
         }
+        if (existing.Status.Equals("ready for pickup"))
+        {
+            throw new Exception($"Cannot change status of an order that is ready for pickup!");
+        }
+        if (dto.Items.FirstOrDefault() == null)
+        {
+            throw new Exception("Order will be empty! delete instead!");
+        }
 
         Order updated = new (dto.Items,dto.Status)
         {
@@ -80,17 +89,6 @@ public class OrderLogic : IOrderLogic
             Date = existing.Date
         };
 
-        ValidateOrder(updated);
-
         await orderDao.UpdateOrderAsync(updated);
-    }
-    
-    private void ValidateOrder(Order dto)
-    {
-        if (dto.Items.Count == 0)
-        {
-            throw new Exception("Order will be empty! delete instead!");
-        }
-        // other validation stuff
     }
 }

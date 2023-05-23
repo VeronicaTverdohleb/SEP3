@@ -2,6 +2,7 @@
 @using global::Shared.Model
 @using global::Shared.Dtos
 @using HttpClients.ClientInterfaces
+@using System.Reflection.Metadata
 @inject IOrderService orderService
 @inject IItemService itemService
 @inject NavigationManager navMgr
@@ -40,12 +41,13 @@ else
             <option selected="selected" value="in progress">in progress</option>
             <option value="ready for pickup">ready for pickup</option>
         }
-        else
+        else if (order.Status.Equals("ready for pickup"))
         {
             <option value="ordered">ordered</option>
             <option value="in progress">in progress</option>
             <option selected="selected" value="ready for pickup">ready for pickup</option>
         }
+        
     </select>
     <p>total price: @totalPrice kr</p>
     <div>
@@ -135,11 +137,6 @@ else
         }
     }
 
-    private void RefreshOrder()
-    {
-        
-    }
-    
     private double UpdateTotalPrice()
     {
         double temp = 0;
@@ -154,18 +151,20 @@ else
     private async void SetStatus(ChangeEventArgs e)
     {
         string selectedValue = e.Value.ToString();
-        if (status.Equals("ready for pickup"))
+        status = selectedValue;
+        OrderUpdateDto update = new OrderUpdateDto(Id, order.Items, status);
+        try
         {
-            msg = "Cannot change status of an order that is ready for pickup!";
-        }
-        else
-        {
-            status = selectedValue;
-            msg = "order status changed to: " + status;
-            OrderUpdateDto update = new OrderUpdateDto(Id, order.Items, status);
-            Console.WriteLine("updating! " + update.Id + update.Status);
             await orderService.UpdateAsync(update);
+            msg = "order status changed to: " + status;
+            StateHasChanged();
         }
+        catch (Exception ex)
+        {
+            msg = ex.Message;
+            StateHasChanged();
+        }
+        
     }
 
     private void SetItemToAdd(ChangeEventArgs e)
@@ -262,20 +261,14 @@ else
             if (present)
             {
                 msg = "Order already contains this item";
-                Console.WriteLine("already in order");
-            }else
-            if (order.Status.Equals("ready for pickup"))
-            {
-                msg = "Cannot add items to an order that is ready for pickup";
             }
             else
             {
-                msg = "item added to order";
-                Console.WriteLine("added to order");
                 order.Items.Add(itemToAdd);
-                totalPrice = UpdateTotalPrice();
                 OrderUpdateDto update = new OrderUpdateDto(Id, order.Items, order.Status);
                 await orderService.UpdateAsync(update);
+                msg = "item added to order";
+                totalPrice = UpdateTotalPrice();
             }
             
         }
@@ -283,6 +276,7 @@ else
         {
             Console.WriteLine(e);
             msg = e.Message;
+            order.Items.Remove(itemToAdd);
         }
     }
 
@@ -291,22 +285,18 @@ else
         msg = "";
         try
         {
-            if (order.Status.Equals("ready for pickup"))
-            {
-                msg = "Cannot remove an item of an order that is ready for pickup!";
-            }
-            else
-            {
-                order.Items.Remove(itemToRemove);
-                totalPrice = UpdateTotalPrice();
-                msg = "item removed from order";
-                await orderService.UpdateAsync(updateDto);
-            }
+            order.Items.Remove(itemToRemove);
+            updateDto = new OrderUpdateDto(Id, order.Items, order.Status);
+            await orderService.UpdateAsync(updateDto);
+            totalPrice = UpdateTotalPrice();
+            msg = "item removed from order";
+            removeBool = false;
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             msg = e.Message;
+            order.Items.Add(itemToRemove);
         }
     }
 
