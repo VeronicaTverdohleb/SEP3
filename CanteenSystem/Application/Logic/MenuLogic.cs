@@ -5,6 +5,9 @@ using Shared.Model;
 
 namespace Application.Logic;
 
+/// <summary>
+/// Logic for Async methods used in Web API
+/// </summary>
 public class MenuLogic: IMenuLogic
 {
     private readonly IMenuDao menuDao;

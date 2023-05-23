@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Components.Authorization;
 
 namespace BlazorApp.Auth;
 
+/// <summary>
+/// Class that allows the Blazor to get Claims about a User
+/// </summary>
 public class CustomAuthProvider : AuthenticationStateProvider
 {
     private readonly IAuthService authService;
