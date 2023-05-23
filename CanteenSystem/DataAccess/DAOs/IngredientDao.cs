@@ -18,15 +18,6 @@ public class
     public async Task<Ingredient> CreateAsync(Ingredient ingredient)
     {
         EntityEntry<Ingredient> added = await context.Ingredients.AddAsync(ingredient);
-        if (added == null)
-        {
-            throw new Exception("Ingredient is null");
-        }
-
-        if (string.IsNullOrEmpty(added.Entity.Name))
-        {
-            throw new Exception("Name Field Is Required");
-        }
         await context.SaveChangesAsync();
         return added.Entity;
     }
@@ -48,6 +39,10 @@ public class
         Ingredient? found = await context.Ingredients
             .AsNoTracking()
             .SingleOrDefaultAsync(post => post.Id == id);
+        if (found == null)
+        {
+            throw new Exception($"Ingredient with id {id} not found");
+        }
         return found;
     }
     
@@ -66,7 +61,7 @@ public class
 
     public async Task<Ingredient?> GetByNameAsync(string name)
     {
-        Ingredient? found = await context.Ingredients
+        var found = await context.Ingredients
             .AsNoTracking().SingleOrDefaultAsync(i => i.Name == name);
         return found;
     }
