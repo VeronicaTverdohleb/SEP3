@@ -51,9 +51,10 @@ public class MenuLogic: IMenuLogic
         {
             throw new Exception($"There is already Menu on this date");
         }
-        
+
         Menu newMenu = new Menu(dto.Date, new List<Item>());
         Menu created = await menuDao.CreateAsync(newMenu);
         return created;
     }
+
 }

@@ -66,10 +66,8 @@ public class MenuLogicTest
         // Arrange
         DateOnly date1 = new DateOnly(2023, 05, 25);
         Shared.Model.Menu menu1 = new Shared.Model.Menu(date1, new List<Item>());
-        Shared.Model.Menu menu2 = new Shared.Model.Menu(date1, new List<Item>());
 
         MenuBasicDto menuDto1 = new MenuBasicDto(new List<ItemMenuDto>(), date1);
-        MenuBasicDto menuDto2 = new MenuBasicDto(new List<ItemMenuDto>(), date1);
 
         // Act
         menuDaoMock.Setup(m => m.CreateAsync(menu1)).Returns(Task.FromResult(menu1));
