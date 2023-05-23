@@ -1,7 +1,7 @@
-package org.example.datamodel;
+package datamodel;
 
-import org.example.shared.Ingredient;
-import org.example.shared.VendorIngredient;
+import shared.Ingredient;
+import shared.VendorIngredient;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

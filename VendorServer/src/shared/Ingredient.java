@@ -1,4 +1,4 @@
-package org.example.shared;
+package shared;
 
 public class Ingredient {
     private String ingredientName;
