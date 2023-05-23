@@ -23,6 +23,14 @@ public class IngredientLogic : IIngredientLogic
         {
             throw new Exception("Ingredient already exists!");
         }
+        if (string.IsNullOrEmpty(dto.Name))
+        {
+            throw new Exception("Name Field Is Required");
+        }
+        if (dto.Name.Length > 50)
+        {
+            throw new Exception("Max Name Length Is 50 Characters");
+        }
 
         Ingredient todo = new Ingredient(dto.Name, dto.Amount, dto.Allergen); 
         Ingredient created = await ingredientDao.CreateAsync(todo); 

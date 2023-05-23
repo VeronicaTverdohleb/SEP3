@@ -60,6 +60,4 @@ public class MenuController: ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
-    
 }

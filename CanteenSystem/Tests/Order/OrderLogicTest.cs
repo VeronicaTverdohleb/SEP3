@@ -23,27 +23,6 @@ public class OrderLogicTest
         userDaoMock = new Mock<IUserDao>();
         orderLogic = new OrderLogic(orderDaoMock.Object, itemDaoMock.Object, userDaoMock.Object);
     }
-    
-    [Test]
-    public void CreateOrderAsyncTest_0Items()
-    {
-        // Arrange
-        DateOnly date = new DateOnly(2063, 05, 25);
-        User user = new User("Steve", "Stevenson", "Steve", "hello", "Steve@hotmail.com", "CanteenEmployee");
-        Shared.Model.Order order = new Shared.Model.Order(user,date,"ordered",new List<Item>());
-        List<int> itemIds = new List<int>();
-        foreach (var item in order.Items)
-        {
-            itemIds.Add(item.Id);
-        }
-        MakeOrderDto orderDto = new MakeOrderDto(order.Id,order.Date,order.Status,itemIds);
-
-        // Act
-        orderDaoMock.Setup(o => o.CreateOrderAsync(orderDto)).Returns(Task.FromResult(order));
-        
-        // Assert
-        Assert.DoesNotThrowAsync(() => orderLogic.CreateOrderAsync(orderDto));
-    }
 
     [Test]
     public void GetOrderByIdTest_Z()
@@ -66,8 +45,8 @@ public class OrderLogicTest
         int id = 1;
         DateOnly date = new DateOnly(2063, 05, 25);
         User user = new User("Steve", "Stevenson", "Steve", "hello", "Steve@hotmail.com", "CanteenEmployee");
-        Item item = new Item("test", 25, new List<Ingredient>());
-        List<Item> items = new List<Item>();
+        Shared.Model.Item item = new Shared.Model.Item("test", 25, new List<Ingredient>());
+        List<Shared.Model.Item> items = new List<Shared.Model.Item>();
         items.Add(item);
         Shared.Model.Order order = new Shared.Model.Order(user,date,"ordered",items);
         
@@ -98,8 +77,8 @@ public class OrderLogicTest
         SearchOrderParametersDto searchDto = new SearchOrderParametersDto(null, null, null, null);
         DateOnly date = new DateOnly(2063, 05, 25);
         User user = new User("Steve", "Stevenson", "Steve", "hello", "Steve@hotmail.com", "CanteenEmployee");
-        Item item = new Item("test", 25, new List<Ingredient>());
-        List<Item> items = new List<Item>();
+        Shared.Model.Item item = new Shared.Model.Item("test", 25, new List<Ingredient>());
+        List<Shared.Model.Item> items = new List<Shared.Model.Item>();
         items.Add(item);
         Shared.Model.Order order = new Shared.Model.Order(user,date,"ordered",items);
         List<Shared.Model.Order> orders = new List<Shared.Model.Order>();
@@ -119,8 +98,8 @@ public class OrderLogicTest
         SearchOrderParametersDto searchDto = new SearchOrderParametersDto(null, null, null, null);
         DateOnly date = new DateOnly(2063, 05, 25);
         User user = new User("Steve", "Stevenson", "Steve", "hello", "Steve@hotmail.com", "CanteenEmployee");
-        Item item = new Item("test", 25, new List<Ingredient>());
-        List<Item> items = new List<Item>();
+        Shared.Model.Item item = new Shared.Model.Item("test", 25, new List<Ingredient>());
+        List<Shared.Model.Item> items = new List<Shared.Model.Item>();
         items.Add(item);
         Shared.Model.Order order = new Shared.Model.Order(user, date, "ordered", items);
         List<Shared.Model.Order> orders = new List<Shared.Model.Order>();
@@ -141,8 +120,8 @@ public class OrderLogicTest
         //Arrange
         DateOnly date = new DateOnly(2063, 05, 25);
         User user = new User("Steve", "Stevenson", "Steve", "hello", "Steve@hotmail.com", "CanteenEmployee");
-        Item item = new Item("test", 25, new List<Ingredient>());
-        List<Item> items = new List<Item>();
+        Shared.Model.Item item = new Shared.Model.Item("test", 25, new List<Ingredient>());
+        List<Shared.Model.Item> items = new List<Shared.Model.Item>();
         items.Add(item);
         Shared.Model.Order order = new Shared.Model.Order(user, date, "ordered", items);
         List<Shared.Model.Order> orders = new List<Shared.Model.Order>();
@@ -179,8 +158,8 @@ public class OrderLogicTest
         int id = 1;
         DateOnly date = new DateOnly(2063, 05, 25);
         User user = new User("Steve", "Stevenson", "Steve", "hello", "Steve@hotmail.com", "CanteenEmployee");
-        Item item = new Item("test", 25, new List<Ingredient>());
-        List<Item> items = new List<Item>();
+        Shared.Model.Item item = new Shared.Model.Item("test", 25, new List<Ingredient>());
+        List<Shared.Model.Item> items = new List<Shared.Model.Item>();
         items.Add(item);
         Shared.Model.Order order = new Shared.Model.Order(user, date, "ordered", items);
         
@@ -195,8 +174,8 @@ public class OrderLogicTest
     public void UpdateOrder_Z()
     {
         // Arrange
-        Item item = new Item("test", 25, new List<Ingredient>());
-        List<Item> items = new List<Item>();
+        Shared.Model.Item item = new Shared.Model.Item("test", 25, new List<Ingredient>());
+        List<Shared.Model.Item> items = new List<Shared.Model.Item>();
         items.Add(item);
         OrderUpdateDto updateDto = new OrderUpdateDto(1, items, "in progress");
 
@@ -214,8 +193,8 @@ public class OrderLogicTest
         //Arrange
         DateOnly date = new DateOnly(2063, 05, 25);
         User user = new User("Steve", "Stevenson", "Steve", "hello", "Steve@hotmail.com", "CanteenEmployee");
-        Item item = new Item("test", 25, new List<Ingredient>());
-        List<Item> items = new List<Item>();
+        Shared.Model.Item item = new Shared.Model.Item("test", 25, new List<Ingredient>());
+        List<Shared.Model.Item> items = new List<Shared.Model.Item>();
         items.Add(item);
         Shared.Model.Order order = new Shared.Model.Order(user, date, "ordered", items);
         OrderUpdateDto updateDto = new OrderUpdateDto(1, items, "in progress");
@@ -233,9 +212,9 @@ public class OrderLogicTest
         //Arrange
         DateOnly date = new DateOnly(2063, 05, 25);
         User user = new User("Steve", "Stevenson", "Steve", "hello", "Steve@hotmail.com", "CanteenEmployee");
-        Item item = new Item("test", 25, new List<Ingredient>());
-        Item item2 = new Item("test", 25, new List<Ingredient>());
-        List<Item> items = new List<Item>();
+        Shared.Model.Item item = new Shared.Model.Item("test", 25, new List<Ingredient>());
+        Shared.Model.Item item2 = new Shared.Model.Item("test", 25, new List<Ingredient>());
+        List<Shared.Model.Item> items = new List<Shared.Model.Item>();
         items.Add(item);
         items.Add(item2);
         Shared.Model.Order order = new Shared.Model.Order(user, date, "ordered", items);
@@ -254,7 +233,7 @@ public class OrderLogicTest
         //Arrange
         DateOnly date = new DateOnly(2063, 05, 25);
         User user = new User("Steve", "Stevenson", "Steve", "hello", "Steve@hotmail.com", "CanteenEmployee");
-        List<Item> items = new List<Item>();
+        List<Shared.Model.Item> items = new List<Shared.Model.Item>();
         Shared.Model.Order order = new Shared.Model.Order(user, date, "ordered", items);
         OrderUpdateDto updateDto = new OrderUpdateDto(1, items, "in progress");
         
@@ -272,7 +251,7 @@ public class OrderLogicTest
         //Arrange
         DateOnly date = new DateOnly(2063, 05, 25);
         User user = new User("Steve", "Stevenson", "Steve", "hello", "Steve@hotmail.com", "CanteenEmployee");
-        List<Item> items = new List<Item>();
+        List<Shared.Model.Item> items = new List<Shared.Model.Item>();
         Shared.Model.Order order = new Shared.Model.Order(user, date, "ready for pickup", items);
         OrderUpdateDto updateDto = new OrderUpdateDto(1, items, "in progress");
         

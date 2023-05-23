@@ -29,7 +29,7 @@ public class MenuLogicTest
     {
         // Arrange
         DateOnly date = new DateOnly(2023, 05, 25);
-        Shared.Model.Menu menu = new Shared.Model.Menu(date, new List<Item>());
+        Shared.Model.Menu menu = new Shared.Model.Menu(date, new List<Shared.Model.Item>());
         MenuBasicDto menuDto = new MenuBasicDto(new List<ItemMenuDto>(), date);
 
         // Act
@@ -45,8 +45,8 @@ public class MenuLogicTest
         // Arrange
         DateOnly date1 = new DateOnly(2023, 05, 25);
         DateOnly date2 = new DateOnly(2023, 06, 20);
-        Shared.Model.Menu menu1 = new Shared.Model.Menu(date1, new List<Item>());
-        Shared.Model.Menu menu2 = new Shared.Model.Menu(date2, new List<Item>());
+        Shared.Model.Menu menu1 = new Shared.Model.Menu(date1, new List<Shared.Model.Item>());
+        Shared.Model.Menu menu2 = new Shared.Model.Menu(date2, new List<Shared.Model.Item>());
 
         MenuBasicDto menuDto1 = new MenuBasicDto(new List<ItemMenuDto>(), date1);
         MenuBasicDto menuDto2 = new MenuBasicDto(new List<ItemMenuDto>(), date2);
@@ -65,11 +65,9 @@ public class MenuLogicTest
     {
         // Arrange
         DateOnly date1 = new DateOnly(2023, 05, 25);
-        Shared.Model.Menu menu1 = new Shared.Model.Menu(date1, new List<Item>());
-        Shared.Model.Menu menu2 = new Shared.Model.Menu(date1, new List<Item>());
+        Shared.Model.Menu menu1 = new Shared.Model.Menu(date1, new List<Shared.Model.Item>());
 
         MenuBasicDto menuDto1 = new MenuBasicDto(new List<ItemMenuDto>(), date1);
-        MenuBasicDto menuDto2 = new MenuBasicDto(new List<ItemMenuDto>(), date1);
 
         // Act
         menuDaoMock.Setup(m => m.CreateAsync(menu1)).Returns(Task.FromResult(menu1));
@@ -91,13 +89,13 @@ public class MenuLogicTest
         ItemMenuDto itemMenuDto = new ItemMenuDto(1, 1, "Sandwich", "Bread, Salami", "1, 2");
         items.Add(itemMenuDto);
         MenuBasicDto menu = new MenuBasicDto(items, date);
-        Item item = new Item();
+        Shared.Model.Item item = new Shared.Model.Item();
         MenuUpdateDto updateDto = new MenuUpdateDto(date, 1, "remove");
 
         // Act
         menuDaoMock.Setup(m => m.GetMenuByDateAsync(date)).Returns(Task.FromResult<MenuBasicDto?>(menu));
         menuDaoMock.Setup(m => m.UpdateMenuAsync(updateDto));
-        itemDaoMock.Setup(i => i.GetByIdAsync(1)).Returns(Task.FromResult<Item?>(item));
+        itemDaoMock.Setup(i => i.GetByIdAsync(1)).Returns(Task.FromResult<Shared.Model.Item?>(item));
         
         // Assert
         Assert.DoesNotThrowAsync(() => menuLogic.UpdateMenuAsync(updateDto));
@@ -112,15 +110,15 @@ public class MenuLogicTest
         ItemMenuDto itemMenuDto = new ItemMenuDto(1, 1, "Sandwich", "Bread, Salami", "1, 2");
         items.Add(itemMenuDto);
         MenuBasicDto menu = new MenuBasicDto(items, date);
-        Item item1 = new Item();
-        Item item2 = new Item();
+        Shared.Model.Item item1 = new Shared.Model.Item();
+        Shared.Model.Item item2 = new Shared.Model.Item();
         MenuUpdateDto updateDto1 = new MenuUpdateDto(date, 1, "remove");
         MenuUpdateDto updateDto2 = new MenuUpdateDto(date, 2, "add");
         
         // Act
         menuDaoMock.Setup(m => m.GetMenuByDateAsync(date)).Returns(Task.FromResult<MenuBasicDto?>(menu));
-        itemDaoMock.Setup(i => i.GetByIdAsync(1)).Returns(Task.FromResult<Item?>(item1));
-        itemDaoMock.Setup(i => i.GetByIdAsync(2)).Returns(Task.FromResult<Item?>(item2));
+        itemDaoMock.Setup(i => i.GetByIdAsync(1)).Returns(Task.FromResult<Shared.Model.Item?>(item1));
+        itemDaoMock.Setup(i => i.GetByIdAsync(2)).Returns(Task.FromResult<Shared.Model.Item?>(item2));
         menuDaoMock.Setup(m => m.UpdateMenuAsync(updateDto1));
         menuDaoMock.Setup(m => m.UpdateMenuAsync(updateDto2));
         

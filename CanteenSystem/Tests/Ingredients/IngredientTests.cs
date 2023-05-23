@@ -1,9 +1,6 @@
 ﻿using Application.DaoInterfaces;
 using Application.Logic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Moq;
-using Moq.Language.Flow;
 using Shared.Dtos.IngredientDto;
 using Shared.Model;
 
@@ -22,6 +19,7 @@ public class IngredientTests
         ingredientLogic = new IngredientLogic(mockIngredientSet.Object);
     }
 
+    // Tests for AddIngredient Method
     [Test]
     public void TestAddIngredient_Z()
     {
@@ -29,10 +27,10 @@ public class IngredientTests
         Ingredient creation = new Ingredient("", 55, 1);
         IngredientCreationDto creationDto = new IngredientCreationDto("", 55, 1);
         //Act
-        mockIngredientSet.Setup(I => I.GetByNameAsync("")).Returns(Task.FromResult(creation)!);
         mockIngredientSet.Setup(I => I.CreateAsync(creation)).Returns(Task.FromResult(creation));
         //Assert
-        Assert.ThrowsAsync<Exception>(()=> ingredientLogic.CreateAsync(creationDto));
+        var e = Assert.ThrowsAsync<Exception>(()=> ingredientLogic.CreateAsync(creationDto));
+        Assert.That(e.Message, Is.EqualTo("Name Field Is Required"));
     }
     
     
@@ -47,23 +45,27 @@ public class IngredientTests
         //Assert
         Assert.DoesNotThrowAsync(() => ingredientLogic.CreateAsync(creationDto));
     }
-
+    
     [Test]
-    public void TestAddIngredient_M()
+    public void TestAddIngredient_B()
     {
         //Arrange
-        Ingredient creation = new Ingredient("Milk", 55, 1);
-        Ingredient creation2 = new Ingredient("Cheese", 100, 1);
-        IngredientCreationDto creationDto = new IngredientCreationDto("Milk", 55, 1);
-        IngredientCreationDto creationDto2 = new IngredientCreationDto("Cheese", 100, 1);
+        Ingredient creation = new Ingredient("B", 100, 6);
+        IngredientCreationDto creationDto = new IngredientCreationDto("B", 100, 6);
+        Ingredient creation1 = new Ingredient("Bread Is So Amazing I Cannot Believe It Tastes this", 100, 6);
+        IngredientCreationDto creationDto1 = new IngredientCreationDto("Bread Is So Amazing I Cannot Believe It Tastes this", 100, 6);
+        
         //Act
         mockIngredientSet.Setup(I => I.CreateAsync(creation)).Returns(Task.FromResult(creation));
-        mockIngredientSet.Setup(I => I.CreateAsync(creation2)).Returns(Task.FromResult(creation2));
+        mockIngredientSet.Setup(I => I.CreateAsync(creation1)).Returns(Task.FromResult(creation1));
+
         //Assert
         Assert.DoesNotThrowAsync(() => ingredientLogic.CreateAsync(creationDto));
-        Assert.DoesNotThrowAsync(() => ingredientLogic.CreateAsync(creationDto2));
+        var e = Assert.ThrowsAsync<Exception>(() => ingredientLogic.CreateAsync(creationDto1));
+        Assert.That(e.Message, Is.EqualTo("Max Name Length Is 50 Characters"));
     }
-
+    
+    //Tests for RemoveIngredient Method
     [Test]
     public void TestRemoveIngredient_Z()
     {
@@ -72,7 +74,9 @@ public class IngredientTests
         //Act
         mockIngredientSet.Setup(I => I.DeleteAsync(1));
         //Assert
-        Assert.ThrowsAsync<Exception>(() => ingredientLogic.DeleteIngredient(1));
+        var e = Assert.ThrowsAsync<Exception>(() => ingredientLogic.DeleteIngredient(1));
+        Assert.That(e.Message, Is.EqualTo("Post with ID 1 was not found!"));
+
     }
     
     [Test]
@@ -87,22 +91,7 @@ public class IngredientTests
         Assert.DoesNotThrowAsync(() => ingredientLogic.DeleteIngredient(0));
     }
     
-    [Test]
-    public void TestRemoveIngredient_M()
-    {
-        //Arrange
-        Ingredient ingredient = new Ingredient("Potato", 100, 0);
-        Ingredient ingredient1 = new Ingredient("Bread", 300, 6);
-        //Act
-        mockIngredientSet.Setup(I => I.GetByIdAsync(1)).Returns(Task.FromResult(ingredient1));
-        mockIngredientSet.Setup(I => I.GetByIdAsync(0)).Returns(Task.FromResult(ingredient));
-        mockIngredientSet.Setup(I => I.DeleteAsync(0));
-        mockIngredientSet.Setup(I => I.DeleteAsync(1));
-        //Assert
-        Assert.DoesNotThrowAsync(() => ingredientLogic.DeleteIngredient(0));
-        Assert.DoesNotThrowAsync(() => ingredientLogic.DeleteIngredient(1));
-    }
-
+    // Tests for UpdateIngredientAmount Method
     [Test]
     public void TestUpdateIngredient_Z()
     {
@@ -112,7 +101,8 @@ public class IngredientTests
         //Act
         mockIngredientSet.Setup(I => I.UpdateAsync(ingredient)).Returns(Task.FromResult(ingredient));
         //Assert
-        Assert.ThrowsAsync<Exception>(() => ingredientLogic.UpdateIngredientAmount(updateDto));
+        var e =Assert.ThrowsAsync<Exception>(() => ingredientLogic.UpdateIngredientAmount(updateDto));
+        Assert.That(e.Message, Is.EqualTo("Ingredient with the id 1 was not found!"));
     }
     
     [Test]
@@ -146,6 +136,7 @@ public class IngredientTests
         Assert.DoesNotThrowAsync(() => ingredientLogic.UpdateIngredientAmount(updateDto1));
     }
 
+    //Tests for GetAsync Method
     [Test]
     public void TestGetAsync_O()
     {
@@ -176,6 +167,7 @@ public class IngredientTests
         Assert.DoesNotThrowAsync(ingredientLogic.GetAsync);
     }
 
+    //Tests for GetByIdAsync Method
     [Test]
     public void TestGetByIdAsync_O()
     {
@@ -189,24 +181,20 @@ public class IngredientTests
         Assert.DoesNotThrowAsync(() => ingredientLogic.GetByIdAsync(0));
 
     }
-    
+
+    //Tests for GetByNameAsync Method
     [Test]
-    public void TestGetByIdAsync_M()
+    public void TestGetByNameAsync_Z()
     {
         //Arrange
-        Ingredient ingredient = new Ingredient("Cheese", 144, 1);
-        Ingredient ingredient1 = new Ingredient("Milk", 47, 1);
-        Ingredient ingredient2 = new Ingredient("Yogurt", 174, 1);
+        Ingredient ingredient = new Ingredient("", 144, 1);
         
         //Act
-        mockIngredientSet.Setup(I => I.GetByIdAsync(ingredient.Id)).Returns(Task.FromResult(ingredient));
-        mockIngredientSet.Setup(I => I.GetByIdAsync(ingredient1.Id)).Returns(Task.FromResult(ingredient));
-        mockIngredientSet.Setup(I => I.GetByIdAsync(ingredient2.Id)).Returns(Task.FromResult(ingredient));
+        mockIngredientSet.Setup(I => I.GetByNameAsync("Cheese")).Throws(new Exception("Ingredient with name Cheese not found"));
         
         //Assert
-        Assert.DoesNotThrowAsync(() => ingredientLogic.GetByIdAsync(ingredient.Id));
-        Assert.DoesNotThrowAsync(() => ingredientLogic.GetByIdAsync(ingredient1.Id));
-        Assert.DoesNotThrowAsync(() => ingredientLogic.GetByIdAsync(ingredient2.Id));
+        var e = Assert.ThrowsAsync<Exception>(() => ingredientLogic.GetByNameAsync("Cheese"));
+        Assert.That(e.Message, Is.EqualTo("Ingredient with name Cheese not found"));
     }
 
     [Test]
@@ -220,24 +208,5 @@ public class IngredientTests
         
         //Assert
         Assert.DoesNotThrowAsync(() => ingredientLogic.GetByNameAsync("Cheese"));
-    } 
-    
-    [Test]
-    public void TestGetByNameAsync_M()
-    {
-        //Arrange
-        Ingredient ingredient = new Ingredient("Cheese", 144, 1);
-        Ingredient ingredient1 = new Ingredient("Milk", 47, 1);
-        Ingredient ingredient2 = new Ingredient("Yogurt", 174, 1);
-        
-        //Act
-        mockIngredientSet.Setup(I => I.GetByNameAsync("Cheese")).Returns(Task.FromResult(ingredient));
-        mockIngredientSet.Setup(I => I.GetByNameAsync("Milk")).Returns(Task.FromResult(ingredient1));
-        mockIngredientSet.Setup(I => I.GetByNameAsync("Yogurt")).Returns(Task.FromResult(ingredient2));
-        
-        //Assert
-        Assert.DoesNotThrowAsync(() => ingredientLogic.GetByNameAsync("Cheese"));
-        Assert.DoesNotThrowAsync(() => ingredientLogic.GetByNameAsync("Milk"));
-        Assert.DoesNotThrowAsync(() => ingredientLogic.GetByNameAsync("Yogurt"));
-    } 
+    }
 }

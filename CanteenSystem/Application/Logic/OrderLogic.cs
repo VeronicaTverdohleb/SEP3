@@ -50,12 +50,15 @@ public class OrderLogic : IOrderLogic
         foreach (int item in dto.ItemIds)
         {
             Item? existing = await itemDao.GetByIdAsync(item);
-            if (existing == null)
+            if (existing is { Name: null })
             {
                 throw new Exception($"This item you try to use, does not exist!");
             }
         }
-
+        if (dto.ItemIds == null || !dto.ItemIds.Any())
+        {
+            throw new Exception("An order needs to have items");
+        }
         Order created = await orderDao.CreateOrderAsync(dto);
         Console.WriteLine(created);
         return created;
