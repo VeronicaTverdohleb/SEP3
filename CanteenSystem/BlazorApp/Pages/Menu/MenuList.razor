@@ -42,7 +42,8 @@
 
     private string msg = "";
 
-
+    /// Method that calls the MenuService to delete a MenuItem
+    /// 
     private async Task DeleteItemFromMenu(int itemId)
     {
         msg = "";
@@ -59,6 +60,8 @@
         }
     }
 
+    /// Method that calls the MenuService to retrieve a Menu by Date
+    /// 
     private async Task LoadMenu()
     {
         msg = "";

@@ -3,6 +3,9 @@ using Shared.Model;
 
 namespace HttpClients.ClientInterfaces;
 
+/// <summary>
+/// Interface implemented by MenuService
+/// </summary>
 public interface IMenuService
 {
     public Task<MenuBasicDto> GetMenuByDateAsync(DateOnly date);

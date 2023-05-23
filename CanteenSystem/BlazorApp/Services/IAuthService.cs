@@ -2,6 +2,9 @@
 
 namespace BlazorApp.Services;
 
+/// <summary>
+/// Interface implemented by AuthService in Http package
+/// </summary>
 public interface IAuthService
 {
     public Task LoginAsync(string username, string password);
