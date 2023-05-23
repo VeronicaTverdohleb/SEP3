@@ -1,4 +1,5 @@
 package model;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public class ModelManager implements Model {
 
 
     @Override
-    public JSONObject getVendors(String ingredientName) {
+    public byte[] getVendors(String ingredientName) {
         ArrayList<VendorIngredient> vendors = null;
         try {
             vendors = dataModel.getVendors(ingredientName);
@@ -27,11 +28,11 @@ public class ModelManager implements Model {
             throw new RuntimeException(e);
         }
 
-        return convertVendorsIntoJSON(vendors);
+        return convertVendorsIntoByte(vendors);
     }
 
     /***
-     * Translates DB output to JSON string
+     * Translates DB output to JSON string and then into byte array
      * The format of the JSON output is:
      * {"vendor": [ {"vendorName: "{vendorName}",
      *               "ingredientName": "{ingredientName}",
@@ -41,7 +42,7 @@ public class ModelManager implements Model {
      * @param vendorIngredients
      * @return
      */
-    public JSONObject convertVendorsIntoJSON(ArrayList<VendorIngredient> vendorIngredients) {
+    public byte[] convertVendorsIntoByte(ArrayList<VendorIngredient> vendorIngredients) {
         // Creating map for "vendor": [list of vendors and their info]
         Map<String, ArrayList<Map<String, String>>> vendorsInfo = new HashMap<>();
 
@@ -55,7 +56,11 @@ public class ModelManager implements Model {
             vendorsInfo.computeIfAbsent("vendor", k -> new ArrayList<>()).add(singleVendorInfo);
         }
 
-        return new JSONObject(vendorsInfo);
+        // Map into JSON, so it has "" around keys and values (otherwise it just makes the values as Ingredient=Tomato)
+        JSONObject json = new JSONObject(vendorsInfo);
+
+        // Return byte array of the JSON
+        return json.toString().getBytes(StandardCharsets.UTF_8);
     }
 
 
