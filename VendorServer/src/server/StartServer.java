@@ -1,8 +1,8 @@
-package org.example.server;
+package server;
 
 public class StartServer {
     public static void main(String[] args) {
-        Server es = new Server();
+        Server es = new server.Server();
         es.startServer();
     }
 }

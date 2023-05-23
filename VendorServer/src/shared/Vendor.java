@@ -1,4 +1,4 @@
-package org.example.shared;
+package shared;
 
 public class Vendor {
     private String vendorName;

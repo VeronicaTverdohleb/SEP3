@@ -1,11 +1,11 @@
-package org.example.shared;
+package shared;
 
 public class VendorIngredient {
     private Vendor vendor;
     private Ingredient ingredient;
-    private int price;
+    private double price;
 
-    public VendorIngredient(Vendor vendor, Ingredient ingredient, int price) {
+    public VendorIngredient(Vendor vendor, Ingredient ingredient, double price) {
         this.vendor = vendor;
         this.ingredient = ingredient;
         this.price = price;
@@ -19,7 +19,7 @@ public class VendorIngredient {
         return vendor;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 }
