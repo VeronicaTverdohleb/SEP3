@@ -28,10 +28,10 @@ public class
         await context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<Ingredient>> GetAsync()
+    public Task<IEnumerable<Ingredient>> GetAsync()
     {
         IEnumerable<Ingredient> list = context.Ingredients.ToList();
-        return list;
+        return Task.FromResult(list);
     }
 
     public async Task<Ingredient?> GetByIdAsync(int id)
@@ -39,6 +39,10 @@ public class
         Ingredient? found = await context.Ingredients
             .AsNoTracking()
             .SingleOrDefaultAsync(post => post.Id == id);
+        if (found == null)
+        {
+            throw new Exception($"Ingredient with id {id} not found");
+        }
         return found;
     }
     
@@ -57,7 +61,7 @@ public class
 
     public async Task<Ingredient?> GetByNameAsync(string name)
     {
-        Ingredient? found = await context.Ingredients
+        var found = await context.Ingredients
             .AsNoTracking().SingleOrDefaultAsync(i => i.Name == name);
         return found;
     }
