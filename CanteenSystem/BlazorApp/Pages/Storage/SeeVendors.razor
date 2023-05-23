@@ -66,20 +66,17 @@ else
     {
         if (string.IsNullOrWhiteSpace(ingredientName))
         {
-            msg = "ingredient name cannot be empty!";
-            StateHasChanged();
+            ingredientName = "";
         }
-        else
+
+        try
         {
-            msg = "";
-            ingredientName = char.ToUpper(ingredientName[0]) + ingredientName.Substring(1);
-            chosenIngredientName = ingredientName;
-            string message = "{\"IngredientName\":\"";
-            message += ingredientName;
-            message += "\", \"Action\": \"get\"}";
-            Console.WriteLine(message);
-            string returnMessage = await socketService.SendMessage(message);
+            string returnMessage = await socketService.SendMessage(ingredientName);
             ConvertJson(returnMessage);
+        }
+        catch (Exception e)
+        {
+            msg = e.Message;
         }
     }
 
