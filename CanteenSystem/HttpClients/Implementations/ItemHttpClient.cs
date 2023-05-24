@@ -65,19 +65,7 @@ public class ItemHttpClient :IItemService
 
         return query;
     }
-
-    public async Task UpdateAsync(ManageItemDto dto)
-    {
-        string dtoAsJson = JsonSerializer.Serialize(dto);
-        StringContent body = new StringContent(dtoAsJson, Encoding.UTF8, "application/json");
-
-        HttpResponseMessage response = await client.PatchAsync("/items", body);
-        if (!response.IsSuccessStatusCode)
-        {
-            string content = await response.Content.ReadAsStringAsync();
-            throw new Exception(content);
-        }
-    }
+    
 
     public async Task<ItemBasicDto> GetByIdAsync(int id)
     {
@@ -97,23 +85,7 @@ public class ItemHttpClient :IItemService
         return items;
     }
 
-    public async Task<ItemBasicDto> GetByNameAsync(string name)
-    {
-        HttpResponseMessage response = await client.GetAsync($"/item/{name}");
-        string content = await response.Content.ReadAsStringAsync();
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception(content);
-        }
-
-        ItemBasicDto items = JsonSerializer.Deserialize<ItemBasicDto>(content, 
-            new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            }
-        )!;
-        return items;
-    }
+    
 
     public async Task DeleteAsync(int id)
     {
