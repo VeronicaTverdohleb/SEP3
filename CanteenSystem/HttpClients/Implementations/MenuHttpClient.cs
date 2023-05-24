@@ -3,10 +3,12 @@ using System.Text;
 using System.Text.Json;
 using HttpClients.ClientInterfaces;
 using Shared.Dtos;
-using Shared.Model;
 
 namespace HttpClients.Implementations;
 
+/// <summary>
+/// HttpClient Class that makes HTTP requests towards Web API
+/// </summary>
 public class MenuHttpClient : IMenuService
 {
     private readonly HttpClient client;
@@ -17,6 +19,12 @@ public class MenuHttpClient : IMenuService
         this.client = client;
     }
 
+    /// <summary>
+    /// HTTP request to Web API to Get Menu by Date
+    /// </summary>
+    /// <param name="date"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public async Task<MenuBasicDto> GetMenuByDateAsync(DateOnly date)
     {
         string query = ConstructQuery(ConvertDate(date));
@@ -35,6 +43,11 @@ public class MenuHttpClient : IMenuService
     }
 
 
+    /// <summary>
+    /// Sends HTTP request to Web API to Update a Menu (either delete or add item)
+    /// </summary>
+    /// <param name="dto"></param>
+    /// <exception cref="Exception"></exception>
     public async Task UpdateMenuAsync(MenuUpdateDto dto)
     {
         string dtoAsJson = JsonSerializer.Serialize(dto);
@@ -48,6 +61,11 @@ public class MenuHttpClient : IMenuService
         }
     }
 
+    /// <summary>
+    /// HTTP request to create a new Menu
+    /// </summary>
+    /// <param name="dto"></param>
+    /// <exception cref="Exception"></exception>
     public async Task CreateAsync(MenuBasicDto dto)
     {
         HttpResponseMessage response = await client.PostAsJsonAsync("/Menu", dto);
@@ -59,6 +77,11 @@ public class MenuHttpClient : IMenuService
     }
 
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="date"></param>
+    /// <returns></returns>
     private static string ConstructQuery(String date)
     {
         return $"?date={date}";

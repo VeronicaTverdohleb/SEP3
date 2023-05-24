@@ -33,7 +33,7 @@ public class MakeOrderLogicTest
             Id = 1
         };
         DateOnly dateOnly = new DateOnly(2023, 05, 25);
-        Order order = new Order(user,dateOnly,"ordered",new List<Shared.Model.Item>());
+        Shared.Model.Order order = new Shared.Model.Order(user,dateOnly,"ordered",new List<Shared.Model.Item>());
         MakeOrderDto makeOrderDto = new MakeOrderDto(1,dateOnly,"ordered", new List<int>());
         orderDao.Setup(o => o.CreateOrderAsync(makeOrderDto)).Returns(Task.FromResult(order));
         Assert.That(() => orderLogic.CreateOrderAsync(makeOrderDto).Result, Throws.Exception);//.EqualTo(new Exception("This ingredients you try to use, does not exist!")));
@@ -61,7 +61,7 @@ public class MakeOrderLogicTest
         List<int> imteIds = new List<int>() { item1.Id };
         List<Shared.Model.Item> items = new List<Shared.Model.Item> { item1 };
 
-        Order order = new Order(user,dateOnly,"ordered",items);
+        Shared.Model.Order order = new Shared.Model.Order(user,dateOnly,"ordered",items);
         MakeOrderDto makeOrderDto = new MakeOrderDto(1,dateOnly,"ordered", imteIds);
         orderDao.Setup(o => o.CreateOrderAsync(makeOrderDto)).Returns(Task.FromResult(order));
         Assert.DoesNotThrowAsync(()=>orderLogic.CreateOrderAsync(makeOrderDto));
@@ -93,7 +93,7 @@ public class MakeOrderLogicTest
         List<int> imteIds = new List<int>() { item1.Id, item2.Id };
         List<Shared.Model.Item> items = new List<Shared.Model.Item> { item1 };
 
-        Order order = new Order(user,dateOnly,"ordered",items);
+        Shared.Model.Order order = new Shared.Model.Order(user,dateOnly,"ordered",items);
         MakeOrderDto makeOrderDto = new MakeOrderDto(1,dateOnly,"ordered", imteIds);
         orderDao.Setup(o => o.CreateOrderAsync(makeOrderDto)).Returns(Task.FromResult(order));
         Assert.DoesNotThrowAsync(()=>orderLogic.CreateOrderAsync(makeOrderDto));
@@ -119,9 +119,9 @@ public class MakeOrderLogicTest
         List<int> imteIds = new List<int>() { item1.Id };
         List<Shared.Model.Item> items = new List<Shared.Model.Item> { item1 };
 
-        Order order = new Order(user,dateOnly,"ordered",items);
+        Shared.Model.Order order = new Shared.Model.Order(user,dateOnly,"ordered",items);
         MakeOrderDto makeOrderDto = new MakeOrderDto(1,dateOnly,"ordered", imteIds);
-        Order order2 = new Order(user,dateOnly,"ordered",items);
+        Shared.Model.Order order2 = new Shared.Model.Order(user,dateOnly,"ordered",items);
         MakeOrderDto makeOrderDto2 = new MakeOrderDto(1,dateOnly,"ordered", imteIds);
 
         orderDao.Setup(o => o.CreateOrderAsync(makeOrderDto)).Returns(Task.FromResult(order));

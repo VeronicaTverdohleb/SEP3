@@ -88,7 +88,7 @@
     private ICollection<Item> allItems;
     private int itemToAddId;
 
-
+    
     protected override async Task OnInitializedAsync()
     {
         doSeeMenu = false;
@@ -98,6 +98,7 @@
     }
 
 
+    // Loads menu with items and changes several booleans to either show/hide certain parts of the view
     private async Task LoadMenu()
     {
         msgItem = "";
@@ -130,6 +131,8 @@
         }
     }
 
+    /// When Create Button is pressed, this method calls the Blazor Server to create a Menu
+    /// 
     private async Task CreateMenu()
     {
         MenuBasicDto dto = new MenuBasicDto(new List<ItemMenuDto>(), pickedDate);
@@ -147,6 +150,8 @@
         seeAddItemButton = true;
     }
 
+    /// Converts DateOnly format into a String that is displayed in the DatePicker
+    ///
     private void ConvertDate(DateOnly date)
     {
         if (date.Month < 10 && date.Day < 10)
@@ -159,15 +164,20 @@
             dateString = date.Day + "-" + date.Month + "-" + date.Year;
     }
 
+    /// Whenever the Option in Drop down menu changes, it calls this method and sets the itemToAddId
+    /// to the chosen Item
+    ///
     private void SetItemToAdd(ChangeEventArgs e)
     {
         if (e.Value.ToString().Equals("option1"))
             msgItem = "Please choose an Item to add";
         else
             itemToAddId = int.Parse(e.Value.ToString());
-        Console.WriteLine(itemToAddId);
     }
 
+    /// Whenever User presses a button to add an Item to the Menu, it calls the MenuService
+    /// And Updates the Menu (either deletes or adds the item)
+    ///
     private async Task AddItem()
     {
         msgItem = "";
@@ -189,7 +199,9 @@
         }
         seeItems = false;
     }
-
+    
+    /// Sets boolean doSeeMenu to false which hides the Menu from the main page and
+    /// Shows a button with Add Item 
     private void HideMenu()
     {
         msgItem = "";
@@ -197,6 +209,9 @@
         seeAddItemButton = false;
     }
 
+    /// Sets boolean doSeeMenuInMenuList to false which hides the Menu in the MenuList Component
+    /// as well as the Items to Add icons
+    /// 
     private void SeeItemsToAdd()
     {
         doSeeMenuInMenuList = false;

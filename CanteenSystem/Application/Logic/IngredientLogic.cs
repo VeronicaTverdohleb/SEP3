@@ -1,21 +1,30 @@
 ﻿using Application.DaoInterfaces;
 using Application.LogicInterfaces;
-using Shared.Dtos;
 using Shared.Dtos.IngredientDto;
 using Shared.Model;
 
 namespace Application.Logic;
-
+/// <summary>
+/// This class is the logical implementation for IIngredientLogic
+/// </summary>
 public class IngredientLogic : IIngredientLogic
 {
     private readonly IIngredientDao ingredientDao;
 
-
+/// <summary>
+/// Instantiates the IIngredientDao in the constructor
+/// </summary>
+/// <param name="ingredientDao"></param>
     public IngredientLogic(IIngredientDao ingredientDao)
     {
         this.ingredientDao = ingredientDao;
     }
-
+/// <summary>
+/// Creates a new Ingredient
+/// </summary>
+/// <param name="dto"></param>
+/// <returns>Returns the created Ingredient</returns>
+/// <exception cref="Exception"></exception>
     public async Task<Ingredient> CreateAsync(IngredientCreationDto dto)
     {
         Ingredient? ingredient = await ingredientDao.GetByNameAsync(dto.Name);
@@ -37,7 +46,11 @@ public class IngredientLogic : IIngredientLogic
         
         return created;
     }
-
+    /// <summary>
+    /// Updates an existing ingredients amount value
+    /// </summary>
+    /// <param name="dto"></param>
+    /// <exception cref="Exception"></exception>
     public async Task UpdateIngredientAmount(IngredientUpdateDto dto)
     {
         Ingredient? ingredient = await ingredientDao.GetByIdAsync(dto.Id);
@@ -54,12 +67,20 @@ public class IngredientLogic : IIngredientLogic
 
         await ingredientDao.UpdateAsync(updated);
     }
-
+    /// <summary>
+    /// Returns a list of all ingredients
+    /// </summary>
+    /// <returns>Returns All Ingredients</returns>
     public Task<IEnumerable<Ingredient>> GetAsync()
     {
         return ingredientDao.GetAsync();
     }
-
+    /// <summary>
+    /// Gets an ingredient by its id value
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>Returns a new IngredientBasicDto</returns>
+    /// <exception cref="Exception"></exception>
     public async Task<IngredientBasicDto?> GetByIdAsync(int id)
     {
         Ingredient? todoIngredient = await ingredientDao.GetByIdAsync(id);
@@ -96,7 +117,11 @@ public class IngredientLogic : IIngredientLogic
 
     
     }
-
+    /// <summary>
+    /// Deletes an ingredient based on its Id value
+    /// </summary>
+    /// <param name="id"></param>
+    /// <exception cref="Exception"></exception>
     public async Task DeleteIngredient(int id)
     {
         Ingredient? todo = await ingredientDao.GetByIdAsync(id);
@@ -109,7 +134,12 @@ public class IngredientLogic : IIngredientLogic
     }
 
    
-
+    /// <summary>
+    /// Gets an IngredientBasicDto by a string name
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns>Returns a IngredientBasicDto</returns>
+    /// <exception cref="Exception"></exception>
     public async Task<IngredientBasicDto?> GetByNameAsync(string name)
     {
         Ingredient? todoIngredient = await ingredientDao.GetByNameAsync(name);

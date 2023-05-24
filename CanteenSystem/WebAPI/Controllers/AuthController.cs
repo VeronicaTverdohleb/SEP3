@@ -9,6 +9,9 @@ using Shared.Model;
 
 namespace WebAPI.Controllers;
 
+/// <summary>
+/// Web API method definition related to Authentication functionality
+/// </summary>
 [ApiController]
 [Route("[controller]")]
 public class AuthController : ControllerBase
@@ -23,6 +26,11 @@ public class AuthController : ControllerBase
     }
 
 
+    /// <summary>
+    /// Method that takes a User and generates Claims for them (which is something the program understand)
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
     private List<Claim> GenerateClaims(User user)
     {
         var claims = new[]
@@ -41,6 +49,11 @@ public class AuthController : ControllerBase
         return claims.ToList();
     }
 
+    /// <summary>
+    /// This method generates a JWT to be returned to the User trying to log in 
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
     private string GenerateJwt(User user)
     {
         List<Claim> claims = GenerateClaims(user);
@@ -63,6 +76,11 @@ public class AuthController : ControllerBase
         return serializedToken;
     }
     
+    /// <summary>
+    /// POST endpoint that calls the AuthService and GenerateJwt for the User
+    /// </summary>
+    /// <param name="userLoginDto"></param>
+    /// <returns></returns>
     [HttpPost, Route("login")]
     public async Task<ActionResult> Login([FromBody] UserLoginDto userLoginDto)
     {

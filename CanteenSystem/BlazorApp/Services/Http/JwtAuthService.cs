@@ -63,6 +63,14 @@ public class JwtAuthService : IAuthService
         return principal;
     }
     
+    /// <summary>
+    /// Method that makes HTTP request towards Web API to authenticate the login
+    /// It also creates a PrincipalClaims for the User so different information
+    /// about the logged user can be retrieved
+    /// </summary>
+    /// <param name="username"></param>
+    /// <param name="password"></param>
+    /// <exception cref="Exception"></exception>
     public async Task LoginAsync(string username, string password)
     {
         UserLoginDto userLoginDto = new()
@@ -90,6 +98,10 @@ public class JwtAuthService : IAuthService
         OnAuthStateChanged.Invoke(principal);
     }
 
+    /// <summary>
+    /// Clears Claims about the logged in user 
+    /// </summary>
+    /// <returns></returns>
     public Task LogoutAsync()
     {
         Jwt = null;
