@@ -2,12 +2,11 @@
 @using System.Text.Json
 @using BlazorApp.Services
 @using global::Shared.Dtos.IngredientDto
-@using global::Shared.Dtos.SupplyDto
 @using global::Shared.Model
 @using HttpClients.ClientInterfaces
 @inject IJavaSocketConnection socketService
 @inject IIngredientService ingredientService
-<h3>SeeVendors</h3>
+<h3>Order ingredients</h3>
 
 <div>
     <label>enter ingredient you wish to see the vendors for:</label>
@@ -57,11 +56,14 @@ else
     private bool firstLoad = true;
     private string chosenIngredientName = "";
 
+    ///Method that is called upon opening the webpage. It establishes a connection to the java
+    /// server that holds the information in regards to vendors.
     protected override async Task OnInitializedAsync()
     {
         socketService.Connect();
     }
 
+    ///Method that sends a message to the java server depending on 
     private async Task SendMessage()
     {
         if (string.IsNullOrWhiteSpace(ingredientName))

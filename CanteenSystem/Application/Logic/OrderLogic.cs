@@ -5,6 +5,9 @@ using Shared.Model;
 
 namespace Application.Logic;
 
+/// <summary>
+/// Logic for async methods used in the web api
+/// </summary>
 public class OrderLogic : IOrderLogic
 {
     private readonly IOrderDao orderDao;
