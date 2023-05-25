@@ -11,8 +11,16 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 
+/**
+ * Server class
+ */
 public class Server {
 
+    /**
+     * Method to start the Server
+     * Creates the socket and port number
+     * Waits for client to connect
+     */
     public void startServer() {
         System.out.println("Starting server...");
         try{

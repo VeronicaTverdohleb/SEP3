@@ -12,6 +12,10 @@ import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Implements Runnable
+ * Responsible for sending the Data and converting into byte
+ */
 public class ServerSocketHandler implements Runnable {
     private Socket socket;
     private InputStream inFromClient;
@@ -19,6 +23,11 @@ public class ServerSocketHandler implements Runnable {
 
     private Model model;
 
+    /**
+     * Initializes the streams, sockets and Model
+     * @param socket Socket
+     * @param model Model
+     */
     public ServerSocketHandler(Socket socket, Model model) {
         this.socket = socket;
         this.model = model;
@@ -30,6 +39,9 @@ public class ServerSocketHandler implements Runnable {
         }
     }
 
+    /**
+     * Method which gets the data from Client into byte
+     */
     @Override
     public void run() {
         try {
@@ -78,6 +90,10 @@ public class ServerSocketHandler implements Runnable {
         }
     }
 
+    /**
+     * Method for sending data to client
+     * @param bytesToSend the bytes to send
+     */
     public void sendData(byte[] bytesToSend) {
         try {
             int toSendLen = bytesToSend.length;              // Get message length as integer
@@ -103,6 +119,11 @@ public class ServerSocketHandler implements Runnable {
         }
     }
 
+    /**
+     * Method converts byte into JSON
+     * @param result the return json
+     * @return json
+     */
     public JSONObject convertByteIntoJSONObject(byte[] result) {
         JSONParser parser = new JSONParser();
         JSONObject json = null;

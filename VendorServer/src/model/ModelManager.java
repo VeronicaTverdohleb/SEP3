@@ -10,15 +10,27 @@ import org.json.simple.JSONObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Implements Model
+ */
 public class ModelManager implements Model {
     private DataModel dataModel;
 
+    /**
+     * Initializes DataModel interface
+     * @param dataModel the interface implemented
+     */
     public ModelManager(DataModel dataModel) {
         this.dataModel = dataModel;
     }
 
 
-
+    /**
+     * Method gets the vendors from the getVendors() method in DataModel
+     * which is implemented in DataModelManager
+     * @param ingredientName gets the vendors by this ingredient name parameter
+     * @return a byte version of the vendors ArrayList
+     */
     @Override
     public byte[] getVendors(String ingredientName) {
         ArrayList<VendorIngredient> vendors = null;
@@ -39,8 +51,8 @@ public class ModelManager implements Model {
      *               "price": "{price}"}
      *            ]
      * }
-     * @param vendorIngredients
-     * @return
+     * @param vendorIngredients ArrayList of vendorIngredients
+     * @return a string of bytes
      */
     public byte[] convertVendorsIntoByte(ArrayList<VendorIngredient> vendorIngredients) {
         // Creating map for "vendor": [list of vendors and their info]
