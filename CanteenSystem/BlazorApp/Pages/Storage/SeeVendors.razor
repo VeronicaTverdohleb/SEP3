@@ -1,0 +1,184 @@
+﻿@page "/SeeVendors"
+@using System.Text.Json
+@using BlazorApp.Services
+@using global::Shared.Dtos.IngredientDto
+@using global::Shared.Dtos.SupplyDto
+@using global::Shared.Model
+@using HttpClients.ClientInterfaces
+@inject IJavaSocketConnection socketService
+@inject IIngredientService ingredientService
+<h3>SeeVendors</h3>
+
+<div>
+    <label>enter ingredient you wish to see the vendors for:</label>
+    <input type="text" @bind="ingredientName"/>
+</div>
+<div>
+    <button @onclick="SendMessage">See vendors</button>
+</div>
+
+
+
+@if (Vendors == null)
+{
+    
+}else if (!Vendors.Any())
+{
+    <p style="color: red">No ingredients with that name are being sold!</p>
+}
+else
+{
+    <br/>
+    <br/>
+    <h2>Vendors for ingredient: @chosenIngredientName</h2>
+    <p style="color: red">@msg</p>
+    <br/>
+    @foreach (var vendor in Vendors)
+    {
+        <div class="vendor">
+            <p>Name: @vendor.VendorName</p>
+            <p>Price per unit: €@vendor.Price</p>
+            <label>Amount of units to order:</label>
+            <input type="text" @bind="orderAmount"/><br/>
+            <button onclick=@(() => OrderIngredient(@vendor.IngredientName, orderAmount, @vendor.VendorName))>Confirm order</button>
+        </div>
+        <br/>
+        <br/>
+    }
+}
+
+
+
+@code {
+    private string ingredientName = "";
+    private ICollection<Vendor> Vendors;
+    private int orderAmount;
+    private string msg="";
+    private bool firstLoad = true;
+    private string chosenIngredientName = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        socketService.Connect();
+    }
+
+    private async Task SendMessage()
+    {
+        if (string.IsNullOrWhiteSpace(ingredientName))
+        {
+            msg = "ingredient name cannot be empty!";
+            StateHasChanged();
+        }
+        else
+        {
+            msg = "";
+            ingredientName = char.ToUpper(ingredientName[0]) + ingredientName.Substring(1);
+            chosenIngredientName = ingredientName;
+            string message = "{\"IngredientName\":\"";
+            message += ingredientName;
+            message += "\", \"Action\": \"get\"}";
+            Console.WriteLine(message);
+            string returnMessage = await socketService.SendMessage(message);
+            ConvertJson(returnMessage);
+        }
+    }
+
+    private void ConvertJson(string jsonMsg)
+    {
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
+        var result = JsonSerializer.Deserialize<Dictionary<string, List<Vendor>>>(jsonMsg, options);
+        if (result.TryGetValue("vendor", out var vendorList))
+        {
+            Vendors = vendorList;
+        }
+        else
+        {
+            Vendors.Clear();
+        }
+
+    }
+
+    private async void OrderIngredient(string name, int amount, string vendorName)
+    {
+        orderAmount = 0;
+        if (amount<=0)
+        {
+            msg = "Invalid input!";
+        }
+        else
+        {
+            ICollection<Ingredient> allIngredients = await ingredientService.getAllIngredientsAsync(null);
+            Ingredient chosenIngredient = allIngredients.ToList().Find(i => i.Name == name);
+            var oldAmount = amount;
+            amount += chosenIngredient.Amount;
+            ingredientService.UpdateIngredientAmount(new IngredientUpdateDto(chosenIngredient.Id, amount));
+            msg = "Successfully ordered "+oldAmount+" units of " + name + " from " + vendorName + ".\nStorage now contains " + amount + " units of "+name;
+        }
+        StateHasChanged();
+    }
+    
+    /*protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+    // Initialize the WebSocket connection
+        if (firstRender)
+        {
+            await JavaDataAccessService.InitWebSocket(JsRuntime, "wss://127.0.0.1:2910");
+        }
+    }
+        
+
+    [JSInvokable]
+    public async Task OnOpen()
+    {
+    // WebSocket connection is open
+    // Implement your logic here
+        await InvokeAsync(StateHasChanged);
+    }
+
+    [JSInvokable]
+    public async Task OnMessage(string message)
+    {
+    // Message received from the Java server
+    // Implement your logic here
+        await InvokeAsync(StateHasChanged);
+    }
+    
+    [JSInvokable]
+    public async Task OnError(string error)
+    {
+    // Error occurred in the WebSocket connection
+    // Implement your logic here
+        await InvokeAsync(StateHasChanged);
+    }
+
+    [JSInvokable]
+    public async Task OnClose()
+    {
+    // WebSocket connection is closed
+    // Implement your logic here
+        await InvokeAsync(StateHasChanged);
+    }
+    
+    private async Task SendMessage()
+    {
+    // Send a message through the WebSocket connection
+        string message = "{\"IngredientName\":\"";
+        message += IngredientName;
+        message += "\"}";
+        Console.WriteLine(message);
+        await JavaDataAccessService.SendWebSocketMessage(JsRuntime, message);
+        Console.Write("message sent!");
+    }
+
+    private async Task RequestVendorsFromServer(string ingredientName)
+    {
+        var request = new RequestMessage(ingredientName);
+        var json = JsonSerializer.Serialize(request);
+        await JavaDataAccessService.SendWebSocketMessage(JsRuntime, json);
+    }*/
+}

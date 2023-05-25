@@ -2,6 +2,7 @@
 using BlazorApp.Auth;
 using BlazorApp.Services;
 using BlazorApp.Services.Http;
+using BlazorApp.Services.JavaDataAccess;
 using HttpClients.ClientInterfaces;
 using HttpClients.Implementations;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -20,6 +21,7 @@ builder.Services.AddScoped<IMenuService, MenuHttpClient>();
 builder.Services.AddScoped<IOrderService, OrderHttpClient>();
 builder.Services.AddScoped<IItemService, ItemHttpClient>();
 builder.Services.AddScoped<IIngredientService, IngredientHttpClient>();
+builder.Services.AddScoped<IJavaSocketConnection, JavaSocketConnection>();
 builder.Services.AddScoped<IAuthService, JwtAuthService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
 

@@ -59,6 +59,7 @@ public class IngredientHttpClient : IIngredientService
         throw new NotImplementedException();
     }
 
+    //doesn't work
     public async Task<IngredientBasicDto?> GetByNameAsync(string name)
     {
         HttpResponseMessage response = await client.GetAsync($"/Ingredient/{name}");

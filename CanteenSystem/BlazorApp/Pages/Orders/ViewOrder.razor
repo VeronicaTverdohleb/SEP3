@@ -30,13 +30,13 @@ else
     <label>Status: @order.Status</label>
     <p>total price: @totalPrice kr</p>
     <div>
-        <button @onclick="ConfirmButton">Delete order (irreversible)</button>
+        <button @onclick="ConfirmButton">Cancel Order (irreversible)</button>
     </div>
     if (confirmBool)
     {
         {
             <div>
-                <p>Are you sure you want to delete the order?</p>
+                <p>Are you sure you want to cancel the order?</p>
                 <button @onclick="DeleteOrder">Yes</button>
                 <button @onclick="ConfirmButton">No</button>
             </div>

@@ -1,0 +1,13 @@
+﻿.vendor{
+    background: lightblue;
+    padding: 5px;
+}
+
+button{
+    width: 130px;
+    height: 50px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    background-color: darkturquoise;
+    border-radius: 10px;
+}
