@@ -2,7 +2,9 @@
 using Shared.Model;
 
 namespace HttpClients.ClientInterfaces;
-
+/// <summary>
+/// Interface used by ItemService 
+/// </summary>
 public interface IItemService
 {
     

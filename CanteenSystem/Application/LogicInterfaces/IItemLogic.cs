@@ -3,6 +3,9 @@ using Shared.Model;
 
 namespace Application.LogicInterfaces;
 
+/// <summary>
+/// Interface implemented by ItemLogic
+/// </summary>
 public interface IItemLogic
 {
     Task<Item> CreateAsync(ItemCreationDto dto);

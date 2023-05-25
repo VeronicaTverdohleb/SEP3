@@ -3,6 +3,8 @@
 @using global::Shared.Model
 @using global::Shared.Dtos
 @using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.JSInterop
 @inject IItemService itemService;
 @inject IIngredientService ingredientService;
 @inject IOrderService orderService;
@@ -117,7 +119,7 @@ else
     private List<Item> _itemsAdded = new List<Item>();
     
 
-
+    ///Method which gets called when accessing the page 
     protected override async Task OnInitializedAsync()
     {
         AuthenticationState authState = await AuthState;
@@ -135,13 +137,13 @@ else
             msg = e.Message;
         }
     }
-
+///Saves the items before creating the order
     private void SetItemsToAddToOrder(ChangeEventArgs e)
     {
         int selectedValue = int.Parse(e.Value.ToString());
         itemToAdd = items.FirstOrDefault(item => item.Id == selectedValue);
     }
-
+///Adds the selected item 
     private async Task AddItem()
     {
         msg = "";
@@ -165,7 +167,7 @@ else
             msg = e.Message;
         }
     }
-
+///Removes the selected item
     private async Task RemoveItem()
     {
         msg = "";
@@ -183,7 +185,7 @@ else
             msg = e.Message;
         }
     }
-
+///Creates order with the list of ingredients
     private async Task CreateOrder()
     {
         foreach (Claim claim in _userClaims!)
@@ -237,7 +239,7 @@ else
         }
      
     }
-
+///Asks for confirmation before creating order
     private async Task ConfirmAction()
     {
         bool confirmed = await jsRuntime.InvokeAsync<bool>("confirmAction", "Are you sure you want to place the order?" +

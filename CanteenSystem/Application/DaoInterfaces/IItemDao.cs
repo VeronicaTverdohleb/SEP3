@@ -3,6 +3,9 @@ using Shared.Model;
 
 namespace Application.DaoInterfaces;
 
+/// <summary>
+/// Interface implemented by ItemDao
+/// </summary>
 public interface IItemDao
 {
     Task<Item> CreateAsync(ItemCreationDto item);
