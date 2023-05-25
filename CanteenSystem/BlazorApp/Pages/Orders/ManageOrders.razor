@@ -2,7 +2,6 @@
 @using global::Shared.Model
 @using global::Shared.Dtos
 @using HttpClients.ClientInterfaces
-@using System.Reflection.Metadata
 @inject IOrderService orderService
 @inject IItemService itemService
 @inject NavigationManager navMgr
@@ -112,6 +111,8 @@ else
     private string msg = "";
     private string error = "";
 
+    ///Method that is called whenever the page is loaded. It fetches all available items and
+    /// all the information of the selected order
     protected override async Task OnInitializedAsync()
     {
         msg = "";
@@ -137,6 +138,8 @@ else
         }
     }
 
+    ///Method that is called whenever an item is added or removed from the order
+    /// in order to update the current price of the order
     private double UpdateTotalPrice()
     {
         double temp = 0;
@@ -148,6 +151,7 @@ else
         return temp;
     }
 
+    ///Method that is called whenever a Canteen employee changes the state of the order
     private async void SetStatus(ChangeEventArgs e)
     {
         string selectedValue = e.Value.ToString();
@@ -167,6 +171,8 @@ else
         
     }
 
+    ///Method that sets an item variable to what the canteen employee selects
+    /// in the webpage in order to add it to the order.
     private void SetItemToAdd(ChangeEventArgs e)
     {
         if (!e.Value.ToString().Equals(""))
@@ -176,6 +182,8 @@ else
         }
     }
 
+    ///Method that sets an item variable to what the canteen employee selects
+    /// in the webpage in order to remove it from the order
     private void SetItemToRemove(ChangeEventArgs e)
     {
         if (!e.Value.ToString().Equals(""))
@@ -186,6 +194,8 @@ else
         
     }
 
+    ///Method that sets certain booleans in order to display the correct buttons on the webpage
+    /// for the current action
     private void ConfirmButton()
     {
         addBool = false;
@@ -200,6 +210,8 @@ else
         }
     }
 
+    ///Method that sets certain booleans in order to display the correct buttons on the webpage
+    /// for the current action
     private void AddItemButton()
     {
         confirmBool = false;
@@ -214,6 +226,8 @@ else
         }
     }
 
+    ///Method that sets certain booleans in order to display the correct buttons on the webpage
+    /// for the current action
     private void RemoveItemButton()
     {
         confirmBool = false;
@@ -228,6 +242,7 @@ else
         }
     }
     
+    ///Method that deletes the current order.
     private async Task DeleteOrder()
     {
         
@@ -245,6 +260,7 @@ else
         }
     }
 
+    ///Method that adds the currently selected item to the order
     private async Task AddItem()
     {
         msg = "";
@@ -280,6 +296,7 @@ else
         }
     }
 
+    ///Method that removes the currently selected item from the order
     private async Task RemoveItem()
     {
         msg = "";
