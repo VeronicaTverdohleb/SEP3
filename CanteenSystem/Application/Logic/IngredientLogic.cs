@@ -14,7 +14,7 @@ public class IngredientLogic : IIngredientLogic
 /// <summary>
 /// Instantiates the IIngredientDao in the constructor
 /// </summary>
-/// <param name="ingredientDao"></param>
+/// <param name="ingredientDao">takes in an IIngredientDao</param>
     public IngredientLogic(IIngredientDao ingredientDao)
     {
         this.ingredientDao = ingredientDao;
@@ -24,7 +24,7 @@ public class IngredientLogic : IIngredientLogic
 /// </summary>
 /// <param name="dto"></param>
 /// <returns>Returns the created Ingredient</returns>
-/// <exception cref="Exception"></exception>
+/// <exception cref="Exception">throws exceptions if ingredient already exists, if name field is empty, or if name is over 50 characters</exception>
     public async Task<Ingredient> CreateAsync(IngredientCreationDto dto)
     {
         Ingredient? ingredient = await ingredientDao.GetByNameAsync(dto.Name);
@@ -49,8 +49,8 @@ public class IngredientLogic : IIngredientLogic
     /// <summary>
     /// Updates an existing ingredients amount value
     /// </summary>
-    /// <param name="dto"></param>
-    /// <exception cref="Exception"></exception>
+    /// <param name="dto">takes in an IngredientUpdateDto</param>
+    /// <exception cref="Exception">throws an exception if ingredient is not found</exception>
     public async Task UpdateIngredientAmount(IngredientUpdateDto dto)
     {
         Ingredient? ingredient = await ingredientDao.GetByIdAsync(dto.Id);
@@ -78,9 +78,9 @@ public class IngredientLogic : IIngredientLogic
     /// <summary>
     /// Gets an ingredient by its id value
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="id">takes in an int Id</param>
     /// <returns>Returns a new IngredientBasicDto</returns>
-    /// <exception cref="Exception"></exception>
+    /// <exception cref="Exception">throws if an ingredient is not found</exception>
     public async Task<IngredientBasicDto?> GetByIdAsync(int id)
     {
         Ingredient? todoIngredient = await ingredientDao.GetByIdAsync(id);
@@ -92,42 +92,17 @@ public class IngredientLogic : IIngredientLogic
         return new IngredientBasicDto(todoIngredient.Id ,todoIngredient.Name, todoIngredient.Amount, todoIngredient.Allergen);
 
     }
-    public async Task<Ingredient?> GetByIdAsyncFromIng(int id)
-    {
-        Ingredient? todoIngredient = await ingredientDao.GetByIdAsync(id);
-        if (todoIngredient == null)
-        {
-            throw new Exception($"Post with id {id} not found");
-        }
-
-        return new Ingredient(todoIngredient.Name, todoIngredient.Amount, todoIngredient.Allergen);
-
-        
-    }
-
-    public async Task<Ingredient?> GetByNameAsyncFromIng(string name)
-    {
-        Ingredient? todoIngredient = await ingredientDao.GetByNameAsync(name);
-        if (todoIngredient == null)
-        {
-            throw new Exception($"Post with id {name} not found");
-        }
-
-        return new Ingredient(todoIngredient.Name, todoIngredient.Amount, todoIngredient.Allergen);
-
-    
-    }
     /// <summary>
     /// Deletes an ingredient based on its Id value
     /// </summary>
-    /// <param name="id"></param>
-    /// <exception cref="Exception"></exception>
+    /// <param name="id">takes in an int id</param>
+    /// <exception cref="Exception">throws if Ingredient is not found</exception>
     public async Task DeleteIngredient(int id)
     {
         Ingredient? todo = await ingredientDao.GetByIdAsync(id);
         if (todo == null)
         {
-            throw new Exception($"Post with ID {id} was not found!");
+            throw new Exception($"Ingredient with ID {id} was not found!");
         }
         
         await ingredientDao.DeleteAsync(id);
