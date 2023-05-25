@@ -69,6 +69,8 @@
     private bool doSeeMenu = false;
 
 
+    /// Method that shows a datepicker and loads today's menu when the page is loaded
+    /// 
     protected override async Task OnInitializedAsync()
     {
         pickedDate = DateOnly.FromDateTime(DateTime.Today);
@@ -86,6 +88,9 @@
         }
     }
 
+    /// Retrieves Menu using MenuService and flips the boolean that decides
+    /// The Menu visibility 
+    /// 
     private async Task LoadMenu()
     {
         msg = "";
@@ -102,6 +107,8 @@
         }
     }
 
+    /// Converts DateOnly format into a String that is displayed in the DatePicker
+    /// 
     private void ConvertDate(DateOnly date)
     {
         if (date.Month < 10 && date.Day < 10)

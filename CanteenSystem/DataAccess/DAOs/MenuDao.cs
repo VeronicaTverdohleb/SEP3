@@ -6,6 +6,9 @@ using Shared.Model;
 
 namespace EfcDataAccess.DAOs;
 
+/// <summary>
+/// This class accesses the Database Context and adds, modifies, deletes data in the database
+/// </summary>
 public class MenuDao : IMenuDao
 {
     private readonly DataContext context;
@@ -15,14 +18,27 @@ public class MenuDao : IMenuDao
         this.context = context;
     }
 
+    /// <summary>
+    /// Method that adds a new Menu to the Database 
+    /// </summary>
+    /// <param name="menu"></param>
+    /// <returns></returns>
     public async Task<Menu> CreateAsync(Menu menu)
     {
         EntityEntry<Menu> added = await context.Menus.AddAsync(menu);
         await context.SaveChangesAsync();
         return added.Entity;
     }
-
-
+    
+    /// <summary>
+    /// Method that retrieves a Menu and its items by Date
+    /// It turns its Items into ItemMenuDto which includes a single String of Ingredients and Allergens
+    /// This was done to avoid using Item Ids and run into a tracking problem with Change Tracker
+    /// Also because there is no adjustments done to the Items in Menu, they are only displayed
+    /// Therefor only the Name field is needed
+    /// </summary>
+    /// <param name="date"></param>
+    /// <returns></returns>
     public async Task<MenuBasicDto?> GetMenuByDateAsync(DateOnly date)
     {
         List<ItemMenuDto> newItems = new List<ItemMenuDto>();
@@ -82,6 +98,12 @@ public class MenuDao : IMenuDao
     }
 
 
+    /// <summary>
+    /// This method Update the Menu based on the Action
+    /// Action "remove" - It removes the whole object from the DataContext and adds it without the deleted Item
+    /// Action "add" - it updates the DataContext by using a Menu object with MenuId and the Item that is to be added
+    /// </summary>
+    /// <param name="dto"></param>
     public async Task UpdateMenuAsync(MenuUpdateDto dto)
     {
         ICollection<Item> items = new List<Item>();

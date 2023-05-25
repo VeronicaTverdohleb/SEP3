@@ -4,6 +4,9 @@ using Shared.Model;
 
 namespace WebAPI.Services;
 
+/// <summary>
+/// Class that serves the same purpose as the other DAOs - it uses the Database Context
+/// </summary>
 public class AuthService : IAuthService
 {
     private readonly IUserDao users;
@@ -13,6 +16,13 @@ public class AuthService : IAuthService
         this.users = users;
     }
 
+    /// <summary>
+    /// Method that validates the User login credentials based on the database info
+    /// </summary>
+    /// <param name="username"></param>
+    /// <param name="password"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public async Task<User> ValidateUser(string username, string password)
     {
         User? existingUser = await users.GetByUsernameAsync(username);

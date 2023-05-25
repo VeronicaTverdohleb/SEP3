@@ -5,6 +5,9 @@ using Shared.Model;
 
 namespace Application.Logic;
 
+/// <summary>
+/// Logic for Async methods used in Web API
+/// </summary>
 public class MenuLogic: IMenuLogic
 {
     private readonly IMenuDao menuDao;
@@ -51,9 +54,10 @@ public class MenuLogic: IMenuLogic
         {
             throw new Exception($"There is already Menu on this date");
         }
-        
+
         Menu newMenu = new Menu(dto.Date, new List<Item>());
         Menu created = await menuDao.CreateAsync(newMenu);
         return created;
     }
+
 }

@@ -2,7 +2,9 @@
 using Shared.Model;
 
 namespace HttpClients.ClientInterfaces;
-
+/// <summary>
+/// Interface used by ItemService 
+/// </summary>
 public interface IItemService
 {
     
@@ -10,8 +12,6 @@ public interface IItemService
     Task<ICollection<Item>> GetAsync(
         string? name
     );
-    Task UpdateAsync(ManageItemDto dto);
     Task<ItemBasicDto> GetByIdAsync(int id);
-    Task<ItemBasicDto> GetByNameAsync(string name);
     Task DeleteAsync(int id);
 }
