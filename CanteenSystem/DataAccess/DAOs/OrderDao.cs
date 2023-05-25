@@ -6,6 +6,9 @@ using Shared.Model;
 
 namespace EfcDataAccess.DAOs;
 
+/// <summary>
+/// This class accesses the Database Context and adds, modifies, deletes data in the database
+/// </summary>
 public class OrderDao : IOrderDao
 {
     private readonly DataContext context;
@@ -14,6 +17,12 @@ public class OrderDao : IOrderDao
     {
         this.context = context;
     }
+    
+    /// <summary>
+    /// Method that gets all the orders depending on a set of search parameters
+    /// </summary>
+    /// <param name="searchParameters">A Dto that contains all the possible search criteria</param>
+    /// <returns>An IEnumerable of Order objects corresponding to the search criteria</returns>
     public Task<IEnumerable<Order>> GetAllOrdersAsync(SearchOrderParametersDto searchParameters)
     {
         IEnumerable<Order> result = context.Orders.Include(order => order.Customer).Include(order=>order.Items).AsEnumerable();
@@ -39,14 +48,13 @@ public class OrderDao : IOrderDao
         }
 
         return Task.FromResult(result);
-        
-        /*//IQueryable<Order> orderQuery = context.Orders.AsQueryable();
-        IQueryable<Order> orderQuery = context.Orders.Include(order => order.Customer).Include(order=>order.Items).AsQueryable();
-        
-        List<Order> result = await orderQuery.ToListAsync();
-        return result;*/
     }
 
+    /// <summary>
+    /// Method that gets an order by its unique id from the database
+    /// </summary>
+    /// <param name="id">The unique id of an order</param>
+    /// <returns>The order with the unique id</returns>
     public Task<Order?> GetByIdAsync(int id)
     {
         Order? existing = context.Orders.Include(order => order.Customer).Include(order => order.Items).ThenInclude(item => item.Ingredients).FirstOrDefault(o =>
@@ -55,6 +63,11 @@ public class OrderDao : IOrderDao
         return Task.FromResult(existing);
     }
 
+    /// <summary>
+    /// Method that creates a new order in the database
+    /// </summary>
+    /// <param name="dto">Dto holding all the necessary information to create a new order</param>
+    /// <returns>The order that was created</returns>
     public async Task<Order> CreateOrderAsync(MakeOrderDto dto)
     {
         ICollection<Item> items = new List<Item>();
@@ -71,6 +84,11 @@ public class OrderDao : IOrderDao
         return added.Entity;
     }
 
+    /// <summary>
+    /// Updates an existing order in the database with updated information
+    /// </summary>
+    /// <param name="orderToUpdate">Order object with an Id that is equal to an existing order</param>
+    /// <exception cref="Exception">If no existing order with the Id is found in the database</exception>
     public async Task UpdateOrderAsync(Order orderToUpdate)
     {
         Order? existing = await context.Orders.FirstOrDefaultAsync(order => order.Id == orderToUpdate.Id);
@@ -126,7 +144,11 @@ public class OrderDao : IOrderDao
 
 
 
-
+    /// <summary>
+    /// Method that deletes an order from the database by the chosen Id
+    /// </summary>
+    /// <param name="id">Id of the order to delete</param>
+    /// <exception cref="Exception">If no order with the chosen Id exists</exception>
     public async Task DeleteOrderAsync(int id)
     {
         Order? existing = await GetByIdAsync(id);
@@ -137,10 +159,5 @@ public class OrderDao : IOrderDao
 
         context.Orders.Remove(existing);
         await context.SaveChangesAsync();
-    }
-
-    public Task<IEnumerable<Order>> GetOrdersByCustomerUsername(string username)
-    {
-        throw new NotImplementedException();
     }
 }
