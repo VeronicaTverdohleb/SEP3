@@ -2,7 +2,10 @@
 using System.Security.Claims;
 namespace Shared.Auth;
 
-
+/// <summary>
+/// Class that applies Authorization Policies so User can only access certain parts
+/// of the page based on their Role
+/// </summary>
 public class AuthorizationPolicies
 {
     public static void AddPolicies(IServiceCollection services)

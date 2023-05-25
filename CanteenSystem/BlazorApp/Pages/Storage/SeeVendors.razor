@@ -1,0 +1,127 @@
+﻿@page "/SeeVendors"
+@using System.Text.Json
+@using BlazorApp.Services
+@using global::Shared.Dtos.IngredientDto
+@using global::Shared.Model
+@using HttpClients.ClientInterfaces
+@inject IJavaSocketConnection socketService
+@inject IIngredientService ingredientService
+<h3>Order ingredients</h3>
+
+<div>
+    <label>enter ingredient you wish to see the vendors for:</label>
+    <input type="text" @bind="ingredientName"/>
+</div>
+<div>
+    <button @onclick="SendMessage">See vendors</button>
+</div>
+
+
+
+@if (Vendors == null)
+{
+    
+}else if (!Vendors.Any())
+{
+    <p style="color: red">No ingredients with that name are being sold!</p>
+}
+else
+{
+    <br/>
+    <br/>
+    <h2>Vendors for ingredient: @chosenIngredientName</h2>
+    <p style="color: red">@msg</p>
+    <br/>
+    @foreach (var vendor in Vendors)
+    {
+        <div class="vendor">
+            <p>Name: @vendor.VendorName</p>
+            <p>Price per unit: €@vendor.Price</p>
+            <label>Amount of units to order:</label>
+            <input type="text" @bind="orderAmount"/><br/>
+            <button onclick=@(() => OrderIngredient(@vendor.IngredientName, orderAmount, @vendor.VendorName))>Confirm order</button>
+        </div>
+        <br/>
+        <br/>
+    }
+}
+
+
+
+@code {
+    private string ingredientName = "";
+    private ICollection<Vendor> Vendors;
+    private int orderAmount;
+    private string msg="";
+    private bool firstLoad = true;
+    private string chosenIngredientName = "";
+
+    ///Method that is called upon opening the webpage. It establishes a connection to the java
+    /// server that holds the information in regards to vendors.
+    protected override async Task OnInitializedAsync()
+    {
+        socketService.Connect();
+    }
+
+    ///Method that sends a message to the java server depending on 
+    private async Task SendMessage()
+    {
+        if (string.IsNullOrWhiteSpace(ingredientName))
+        {
+            ingredientName = "";
+        }
+
+        try
+        {
+            string returnMessage = await socketService.SendMessage(ingredientName);
+            ConvertJson(returnMessage);
+        }
+        catch (Exception e)
+        {
+            msg = e.Message;
+        }
+    }
+
+    ///Method that converts the Json received from the java into vendor objects and puts
+    /// them into a collection to display on the webpage
+    private void ConvertJson(string jsonMsg)
+    {
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
+        var result = JsonSerializer.Deserialize<Dictionary<string, List<Vendor>>>(jsonMsg, options);
+        if (result.TryGetValue("vendor", out var vendorList))
+        {
+            Vendors = vendorList;
+        }
+        else
+        {
+            Vendors.Clear();
+        }
+
+    }
+
+    
+    ///Method that updates the ordered ingredient with the new values
+    private async void OrderIngredient(string name, int amount, string vendorName)
+    {
+        orderAmount = 0;
+        if (amount<=0)
+        {
+            msg = "Invalid input!";
+        }
+        else
+        {
+            ICollection<Ingredient> allIngredients = await ingredientService.getAllIngredientsAsync(null);
+            Ingredient chosenIngredient = allIngredients.ToList().Find(i => i.Name == name);
+            var oldAmount = amount;
+            amount += chosenIngredient.Amount;
+            ingredientService.UpdateIngredientAmount(new IngredientUpdateDto(chosenIngredient.Id, amount));
+            msg = "Successfully ordered "+oldAmount+" units of " + name + " from " + vendorName + ".\nStorage now contains " + amount + " units of "+name;
+        }
+        StateHasChanged();
+    }
+}

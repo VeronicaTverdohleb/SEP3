@@ -6,7 +6,7 @@ public class Item
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public int Price { get; set; }
+    public double Price { get; set; }
     
     public ICollection<Ingredient>? Ingredients { get; set; }
 
@@ -19,7 +19,7 @@ public class Item
 
     public Item() {}
 
-    public Item(string name, int price, ICollection<Ingredient>? ingredients)
+    public Item(string name, double price, ICollection<Ingredient>? ingredients)
     {
         Name = name;
         Price = price;

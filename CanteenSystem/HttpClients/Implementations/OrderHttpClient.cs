@@ -6,7 +6,9 @@ using Shared.Dtos;
 using Shared.Model;
 
 namespace HttpClients.Implementations;
-
+/// <summary>
+/// Class that makes HTTP requests towards the web API
+/// </summary>
 public class OrderHttpClient:IOrderService
 {
     private readonly HttpClient client;
@@ -16,6 +18,15 @@ public class OrderHttpClient:IOrderService
         this.client = client;
     }
 
+    /// <summary>
+    /// HTTP request to get all orders depending on search criteria
+    /// </summary>
+    /// <param name="id">unique id of an order</param>
+    /// <param name="date">Date the order is ordered for</param>
+    /// <param name="userName">Username of the user that made the order</param>
+    /// <param name="completedStatus">The status of the order</param>
+    /// <returns>A Collection of order that correspond to the chosen search criteria</returns>
+    /// <exception cref="Exception"></exception>
     public async Task<ICollection<Order>> getAllOrdersAsync(int? id, DateOnly? date, string? userName, string? completedStatus)
     {
         string query = ConstructQuery(id, date, userName, completedStatus);
@@ -33,6 +44,14 @@ public class OrderHttpClient:IOrderService
         return orders;
     }
 
+    /// <summary>
+    /// Method that constructs the query that will be used to create the requestUri
+    /// </summary>
+    /// <param name="id">Id of an order</param>
+    /// <param name="date">Date that the order is ordered for</param>
+    /// <param name="userName">Username of the user that made the order</param>
+    /// <param name="completedStatus">Status of the order</param>
+    /// <returns>A string that will be part of the requestUri</returns>
     private static string ConstructQuery(int? id, DateOnly? date, string? userName, string? completedStatus)
     {
         string query = "";
@@ -62,6 +81,12 @@ public class OrderHttpClient:IOrderService
         return query;
     }
 
+    /// <summary>
+    /// Method that sends an HTTP request to get an order by its unique id
+    /// </summary>
+    /// <param name="id">the id of the order</param>
+    /// <returns>a dto which holds all information on an order</returns>
+    /// <exception cref="Exception"></exception>
     public async Task<OrderFullInfoDto> GetOrderByIdAsync(int id)
     {
         HttpResponseMessage response = await client.GetAsync($"/orders/{id}");
@@ -80,6 +105,11 @@ public class OrderHttpClient:IOrderService
         return order;
     }
 
+    /// <summary>
+    /// Method that sends an HTTP request to update an existing 
+    /// </summary>
+    /// <param name="dto">A dto holding the necessary information to update an order</param>
+    /// <exception cref="Exception"></exception>
     public async Task UpdateAsync(OrderUpdateDto dto)
     {
         string dtoAsJson = JsonSerializer.Serialize(dto);
@@ -96,12 +126,26 @@ public class OrderHttpClient:IOrderService
     }
 
    
-
+    /// <summary>
+    /// Method that sends an HTTP request to delete an order by its unique id
+    /// </summary>
+    /// <param name="id">The id of the order to delete</param>
+    /// <exception cref="Exception"></exception>
     public async Task DeleteAsync(int id)
     {
         HttpResponseMessage response = await client.DeleteAsync($"Orders/{id}");
+        if (!response.IsSuccessStatusCode)
+        {
+            string content = await response.Content.ReadAsStringAsync();
+            throw new Exception(content);
+        }
     }
 
+    /// <summary>
+    /// Method that sends an HTTP request to create a new order
+    /// </summary>
+    /// <param name="dto">Dto holding the information needed to create an order</param>
+    /// <exception cref="Exception"></exception>
     public async Task CreateAsync(MakeOrderDto dto)
     {
        

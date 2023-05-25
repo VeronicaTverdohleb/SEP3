@@ -3,10 +3,12 @@ using Shared.Model;
 
 namespace Application.LogicInterfaces;
 
+/// <summary>
+/// Interface implemented by ItemLogic
+/// </summary>
 public interface IItemLogic
 {
     Task<Item> CreateAsync(ItemCreationDto dto);
-    Task<IEnumerable<Item>> GetAsync(SearchItemSto searchParameters);
     Task DeleteAsync(int id);
     Task<ItemBasicDto?> GetByIdAsync(int id);
     Task<ItemBasicDto?> GetByNameAsync(string name);

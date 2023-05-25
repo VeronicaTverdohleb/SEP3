@@ -4,6 +4,9 @@ using Shared.Model;
 
 namespace Application.DaoInterfaces;
 
+/// <summary>
+/// Interface implemented by OrderDao
+/// </summary>
 public interface IOrderDao
 {
     Task<IEnumerable<Order>> GetAllOrdersAsync(SearchOrderParametersDto searchParameters);

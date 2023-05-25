@@ -6,16 +6,26 @@ using Shared.Model;
 using System.Text.Json;
 
 namespace HttpClients.Implementations;
-
+/// <summary>
+/// This class is used to interact with the WebAPI
+/// </summary>
 public class IngredientHttpClient : IIngredientService
 {
     private readonly HttpClient client;
-
+    /// <summary>
+    /// This constructor instantiates the HttpClient
+    /// </summary>
+    /// <param name="client">takes in an HttpClient</param>
     public IngredientHttpClient(HttpClient client)
     {
         this.client = client;
     }
-    
+    /// <summary>
+    /// This method calls the GetIngredientsAsync
+    /// </summary>
+    /// <param name="name">can take in a string name</param>
+    /// <returns>returns a list of all ingredients in the database</returns>
+    /// <exception cref="Exception">throws an exception if the status code in not successful</exception>
     public async Task<ICollection<Ingredient>> getAllIngredientsAsync(string? name)
     {
         HttpResponseMessage response = await client.GetAsync("/Ingredient");
@@ -31,6 +41,11 @@ public class IngredientHttpClient : IIngredientService
         })!;
         return ingredients;
     }
+    /// <summary>
+    /// This method calls the CreateAsync in WebAPI
+    /// </summary>
+    /// <param name="dto">takes in an IngredientCreationDto</param>
+    /// <exception cref="Exception">throws an exception if the status code is not successful</exception>
     public async Task CreateAsync(IngredientCreationDto dto)
     {
         HttpResponseMessage response = await client.PostAsJsonAsync("/Ingredient", dto);
@@ -40,7 +55,11 @@ public class IngredientHttpClient : IIngredientService
             throw new Exception(content);
         }
     }
-
+    /// <summary>
+    /// This method calls the UpdateAsync in WebAPI
+    /// </summary>
+    /// <param name="dto">takes in an IngredientUpdateDto</param>
+    /// <exception cref="Exception">throws an exception if the status code is not successful</exception>
     public async Task UpdateIngredientAmount(IngredientUpdateDto dto)
     {
         string dtoAsJson = JsonSerializer.Serialize(dto);
@@ -53,12 +72,8 @@ public class IngredientHttpClient : IIngredientService
             throw new Exception(content);
         }
     }
-    
-    public Task<IngredientBasicDto?> GetByIdAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
 
+    //doesn't work
     public async Task<IngredientBasicDto?> GetByNameAsync(string name)
     {
         HttpResponseMessage response = await client.GetAsync($"/Ingredient/{name}");
@@ -76,17 +91,12 @@ public class IngredientHttpClient : IIngredientService
         )!;
         return ingredient;
     }
-
-    public Task<Ingredient?> GetByIdAsyncFromIng(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<Ingredient?> GetByNameAsyncFromIng(string name)
-    {
-        throw new NotImplementedException();
-    }
-
+    
+    /// <summary>
+    /// This method calls the DeleteAsync
+    /// </summary>
+    /// <param name="id">takes in an int Id</param>
+    /// <exception cref="Exception">throws an exception if the status code is not successful</exception>
     public async Task DeleteIngredient(int id)
     {
         HttpResponseMessage response = await client.DeleteAsync($"Ingredient/{id}");
