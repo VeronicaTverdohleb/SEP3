@@ -82,7 +82,8 @@ else
     private DateOnly? dateFilter;
     private string? customerNameFilter;
     private string? completedStatusFilter;
-
+    
+    ///Method that loads all the orders depending on which filters are set in the webpage
     private async Task LoadOrders()
     {
         try
@@ -96,6 +97,8 @@ else
         }
     }
     
+    ///Method that is called whenever an order is clicked. It gets the order by its Id
+    /// and opens it in a new webpage
     private async void SeeOrder(int id)
     {
         AuthenticationState authState = await AuthState;
