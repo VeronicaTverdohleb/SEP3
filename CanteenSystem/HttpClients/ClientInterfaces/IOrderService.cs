@@ -2,7 +2,9 @@
 using Shared.Model;
 
 namespace HttpClients.ClientInterfaces;
-
+/// <summary>
+/// Interface implemented by OrderService
+/// </summary>
 public interface IOrderService
 {
     Task<ICollection<Order>> getAllOrdersAsync(int? userId, DateOnly? date, string? userName, string? completedStatus);

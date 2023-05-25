@@ -82,6 +82,8 @@ else
         }
     }
 
+    ///Method that converts the Json received from the java into vendor objects and puts
+    /// them into a collection to display on the webpage
     private void ConvertJson(string jsonMsg)
     {
 
@@ -102,6 +104,8 @@ else
 
     }
 
+    
+    ///Method that updates the ordered ingredient with the new values
     private async void OrderIngredient(string name, int amount, string vendorName)
     {
         orderAmount = 0;
@@ -120,64 +124,4 @@ else
         }
         StateHasChanged();
     }
-    
-    /*protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-    // Initialize the WebSocket connection
-        if (firstRender)
-        {
-            await JavaDataAccessService.InitWebSocket(JsRuntime, "wss://127.0.0.1:2910");
-        }
-    }
-        
-
-    [JSInvokable]
-    public async Task OnOpen()
-    {
-    // WebSocket connection is open
-    // Implement your logic here
-        await InvokeAsync(StateHasChanged);
-    }
-
-    [JSInvokable]
-    public async Task OnMessage(string message)
-    {
-    // Message received from the Java server
-    // Implement your logic here
-        await InvokeAsync(StateHasChanged);
-    }
-    
-    [JSInvokable]
-    public async Task OnError(string error)
-    {
-    // Error occurred in the WebSocket connection
-    // Implement your logic here
-        await InvokeAsync(StateHasChanged);
-    }
-
-    [JSInvokable]
-    public async Task OnClose()
-    {
-    // WebSocket connection is closed
-    // Implement your logic here
-        await InvokeAsync(StateHasChanged);
-    }
-    
-    private async Task SendMessage()
-    {
-    // Send a message through the WebSocket connection
-        string message = "{\"IngredientName\":\"";
-        message += IngredientName;
-        message += "\"}";
-        Console.WriteLine(message);
-        await JavaDataAccessService.SendWebSocketMessage(JsRuntime, message);
-        Console.Write("message sent!");
-    }
-
-    private async Task RequestVendorsFromServer(string ingredientName)
-    {
-        var request = new RequestMessage(ingredientName);
-        var json = JsonSerializer.Serialize(request);
-        await JavaDataAccessService.SendWebSocketMessage(JsRuntime, json);
-    }*/
 }
