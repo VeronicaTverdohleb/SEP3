@@ -46,7 +46,7 @@ public class ServerSocketHandler implements Runnable {
     public void run() {
         try {
             while (true) {
-                // First received a byte array thta holds an integer with the content size
+                // First received a byte array that holds an integer with the content size
                 // So we prepare a byte array with 4 positions (32 bit = 4 bytes => 1 byte is in 1 position of array)
                 byte[] lenBytes = new byte[4];
 
