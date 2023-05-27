@@ -75,7 +75,7 @@ public class IngredientTests
         mockIngredientSet.Setup(I => I.DeleteAsync(1));
         //Assert
         var e = Assert.ThrowsAsync<Exception>(() => ingredientLogic.DeleteIngredient(1));
-        Assert.That(e.Message, Is.EqualTo("Post with ID 1 was not found!"));
+        Assert.That(e.Message, Is.EqualTo("Ingredient with ID 1 was not found!"));
 
     }
     

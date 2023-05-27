@@ -84,6 +84,17 @@ public class OrderLogic : IOrderLogic
         {
             throw new Exception("An order needs to have items");
         }
+
+        if ((dto.Date < DateOnly.FromDateTime(DateTime.Today)))
+        {
+            throw new Exception("You cannot create an order on this date");
+        }
+
+        if ((dto.Date == DateOnly.FromDateTime(DateTime.Today)) &&
+            ((DateTime.Now.ToLocalTime().Hour >= 12.00)))
+        {
+            throw new Exception("You cannot create an order today because it is past 12PM");
+        }
         Order created = await orderDao.CreateOrderAsync(dto);
         Console.WriteLine(created);
         return created;
