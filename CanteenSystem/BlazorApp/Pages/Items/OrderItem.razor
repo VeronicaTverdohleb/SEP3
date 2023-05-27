@@ -177,7 +177,7 @@ else
 
             price -= itemToAdd.Price;
             msg = "Item removed";
-            await OnInitializedAsync();
+           
         }
         catch (Exception e)
         {
@@ -248,6 +248,7 @@ else
         if (confirmed)
         {
             await CreateOrder();
+            await OnInitializedAsync();
         }
         else
         {

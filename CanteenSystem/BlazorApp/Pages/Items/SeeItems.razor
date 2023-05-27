@@ -316,6 +316,7 @@ else
         {
             newIngredients.Remove(ingredientToAdd.Id);
             msg = "Ingredient removed";
+            
           
 
 
@@ -342,7 +343,7 @@ else
             items = await itemService.GetAsync(null);
 
             items = list.AsEnumerable();
-            await OnInitializedAsync();
+           
 
 
 

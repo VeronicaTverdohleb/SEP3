@@ -32,7 +32,7 @@ public class MakeOrderLogicTest
         {
             Id = 1
         };
-        DateOnly dateOnly = new DateOnly(2023, 05, 25);
+        DateOnly dateOnly = new DateOnly(2023, 07, 25);
         Shared.Model.Order order = new Shared.Model.Order(user,dateOnly,"ordered",new List<Shared.Model.Item>());
         MakeOrderDto makeOrderDto = new MakeOrderDto(1,dateOnly,"ordered", new List<int>());
         orderDao.Setup(o => o.CreateOrderAsync(makeOrderDto)).Returns(Task.FromResult(order));
@@ -49,7 +49,7 @@ public class MakeOrderLogicTest
         {
             Id = 1
         };
-        DateOnly dateOnly = new DateOnly(2023, 05, 25);
+        DateOnly dateOnly = new DateOnly(2023, 07, 25);
         Ingredient n = new Ingredient("Cucumber", 200, 0)
         {
             Id = 1
@@ -75,7 +75,7 @@ public class MakeOrderLogicTest
         {
             Id = 1
         };
-        DateOnly dateOnly = new DateOnly(2023, 05, 25);
+        DateOnly dateOnly = new DateOnly(2023, 07, 25);
         Ingredient n = new Ingredient("Cucumber", 200, 0)
         {
             Id = 1
@@ -107,7 +107,7 @@ public class MakeOrderLogicTest
         {
             Id = 1
         };
-        DateOnly dateOnly = new DateOnly(2023, 05, 25);
+        DateOnly dateOnly = new DateOnly(2023, 07, 25);
         Ingredient n = new Ingredient("Cucumber", 200, 0)
         {
             Id = 1
@@ -129,6 +129,70 @@ public class MakeOrderLogicTest
 
         Assert.DoesNotThrowAsync(()=>orderLogic.CreateOrderAsync(makeOrderDto));
         Assert.DoesNotThrowAsync(()=>orderLogic.CreateOrderAsync(makeOrderDto2));
+
+    }
+    
+    [Test]
+    public void CreateOrder_OneItemPastDate()
+    {
+        User user = new User("Steve", "Steve", "Steve", "hello", "steve@gmail.com", "VIAStudent")
+        {
+            Id = 1
+        };
+        DateOnly dateOnly = new DateOnly(2023, 05, 25);
+        Ingredient n = new Ingredient("Cucumber", 200, 0)
+        {
+            Id = 1
+        };
+        List<Ingredient> ingredients = new List<Ingredient> { n };
+
+        Shared.Model.Item item1 = new Shared.Model.Item("Something", 22.9,ingredients)
+            {Id = 1};
+        List<int> imteIds = new List<int>() { item1.Id };
+        List<Shared.Model.Item> items = new List<Shared.Model.Item> { item1 };
+
+        Shared.Model.Order order = new Shared.Model.Order(user,dateOnly,"ordered",items);
+        MakeOrderDto makeOrderDto = new MakeOrderDto(1,dateOnly,"ordered", imteIds);
+        orderDao.Setup(o => o.CreateOrderAsync(makeOrderDto)).Returns(Task.FromResult(order));
+        var e = Assert.ThrowsAsync<Exception>(() => orderLogic.CreateOrderAsync(makeOrderDto));
+        Assert.That(e.Message,Is.EqualTo("You cannot create an order on this date"));
+       
+
+    }
+    
+    [Test]
+    public void CreateOrder_OneItemCurrentDateAfter12()
+    {
+        User user = new User("Steve", "Steve", "Steve", "hello", "steve@gmail.com", "VIAStudent")
+        {
+            Id = 1
+        };
+        TimeOnly time = new TimeOnly(12,00,00);
+        DateOnly dateOnly = DateOnly.FromDateTime(DateTime.Now.ToLocalTime());
+        Ingredient n = new Ingredient("Cucumber", 200, 0)
+        {
+            Id = 1
+        };
+        List<Ingredient> ingredients = new List<Ingredient> { n };
+
+        Shared.Model.Item item1 = new Shared.Model.Item("Something", 22.9,ingredients)
+            {Id = 1};
+        List<int> imteIds = new List<int>() { item1.Id };
+        List<Shared.Model.Item> items = new List<Shared.Model.Item> { item1 };
+
+        Shared.Model.Order order = new Shared.Model.Order(user,dateOnly,"ordered",items);
+        MakeOrderDto makeOrderDto = new MakeOrderDto(1,dateOnly,"ordered", imteIds);
+        orderDao.Setup(o => o.CreateOrderAsync(makeOrderDto)).Returns(Task.FromResult(order));
+        if (DateTime.Now.ToLocalTime().Hour >= 12.00)
+        {
+            var e = Assert.ThrowsAsync<Exception>(() => orderLogic.CreateOrderAsync(makeOrderDto));
+            Assert.That(e.Message,Is.EqualTo("You cannot create an order today because it is past 12PM"));
+            Console.WriteLine("here2");
+        }
+
+        Assert.DoesNotThrowAsync(()=>orderLogic.CreateOrderAsync(makeOrderDto));
+        Console.WriteLine("here");
+       
 
     }
     
