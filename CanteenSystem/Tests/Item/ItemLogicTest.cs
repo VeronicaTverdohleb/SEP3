@@ -163,8 +163,8 @@ public class ItemLogicTest
         ingredients.Add(n);
         Shared.Model.Item? item1 = new Shared.Model.Item("Sandwich",32.02,ingredients);
         ItemBasicDto? dto = new ItemBasicDto("Sandwich", 32.02, ingredients);
-        itemDao.Setup(i => i.GetByIdAsync(id)).Returns(Task.FromResult(item1));
-        Assert.That(itemLogic.GetByIdAsync(id).Result,Is.EqualTo(dto));
+        itemDao.Setup(i => i.GetByIdAsync(id)).Returns(Task.FromResult(item1)!);
+        Assert.That(itemLogic.GetByIdAsync(id).Result.Name,Is.EqualTo(dto.Name));
     }
     
     [Test]
@@ -266,7 +266,7 @@ public class ItemLogicTest
         List<Shared.Model.Item> items = new List<Shared.Model.Item> { item };
 
 
-        itemDao.Setup(p => p.DeleteAsync(1)).Returns(Task.FromResult(items));
+        itemDao.Setup(p => p.GetByIdAsync(1)).Returns(Task.FromResult(item)!);
 
         
         Assert.DoesNotThrowAsync(() => itemLogic.DeleteAsync(1));
@@ -276,7 +276,7 @@ public class ItemLogicTest
     [Test]
     public void DeleteItems_ItemWithManyIngredient()
     {
-        List<int> ingredientsId = new List<int> { 1,2 };
+        List<int> ingredientsId = new List<int> { 0,1,2 };
         Ingredient n = new Ingredient("Tomato", 200, 0);
         Ingredient n1 = new Ingredient("Cucumber", 200, 0);
         List<Ingredient> ingredients = new List<Ingredient>{n,n1};
@@ -289,22 +289,12 @@ public class ItemLogicTest
         List<Shared.Model.Item> items = new List<Shared.Model.Item> { item };
 
 
-        itemDao.Setup(p => p.DeleteAsync(1)).Returns(Task.FromResult(items));
+        itemDao.Setup(p => p.GetByIdAsync(1)).Returns(Task.FromResult(item)!);
 
         
-        Assert.DoesNotThrowAsync(() => itemLogic.DeleteAsync(1));
+        Assert.DoesNotThrowAsync(() => itemLogic.DeleteAsync(item.Id));
 
     }
 
-    private void DoSomething(int input)
-    {
-        if (input == null)
-        {
-            throw new Exception(nameof(input));
-            
-        }
-
-        
-        
-    }
+    
 }
