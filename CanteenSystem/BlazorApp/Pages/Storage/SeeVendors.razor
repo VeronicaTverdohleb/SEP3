@@ -10,7 +10,16 @@
 
 <div>
     <label>enter ingredient you wish to see the vendors for:</label>
-    <input type="text" @bind="ingredientName"/>
+    <select name="selectedItem" id="selectedItem" @onchange="SetIngredientName">
+        <option selected="selected">choose:</option>
+        @if (allIngredients != null)
+        {
+            @foreach (var ingredient in allIngredients)
+            {
+                <option value="@ingredient.Name">@ingredient.Name</option>
+            }
+        }
+    </select>
 </div>
 <div>
     <button @onclick="SendMessage">See vendors</button>
@@ -20,10 +29,10 @@
 
 @if (Vendors == null)
 {
-    
+    <p style="color: red">@msg</p>
 }else if (!Vendors.Any())
 {
-    <p style="color: red">No ingredients with that name are being sold!</p>
+    <p style="color: red">No ingredients with name @chosenIngredientName are being sold!</p>
 }
 else
 {
@@ -49,28 +58,40 @@ else
 
 
 @code {
-    private string ingredientName = "";
+    private string ingredientName = "noNameGiven";
     private ICollection<Vendor> Vendors;
     private int orderAmount;
     private string msg="";
     private bool firstLoad = true;
     private string chosenIngredientName = "";
+    private ICollection<Ingredient> allIngredients;
 
     ///Method that is called upon opening the webpage. It establishes a connection to the java
     /// server that holds the information in regards to vendors.
     protected override async Task OnInitializedAsync()
     {
+        var fetchedItems = await ingredientService.getAllIngredientsAsync(null);
+        allIngredients = fetchedItems.OrderBy(i => i.Name).ToList();
         socketService.Connect();
     }
 
+    ///Method that sets the ingredient name to fetch from the vendorService
+    private void SetIngredientName(ChangeEventArgs e)
+    {
+        string selectedValue = e.Value.ToString();
+        ingredientName = selectedValue;
+        StateHasChanged();
+    }
+    
     ///Method that sends a message to the java server depending on 
     private async Task SendMessage()
     {
+        
         if (string.IsNullOrWhiteSpace(ingredientName))
         {
             ingredientName = "";
         }
-
+        chosenIngredientName = ingredientName;
         try
         {
             string returnMessage = await socketService.SendMessage(ingredientName);
@@ -78,7 +99,14 @@ else
         }
         catch (Exception e)
         {
-            msg = e.Message;
+            if (e.Message.Equals("Object reference not set to an instance of an object."))
+            {
+                msg = "";
+            }
+            else
+            {
+                msg = e.Message;
+            }
         }
     }
 

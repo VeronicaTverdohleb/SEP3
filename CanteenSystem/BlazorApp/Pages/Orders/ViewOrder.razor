@@ -3,7 +3,6 @@
 @using global::Shared.Model
 @using HttpClients.ClientInterfaces
 @inject IOrderService orderService
-@inject IItemService itemService
 @inject NavigationManager navMgr
 
 @if (order == null)
@@ -54,7 +53,6 @@ else
     private bool removeBool;
     private string status;
     private OrderFullInfoDto order;
-    private OrderUpdateDto updateDto = null!;
     private ICollection<Item> allItems;
     private double totalPrice;
     private string msg = "";
@@ -67,15 +65,8 @@ else
         {
             Console.WriteLine("about to fetch");
             order = await orderService.GetOrderByIdAsync(Id);
-            var fetchedItems = await itemService.GetAsync(null);
-            allItems = fetchedItems.OrderBy(i => i.Name).ToList();
             status = order.Status;
             totalPrice = UpdateTotalPrice();
-            updateDto = new(Id, order.Items, order.Status)
-            {
-                Items = order.Items,
-                Status = order.Status,
-            };
             Console.WriteLine("fetched the order!");
         }
         catch (Exception e)

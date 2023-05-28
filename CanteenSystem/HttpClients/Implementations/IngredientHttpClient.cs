@@ -73,25 +73,6 @@ public class IngredientHttpClient : IIngredientService
         }
     }
 
-    //doesn't work
-    public async Task<IngredientBasicDto?> GetByNameAsync(string name)
-    {
-        HttpResponseMessage response = await client.GetAsync($"/Ingredient/{name}");
-        string content = await response.Content.ReadAsStringAsync();
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception(content);
-        }
-
-        IngredientBasicDto ingredient = JsonSerializer.Deserialize<IngredientBasicDto>(content, 
-            new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            }
-        )!;
-        return ingredient;
-    }
-    
     /// <summary>
     /// This method calls the DeleteAsync
     /// </summary>

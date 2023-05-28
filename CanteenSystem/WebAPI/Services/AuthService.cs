@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Application.DaoInterfaces;
+﻿using Application.DaoInterfaces;
 using Shared.Model;
 
 namespace WebAPI.Services;
