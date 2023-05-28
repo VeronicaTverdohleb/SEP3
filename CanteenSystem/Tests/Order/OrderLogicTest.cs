@@ -58,6 +58,19 @@ public class OrderLogicTest
     }
 
     [Test]
+    public void getAllOrders_E()
+    {
+        //Arrange
+        SearchOrderParametersDto searchDto = new SearchOrderParametersDto(null, null, null, null);
+        
+        //Act
+        orderDaoMock.Setup(o => o.GetAllOrdersAsync(searchDto)).Returns(Task.FromResult<IEnumerable<Shared.Model.Order>>(null!));
+        
+        //Assert
+        Assert.DoesNotThrowAsync(()=>orderLogic.GetAllOrdersAsync(searchDto));
+    }
+    
+    [Test]
     public void getAllOrders_Z()
     {
         //Arrange

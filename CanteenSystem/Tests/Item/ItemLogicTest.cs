@@ -45,7 +45,7 @@ public class ItemLogicTest
         itemDao.Setup(p => p.CreateAsync(creationDto)).Returns(Task.FromResult(item));
         
         // Assert
-       Assert.That(() => itemLogic.CreateAsync(creationDto).Result, Throws.Exception);//.EqualTo(new Exception("This ingredients you try to use, does not exist!")));
+       Assert.That(() => itemLogic.CreateAsync(creationDto).Result, Throws.Exception);
        var e = Assert.ThrowsAsync<Exception>(() => itemLogic.CreateAsync(creationDto));
        Assert.That(e.Message,Is.EqualTo("An item needs to have ingredients"));
     }

@@ -83,10 +83,7 @@ else
                     <input type="text" rows="1" cols="5" @bind="allergen"/>
                 </div>
                 <div class="button-row">
-                    @if (!string.IsNullOrEmpty(msg))
-                    {
-                        <label style="color: red">@msg</label>
-                    }
+                    
                     <button @onclick="CreateIngredient" class="acceptbtn">Create</button>
                 </div>
             }
@@ -107,11 +104,15 @@ else
                     <input type="text" @bind="amount"/>
                 </div>
                 <div class="button-row">
-                    <button @onclick="EditIngredient" class="acceptbtn">Create</button>
+                    <button @onclick="EditIngredient" class="acceptbtn">Change</button>
                 </div>
             }
         </div>
     </div>
+    @if (!string.IsNullOrEmpty(msg))
+    {
+        <label style="color: red">@msg</label>
+    }
 </div>
 
 
@@ -186,7 +187,7 @@ else
         catch (Exception e)
         {
             Console.WriteLine(e);
-            msg = e.Message;
+            msg = "The Name field is required";
         }
     }
     private async Task ConfirmAction(int id)

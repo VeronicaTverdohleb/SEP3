@@ -100,12 +100,8 @@ else
     {
         addBool = false;
         removeBool = false;
-        if (order.Date == DateOnly.FromDateTime(DateTime.Today) && DateTime.Now > DateTime.Today.AddHours(12.00))
-        {
-            msg = "You Cannot Cancel An Order After 12:00";
-        }
-        else
-        {
+        
+        
             if (confirmBool)
             {
                 confirmBool = false;
@@ -114,7 +110,7 @@ else
             {
                 confirmBool = true;
             }
-        }
+        
     }
 
     private async Task DeleteOrder()
@@ -123,9 +119,19 @@ else
         msg = "";
         try
         {
-            await orderService.DeleteAsync(Id);
-            navMgr.NavigateTo($"/EditOrder");
-
+            if (order.Date <= DateOnly.FromDateTime(DateTime.Today) && DateTime.Now > DateTime.Today.AddHours(12.00))
+            {
+                msg = "You Cannot Cancel An Order from the past or After 12:00";
+            }
+            else if (order.Status.Equals("ready for pickup"))
+            {
+                msg = "You Cannot cancel an order that is already ready for pickup";
+            }
+            else
+            {
+                await orderService.DeleteAsync(Id);
+                navMgr.NavigateTo($"/EditOrder");
+            }
         }
         catch (Exception e)
         {
